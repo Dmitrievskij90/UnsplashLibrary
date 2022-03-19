@@ -8,7 +8,8 @@
 import UIKit
 
 class PhotosViewController: UIViewController {
-//    private var collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewLayout.init())
+
+    let networkService = NetworkService()
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -23,6 +24,15 @@ class PhotosViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        networkService.searchPhoto(searchTerm: "car") { result, error in
+            if let err = error {
+                print("we hawe probler", err)
+            }
+
+            if let saveData = result {
+                print(saveData.results[0].urls.regular)
+            }
+        }
     }
 
     override func loadView() {

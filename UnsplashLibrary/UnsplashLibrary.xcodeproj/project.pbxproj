@@ -16,6 +16,8 @@
 		5CA07B4227E615DF002DA6C2 /* FavouritePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA07B4127E615DF002DA6C2 /* FavouritePhotoViewController.swift */; };
 		5CA07B4527E61AA7002DA6C2 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA07B4427E61AA7002DA6C2 /* UIView+Extension.swift */; };
 		5CA07B4827E61B0A002DA6C2 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA07B4727E61B0A002DA6C2 /* PhotoCollectionViewCell.swift */; };
+		5CA07B4C27E627F3002DA6C2 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA07B4B27E627F3002DA6C2 /* NetworkService.swift */; };
+		5CA07B4F27E62D6E002DA6C2 /* PhotoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA07B4E27E62D6E002DA6C2 /* PhotoData.swift */; };
 		DC8A3203D80CE8E7BB49C3F0 /* Pods_UnsplashLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A73A444BA187A6BD3D27A0A9 /* Pods_UnsplashLibrary.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +35,8 @@
 		5CA07B4127E615DF002DA6C2 /* FavouritePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritePhotoViewController.swift; sourceTree = "<group>"; };
 		5CA07B4427E61AA7002DA6C2 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		5CA07B4727E61B0A002DA6C2 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		5CA07B4B27E627F3002DA6C2 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		5CA07B4E27E62D6E002DA6C2 /* PhotoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoData.swift; sourceTree = "<group>"; };
 		A73A444BA187A6BD3D27A0A9 /* Pods_UnsplashLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnsplashLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -80,6 +84,8 @@
 				5CA07B2B27E5CBBA002DA6C2 /* AppDelegate.swift */,
 				5CA07B2D27E5CBBA002DA6C2 /* SceneDelegate.swift */,
 				5CA07B3427E5CBBD002DA6C2 /* Assets.xcassets */,
+				5CA07B4D27E62D4D002DA6C2 /* Model */,
+				5CA07B4A27E627DC002DA6C2 /* Service */,
 				5CA07B4327E61A92002DA6C2 /* Helpers */,
 				5CA07B4627E61AE9002DA6C2 /* Screens */,
 				5CA07B3627E5CBBD002DA6C2 /* LaunchScreen.storyboard */,
@@ -115,13 +121,28 @@
 			path = "Photo screen";
 			sourceTree = "<group>";
 		};
+		5CA07B4A27E627DC002DA6C2 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				5CA07B4B27E627F3002DA6C2 /* NetworkService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		5CA07B4D27E62D4D002DA6C2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5CA07B4E27E62D6E002DA6C2 /* PhotoData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		DEB9F2AC1F8BE0CCE38F00AA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
 				44AE869483973A0D47BBD15C /* Pods-UnsplashLibrary.debug.xcconfig */,
 				048780B0E0D93A2BE177B225 /* Pods-UnsplashLibrary.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -241,6 +262,8 @@
 			files = (
 				5CA07B4527E61AA7002DA6C2 /* UIView+Extension.swift in Sources */,
 				5CA07B3027E5CBBA002DA6C2 /* PhotosViewController.swift in Sources */,
+				5CA07B4F27E62D6E002DA6C2 /* PhotoData.swift in Sources */,
+				5CA07B4C27E627F3002DA6C2 /* NetworkService.swift in Sources */,
 				5CA07B2C27E5CBBA002DA6C2 /* AppDelegate.swift in Sources */,
 				5CA07B4227E615DF002DA6C2 /* FavouritePhotoViewController.swift in Sources */,
 				5CA07B4827E61B0A002DA6C2 /* PhotoCollectionViewCell.swift in Sources */,
