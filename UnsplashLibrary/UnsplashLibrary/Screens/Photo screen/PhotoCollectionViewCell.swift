@@ -12,6 +12,9 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .systemPink
+
+        clipsToBounds = true
+        layer.cornerRadius = 18
     }
 
     required init?(coder: NSCoder) {
