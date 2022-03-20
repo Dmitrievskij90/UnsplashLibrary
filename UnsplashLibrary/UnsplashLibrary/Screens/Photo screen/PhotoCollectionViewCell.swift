@@ -13,6 +13,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
+        imageView.alpha = 1
         return imageView
     }()
 
@@ -20,13 +21,16 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.image = UIImage(named: "checkmark1")
+        imageView.alpha = 0
         return imageView
     }()
 
-    var data: String? {
+    var data: PhotoModel? {
         didSet {
             if let safeData = data {
-                imageView.sd_setImage(with: URL(string: safeData))
+                imageView.sd_setImage(with: URL(string: safeData.imageURL))
+               let isFavorited = safeData.isSelected
+                updateState(isSelected: isFavorited)
             }
         }
     }
@@ -37,8 +41,6 @@ class PhotoCollectionViewCell: UICollectionViewCell {
 
         clipsToBounds = true
         layer.cornerRadius = 18
-        layer.borderWidth = 0.5
-        layer.borderColor = UIColor(named: "black")?.cgColor
 
         setupImageView()
         setupLikeImageView()
@@ -46,6 +48,16 @@ class PhotoCollectionViewCell: UICollectionViewCell {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    private func updateState(isSelected: Bool) {
+        imageView.alpha = isSelected ? 0.7 : 1
+        likeImageView.alpha = isSelected ? 1 : 0
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
     }
 
     private func setupImageView() {

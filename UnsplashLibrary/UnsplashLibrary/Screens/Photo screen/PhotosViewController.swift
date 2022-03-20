@@ -10,7 +10,7 @@ import UIKit
 class PhotosViewController: UIViewController {
 
     private var timer: Timer?
-    private var photos = [String]()
+    private var photos = [PhotoModel]()
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -59,7 +59,21 @@ class PhotosViewController: UIViewController {
         definesPresentationContext = true
         navigationItem.searchController = self.searhController
         navigationItem.hidesSearchBarWhenScrolling = false
+        searhController.searchBar.searchTextField.textColor = .black
+        searhController.searchBar.tintColor = .black
         searhController.searchBar.delegate = self
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y > 10 {
+            UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut) {
+                self.navigationController?.navigationBar.isHidden = true
+            }
+        } else if scrollView.contentOffset.y < 10 {
+            UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut) {
+                self.navigationController?.navigationBar.isHidden = false
+            }
+        }
     }
 }
 
@@ -86,6 +100,12 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.identifier, for: indexPath) as? PhotoCollectionViewCell else {
+            return
+        }
+        let hasFavorited = photos[indexPath.item].isSelected
+        photos[indexPath.item].isSelected = !hasFavorited
+        self.collectionView.reloadItems(at: [indexPath])
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -104,7 +124,7 @@ extension PhotosViewController: UISearchBarDelegate {
                 }
 
                 if let saveData = result?.results {
-                    self?.photos = saveData.compactMap { $0.urls.regular }
+                    self?.photos = saveData.compactMap { PhotoModel(imageURL: $0.urls.regular)}
                     DispatchQueue.main.async {
                         self?.acrivityIndicator.stopAnimating()
                         self?.collectionView.reloadData()

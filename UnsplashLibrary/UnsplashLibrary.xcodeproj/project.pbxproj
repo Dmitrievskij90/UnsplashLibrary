@@ -18,6 +18,7 @@
 		5CA07B4827E61B0A002DA6C2 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA07B4727E61B0A002DA6C2 /* PhotoCollectionViewCell.swift */; };
 		5CA07B4C27E627F3002DA6C2 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA07B4B27E627F3002DA6C2 /* NetworkService.swift */; };
 		5CA07B4F27E62D6E002DA6C2 /* PhotoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA07B4E27E62D6E002DA6C2 /* PhotoData.swift */; };
+		5CAE98CB27E76BE800A41770 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE98CA27E76BE800A41770 /* PhotoModel.swift */; };
 		DC8A3203D80CE8E7BB49C3F0 /* Pods_UnsplashLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A73A444BA187A6BD3D27A0A9 /* Pods_UnsplashLibrary.framework */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 		5CA07B4727E61B0A002DA6C2 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		5CA07B4B27E627F3002DA6C2 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		5CA07B4E27E62D6E002DA6C2 /* PhotoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoData.swift; sourceTree = "<group>"; };
+		5CAE98CA27E76BE800A41770 /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
 		A73A444BA187A6BD3D27A0A9 /* Pods_UnsplashLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnsplashLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -133,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				5CA07B4E27E62D6E002DA6C2 /* PhotoData.swift */,
+				5CAE98CA27E76BE800A41770 /* PhotoModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				5CA07B4227E615DF002DA6C2 /* FavouritePhotoViewController.swift in Sources */,
 				5CA07B4827E61B0A002DA6C2 /* PhotoCollectionViewCell.swift in Sources */,
 				5CA07B4027E6144C002DA6C2 /* MainTabBarController.swift in Sources */,
+				5CAE98CB27E76BE800A41770 /* PhotoModel.swift in Sources */,
 				5CA07B2E27E5CBBA002DA6C2 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
