@@ -8,5 +8,6 @@ target 'UnsplashLibrary' do
   # Pods for UnsplashLibrary
 
 pod 'SnapKit', '~> 5.0.0'
+pod 'SDWebImage'
 
 end
