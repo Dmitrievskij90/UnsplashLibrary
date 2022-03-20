@@ -9,7 +9,8 @@ import UIKit
 
 class PhotosViewController: UIViewController {
 
-    let networkService = NetworkService()
+    private var timer: Timer?
+    private var photos = [String]()
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -22,17 +23,18 @@ class PhotosViewController: UIViewController {
         return collectionView
     }()
 
+    private let acrivityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .medium)
+        indicator.color = .darkGray
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
+
+    private let searhController = UISearchController(searchResultsController: nil)
+    private let networkService = NetworkService()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        networkService.searchPhoto(searchTerm: "car") { result, error in
-            if let err = error {
-                print("we hawe probler", err)
-            }
-
-            if let saveData = result {
-                print(saveData.results[0].urls.regular)
-            }
-        }
     }
 
     override func loadView() {
@@ -41,12 +43,25 @@ class PhotosViewController: UIViewController {
         self.view = view
 
         view.addSubview(collectionView)
+        setupSearchBar()
+
+        view.addSubview(acrivityIndicator)
+        acrivityIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+    }
+
+    private func setupSearchBar() {
+        definesPresentationContext = true
+        navigationItem.searchController = self.searhController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        searhController.searchBar.delegate = self
     }
 }
 
 extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return photos.count
     }
 
 
@@ -54,6 +69,7 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.identifier, for: indexPath) as? PhotoCollectionViewCell else {
             return UICollectionViewCell()
         }
+        cell.data = photos[indexPath.item]
         return cell
     }
 
@@ -70,6 +86,28 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return .init(top: 0, left: 5, bottom: 0, right: 5)
+    }
+}
+
+extension PhotosViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        acrivityIndicator.startAnimating()
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
+            self.networkService.searchPhoto(searchTerm: searchText) { [weak self] result, error in
+                if let err = error {
+                    print("we hawe probler", err)
+                }
+
+                if let saveData = result?.results {
+                    self?.photos = saveData.compactMap { $0.urls.regular }
+                    DispatchQueue.main.async {
+                        self?.acrivityIndicator.stopAnimating()
+                        self?.collectionView.reloadData()
+                    }
+                }
+            }
+        })
     }
 }
 

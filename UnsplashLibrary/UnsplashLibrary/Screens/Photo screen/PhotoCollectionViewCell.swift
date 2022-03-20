@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import SDWebImage
 
 class PhotoCollectionViewCell: UICollectionViewCell {
     private let imageView: UIImageView = {
@@ -18,9 +19,17 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     private let likeImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.image = UIImage(named: "checkmark")
+        imageView.image = UIImage(named: "checkmark1")
         return imageView
     }()
+
+    var data: String? {
+        didSet {
+            if let safeData = data {
+                imageView.sd_setImage(with: URL(string: safeData))
+            }
+        }
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -49,22 +58,10 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     private func setupLikeImageView() {
         imageView.addSubview(likeImageView)
         likeImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(10)
+            make.bottom.equalToSuperview().offset(-10)
             make.trailing.equalToSuperview().offset(-10)
             make.height.equalTo(25)
             make.width.equalTo(25)
         }
     }
 }
-
-
-//datePicker.snp.makeConstraints { make in
-//    make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(50)
-//    make.centerX.equalToSuperview()
-//}
-//button.snp.makeConstraints { make in
-//    make.top.equalTo(datePicker.snp.bottom).offset(30)
-//    make.centerX.equalToSuperview()
-//    make.height.equalTo(50)
-//    make.width.equalTo(100)
-//}
