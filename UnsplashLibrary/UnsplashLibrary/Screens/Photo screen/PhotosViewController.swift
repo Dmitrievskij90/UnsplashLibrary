@@ -43,9 +43,13 @@ class PhotosViewController: UIViewController {
         self.view = view
 
         view.addSubview(collectionView)
-        setupSearchBar()
-
         view.addSubview(acrivityIndicator)
+        setupSearchBar()
+    }
+
+    override func viewWillLayoutSubviews() {
+        collectionView.frame =  view.frame
+
         acrivityIndicator.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
