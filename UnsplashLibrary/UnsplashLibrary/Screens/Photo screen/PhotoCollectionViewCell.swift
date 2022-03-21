@@ -29,7 +29,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         didSet {
             if let safeData = data {
                 imageView.sd_setImage(with: URL(string: safeData.imageURL))
-               let isFavorited = safeData.isSelected
+                let isFavorited = safeData.isSelected
                 updateState(isSelected: isFavorited)
             }
         }
