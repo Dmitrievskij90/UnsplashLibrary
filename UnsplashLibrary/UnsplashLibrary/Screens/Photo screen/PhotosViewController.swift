@@ -30,6 +30,13 @@ class PhotosViewController: UIViewController {
         return indicator
     }()
 
+    private lazy var saveBarButtonItem: UIBarButtonItem = {
+        let button = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveBarButtonTapped))
+        button.isEnabled = true
+        button.tintColor = .black
+        return button
+    }()
+
     private let searhController = UISearchController(searchResultsController: nil)
     private let networkService = NetworkService()
 
