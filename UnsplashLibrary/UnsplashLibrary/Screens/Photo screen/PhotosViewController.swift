@@ -6,13 +6,13 @@
 //
 
 import UIKit
+import CoreData
 
 class PhotosViewController: UIViewController {
     private var timer: Timer?
     private var photos = [PhotoModel]()
-
-//    private var selected = [String]()
     private var selectedPhotos = [UIImage]()
+    private let dataManager = DataBaseManager()
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -44,6 +44,7 @@ class PhotosViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
     }
 
     override func loadView() {
@@ -90,6 +91,13 @@ class PhotosViewController: UIViewController {
     }
 
     @objc private func saveBarButtonTapped() {
+        for (index, value) in selectedPhotos.enumerated() {
+            let photo = FavouritePhoto(context: dataManager.persistentContainer.viewContext)
+            photo.index = Int16(index)
+            photo.photo = value.pngData() as Data?
+
+            dataManager.saveContext()
+        }
     }
 }
 
@@ -120,17 +128,6 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let imageURL = photos[indexPath.item].imageURL
-//
-//        if selected.contains(imageURL) {
-//            let cell = collectionView.cellForItem(at: indexPath) as! PhotoCollectionViewCell
-//            guard let image = cell.data?.imageURL else { return }
-//            if let index = selected.firstIndex(of: image){
-//                selected.remove(at: index)
-//            }
-//        } else {
-//            selected.append(imageURL)
-//        }
 
         let cell = collectionView.cellForItem(at: indexPath) as! PhotoCollectionViewCell
         guard let image = cell.imageView.image else { return }
@@ -143,8 +140,6 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
             selectedPhotos.append(image)
         }
 
-//        print(selected.count)
-//        print(selected)
 
         let hasFavorited = photos[indexPath.item].isSelected
         photos[indexPath.item].isSelected = !hasFavorited
