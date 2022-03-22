@@ -10,7 +10,7 @@ import SnapKit
 import SDWebImage
 
 class PhotoCollectionViewCell: UICollectionViewCell {
-    private let imageView: UIImageView = {
+     let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.alpha = 1

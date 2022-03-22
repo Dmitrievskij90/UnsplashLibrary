@@ -10,7 +10,8 @@ import UIKit
 class PhotosViewController: UIViewController {
     private var timer: Timer?
     private var photos = [PhotoModel]()
-    private var selectedPhotos = Set<String>()
+//    private var selectedPhotos = Set<String>()
+    private var selected = [String]()
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -120,10 +121,14 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let imageURL = photos[indexPath.item].imageURL
 
-        if selectedPhotos.contains(imageURL) {
-            selectedPhotos.remove(imageURL)
+        if selected.contains(imageURL) {
+            let cell = collectionView.cellForItem(at: indexPath) as! PhotoCollectionViewCell
+            guard let image = cell.data?.imageURL else { return }
+            if let index = selected.firstIndex(of: image){
+                selected.remove(at: index)
+            }
         } else {
-            selectedPhotos.insert(imageURL)
+            selected.append(imageURL)
         }
 
         let hasFavorited = photos[indexPath.item].isSelected
