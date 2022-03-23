@@ -43,16 +43,11 @@ class FavouritePhotoViewController: UIViewController, NSFetchedResultsController
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupFetchResultController()
-
-        let d = Date()
-        let df = DateFormatter()
-        df.dateFormat = "y-MM-dd H:mm:ss.SSSS"
-        let daa = df.string(from: d)
     }
 
     func setupFetchResultController() {
         let fetchRequest: NSFetchRequest<FavouritePhoto> = FavouritePhoto.fetchRequest()
-        let sotdDescriptor = NSSortDescriptor(key: #keyPath(FavouritePhoto.index), ascending: true)
+        let sotdDescriptor = NSSortDescriptor(key: #keyPath(FavouritePhoto.dateCreated), ascending: true)
         fetchRequest.sortDescriptors = [sotdDescriptor]
         fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataManager.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
 
@@ -92,7 +87,7 @@ extension FavouritePhotoViewController: UICollectionViewDelegate, UICollectionVi
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (view.frame.width / 2) - 10, height: (view.frame.width / 2))
+        return CGSize(width: (view.frame.width / 3) - 10, height: (view.frame.width / 3))
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

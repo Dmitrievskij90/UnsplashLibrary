@@ -18,5 +18,6 @@ extension FavouritePhoto {
 
     @NSManaged public var photo: Data?
     @NSManaged public var index: Int16
+    @NSManaged public var dateCreated: String?
 
 }
