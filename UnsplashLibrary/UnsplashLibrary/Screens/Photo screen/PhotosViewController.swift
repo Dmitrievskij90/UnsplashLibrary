@@ -147,7 +147,6 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        refresh()
         let cell = collectionView.cellForItem(at: indexPath) as! PhotoCollectionViewCell
         guard let image = cell.imageView.image else { return }
 
@@ -159,11 +158,10 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
             selectedPhotos.append(image)
         }
 
-        self.undatesaveBarButton()
+        undatesaveBarButton()
 
-        let hasFavorited = photos[indexPath.item].isSelected
-        photos[indexPath.item].isSelected = !hasFavorited
-        self.collectionView.reloadItems(at: [indexPath])
+        photos[indexPath.item].isSelected.toggle()
+        collectionView.reloadItems(at: [indexPath])
 
     }
 }
