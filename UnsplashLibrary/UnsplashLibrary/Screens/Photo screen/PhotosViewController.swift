@@ -9,6 +9,17 @@ import UIKit
 import CoreData
 
 class PhotosViewController: UIViewController {
+    private var selecetedPhotoCountDescription: String {
+        switch selectedPhotos.count {
+        case 1:
+            return " \(selectedPhotos.count) photo"
+        case (let count) where count > 1:
+            return " \(selectedPhotos.count) photos"
+        default:
+            return " \(selectedPhotos.count) photo"
+        }
+    }
+
     private var timer: Timer?
     private var photos = [PhotoModel]()
     private var selectedPhotos = [UIImage]()
@@ -25,7 +36,7 @@ class PhotosViewController: UIViewController {
         return collectionView
     }()
 
-    private let acrivityIndicator: UIActivityIndicatorView = {
+    private lazy var acrivityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .medium)
         indicator.color = .darkGray
         indicator.hidesWhenStopped = true
@@ -78,12 +89,11 @@ class PhotosViewController: UIViewController {
         searhController.searchBar.delegate = self
     }
 
-
     private func undatesaveBarButton() {
         saveBarButtonItem.isEnabled = selectedPhotos.count > 0
     }
 
-    func refresh() {
+    private func refresh() {
         selectedPhotos.removeAll()
         photos.indices.forEach { photos[$0].isSelected = false }
         collectionView.selectItem(at: nil, animated: true, scrollPosition: [])
@@ -91,19 +101,20 @@ class PhotosViewController: UIViewController {
         undatesaveBarButton()
     }
 
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y > 10 {
-            UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut) {
-                self.navigationController?.navigationBar.isHidden = true
-            }
-        } else if scrollView.contentOffset.y < 10 {
-            UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut) {
-                self.navigationController?.navigationBar.isHidden = false
-            }
+    @objc private func saveBarButtonTapped() {
+        let alertController = UIAlertController(title: "Add to favorites?", message: "\(selecetedPhotoCountDescription) will be added", preferredStyle: .alert)
+        let addAction = UIAlertAction(title: "Add", style: .default) { _ in
+            self.save()
         }
+        let cancelAction = UIAlertAction(title: "Dismiss", style: .destructive) { _ in
+            self.refresh()
+        }
+        alertController.addAction(addAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true)
     }
 
-    @objc private func saveBarButtonTapped() {
+    private func save() {
         for (index, value) in selectedPhotos.enumerated() {
             let photo = FavouritePhoto(context: dataManager.persistentContainer.viewContext)
             photo.photo = value.pngData() as Data?
