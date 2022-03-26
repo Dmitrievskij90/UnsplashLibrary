@@ -45,4 +45,10 @@ class DataBaseManager {
             self.saveContext()
         }
     }
+
+    func delete(photo: FavouritePhoto) {
+//        let user = fetchResultController.object(at: index)
+        persistentContainer.viewContext.delete(photo)
+        saveContext()
+    }
 }

@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class FavouritePhotoViewController: UIViewController, NSFetchedResultsControllerDelegate {
+class FavouritePhotoViewController: UIViewController {
     private let dataManager = DataBaseManager()
     private var fetchResultController: NSFetchedResultsController<FavouritePhoto>!
 
@@ -51,7 +51,6 @@ class FavouritePhotoViewController: UIViewController, NSFetchedResultsController
         let sotdDescriptor = NSSortDescriptor(key: #keyPath(FavouritePhoto.dateCreated), ascending: true)
         fetchRequest.sortDescriptors = [sotdDescriptor]
         fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataManager.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-
         fetchResultController.delegate = self
     }
 
@@ -65,6 +64,8 @@ class FavouritePhotoViewController: UIViewController, NSFetchedResultsController
     }
 }
 
+//MARK: - UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
+//MARK: -
 extension FavouritePhotoViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let sectionInfo = fetchResultController.sections?[section]
@@ -97,4 +98,23 @@ extension FavouritePhotoViewController: UICollectionViewDelegate, UICollectionVi
         return .init(top: 0, left: 5, bottom: 0, right: 5)
     }
 
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let user = fetchResultController.object(at: indexPath)
+        dataManager.delete(photo: user)
+    }
+}
+
+//MARK: - NSFetchedResultsControllerDelegate
+//MARK: -
+extension FavouritePhotoViewController: NSFetchedResultsControllerDelegate {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .delete:
+            if let indexPath = indexPath {
+                collectionView.deleteItems(at: [indexPath])
+            }
+        default:
+            break
+        }
+    }
 }
