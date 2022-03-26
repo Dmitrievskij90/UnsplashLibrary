@@ -37,11 +37,10 @@ class DataBaseManager {
     }
 
     func save(images: [UIImage]) {
-        for (index, value) in images.enumerated() {
+        for value in images {
             let photo = FavouritePhoto(context: persistentContainer.viewContext)
             photo.photo = value.pngData() as Data?
             photo.dateCreated = Helpers.dateWithMilliseconds()
-            photo.index = Int16(index)
             self.saveContext()
         }
     }

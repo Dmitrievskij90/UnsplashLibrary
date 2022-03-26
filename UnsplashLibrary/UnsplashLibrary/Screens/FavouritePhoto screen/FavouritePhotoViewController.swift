@@ -11,16 +11,24 @@ import CoreData
 class FavouritePhotoViewController: UIViewController {
     private let dataManager = DataBaseManager()
     private var fetchResultController: NSFetchedResultsController<FavouritePhoto>!
+    var isAnableForDeletion = false
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
-        collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: PhotoCollectionViewCell.identifier)
+        collectionView.register(FavouritePhotoCell.self, forCellWithReuseIdentifier: FavouritePhotoCell.identifier)
         collectionView.backgroundColor = UIColor.white
         collectionView.dataSource = self
         collectionView.delegate = self
         return collectionView
+    }()
+
+    private lazy var deleteBarButtonItem: UIBarButtonItem = {
+        let button = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteBarButtonTapped))
+        button.isEnabled = true
+        button.tintColor = .black
+        return button
     }()
 
 
@@ -33,7 +41,14 @@ class FavouritePhotoViewController: UIViewController {
         view.backgroundColor = .white
         self.view = view
 
+        navigationItem.rightBarButtonItem = deleteBarButtonItem
+
         view.addSubview(collectionView)
+    }
+
+    @objc private func deleteBarButtonTapped() {
+        isAnableForDeletion.toggle()
+        print(isAnableForDeletion)
     }
 
     override func viewWillLayoutSubviews() {
@@ -74,15 +89,11 @@ extension FavouritePhotoViewController: UICollectionViewDelegate, UICollectionVi
 
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.identifier, for: indexPath) as? PhotoCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavouritePhotoCell.identifier, for: indexPath) as? FavouritePhotoCell else {
             return UICollectionViewCell()
         }
         let photo = fetchResultController.object(at: indexPath)
-        if let data = photo.photo as Data? {
-            cell.imageView.image = UIImage(data: data)
-        } else {
-            cell.imageView.image = UIImage(named: "person-placeholder")
-        }
+        cell.data = photo
         return cell
     }
 
@@ -99,8 +110,14 @@ extension FavouritePhotoViewController: UICollectionViewDelegate, UICollectionVi
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let user = fetchResultController.object(at: indexPath)
-        dataManager.delete(photo: user)
+        if isAnableForDeletion {
+//            let user = fetchResultController.object(at: indexPath)
+//            dataManager.delete(photo: user)
+
+            let photo = fetchResultController.object(at: indexPath)
+            photo.isSelected.toggle()
+            collectionView.reloadItems(at: [indexPath])
+        }
     }
 }
 
