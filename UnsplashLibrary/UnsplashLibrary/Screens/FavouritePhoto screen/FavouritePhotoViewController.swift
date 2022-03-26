@@ -90,9 +90,10 @@ class FavouritePhotoViewController: UIViewController {
     }
 
     @objc private func deleteBarButtonTapped() {
-        refresh()
         deleteBarButtonItem.isEnabled = false
         selectBarButtonItem.title = "Select"
+        dataManager.delete(photos: selectedPhotos)
+        refresh()
     }
 
     @objc private func selectBarButtonTapped() {
@@ -137,11 +138,16 @@ extension FavouritePhotoViewController: UICollectionViewDelegate, UICollectionVi
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let photo = fetchResultController.object(at: indexPath)
         if deleteBarButtonItem.isEnabled {
-//            let user = fetchResultController.object(at: indexPath)
-//            dataManager.delete(photo: user)
+            if selectedPhotos.contains(photo) {
+                if let index = selectedPhotos.firstIndex(of: photo){
+                    selectedPhotos.remove(at: index)
+                }
+            } else {
+                selectedPhotos.append(photo)
+            }
 
-            let photo = fetchResultController.object(at: indexPath)
             photo.isSelected.toggle()
             collectionView.reloadItems(at: [indexPath])
         }
