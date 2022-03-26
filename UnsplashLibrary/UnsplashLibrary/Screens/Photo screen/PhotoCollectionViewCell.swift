@@ -20,7 +20,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     private let likeImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.image = UIImage(named: "checkmark1")
+        imageView.image = UIImage(systemName: "checkmark.circle.fill")
         imageView.alpha = 0
         return imageView
     }()
