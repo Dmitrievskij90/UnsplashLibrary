@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 class DataBaseManager {
     // MARK: - Core Data stack
@@ -23,7 +24,7 @@ class DataBaseManager {
 
     // MARK: - Core Data Saving support
 
-    func saveContext () {
+    private func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
@@ -32,6 +33,16 @@ class DataBaseManager {
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
+        }
+    }
+
+    func save(images: [UIImage]) {
+        for (index, value) in images.enumerated() {
+            let photo = FavouritePhoto(context: persistentContainer.viewContext)
+            photo.photo = value.pngData() as Data?
+            photo.dateCreated = Helpers.dateWithMilliseconds()
+            photo.index = Int16(index)
+            self.saveContext()
         }
     }
 }

@@ -104,7 +104,7 @@ class PhotosViewController: UIViewController {
     @objc private func saveBarButtonTapped() {
         let alertController = UIAlertController(title: "Add to favorites?", message: "\(selecetedPhotoCountDescription) will be added", preferredStyle: .alert)
         let addAction = UIAlertAction(title: "Add", style: .default) { _ in
-            self.save()
+            self.savePhotos()
         }
         let cancelAction = UIAlertAction(title: "Dismiss", style: .destructive) { _ in
             self.refresh()
@@ -114,14 +114,8 @@ class PhotosViewController: UIViewController {
         present(alertController, animated: true)
     }
 
-    private func save() {
-        for (index, value) in selectedPhotos.enumerated() {
-            let photo = FavouritePhoto(context: dataManager.persistentContainer.viewContext)
-            photo.photo = value.pngData() as Data?
-            photo.dateCreated = Helpers.dateWithMilliseconds()
-            photo.index = Int16(index)
-            dataManager.saveContext()
-        }
+    private func savePhotos() {
+        dataManager.save(images: selectedPhotos)
         refresh()
     }
 }
