@@ -11,7 +11,7 @@ import CoreData
 class FavouritePhotoViewController: UIViewController {
     private let dataManager = DataBaseManager()
     private var fetchResultController: NSFetchedResultsController<FavouritePhoto>!
-    private var selectedPhotos = [UIImage]()
+    private var selectedPhotos = [FavouritePhoto]()
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -47,7 +47,6 @@ class FavouritePhotoViewController: UIViewController {
         view.backgroundColor = .white
         self.view = view
 
-//        navigationItem.rightBarButtonItem = deleteBarButtonItem
         navigationItem.rightBarButtonItems = [deleteBarButtonItem, selectBarButtonItem]
 
         view.addSubview(collectionView)
@@ -80,7 +79,20 @@ class FavouritePhotoViewController: UIViewController {
         collectionView.reloadData()
     }
 
+    private func refresh() {
+        selectedPhotos.removeAll()
+        collectionView.selectItem(at: nil, animated: true, scrollPosition: [])
+        collectionView.reloadData()
+
+      fetchResultController.fetchedObjects?.indices.forEach { fetchResultController.fetchedObjects?[$0].isSelected = false }
+
+
+    }
+
     @objc private func deleteBarButtonTapped() {
+        refresh()
+        deleteBarButtonItem.isEnabled = false
+        selectBarButtonItem.title = "Select"
     }
 
     @objc private func selectBarButtonTapped() {
