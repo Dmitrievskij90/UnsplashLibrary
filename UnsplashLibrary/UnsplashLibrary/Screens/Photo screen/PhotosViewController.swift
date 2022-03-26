@@ -84,8 +84,10 @@ class PhotosViewController: UIViewController {
     }
 
     func refresh() {
-        self.selectedPhotos.removeAll()
-        self.collectionView.selectItem(at: nil, animated: true, scrollPosition: [])
+        selectedPhotos.removeAll()
+        photos.indices.forEach { photos[$0].isSelected = false }
+        collectionView.selectItem(at: nil, animated: true, scrollPosition: [])
+        collectionView.reloadData()
         undatesaveBarButton()
     }
 
@@ -108,8 +110,8 @@ class PhotosViewController: UIViewController {
             photo.dateCreated = Helpers.dateWithMilliseconds()
             photo.index = Int16(index)
             dataManager.saveContext()
-//            refresh()
         }
+        refresh()
     }
 }
 
