@@ -10,7 +10,7 @@ import CoreData
 
 class FavouritePhotoViewController: UIViewController, NSFetchedResultsControllerDelegate {
     private let dataManager = DataBaseManager()
-    var fetchResultController: NSFetchedResultsController<FavouritePhoto>!
+    private var fetchResultController: NSFetchedResultsController<FavouritePhoto>!
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -43,16 +43,19 @@ class FavouritePhotoViewController: UIViewController, NSFetchedResultsController
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupFetchResultController()
+        fetchPhotos()
     }
 
-    func setupFetchResultController() {
+    private func setupFetchResultController() {
         let fetchRequest: NSFetchRequest<FavouritePhoto> = FavouritePhoto.fetchRequest()
         let sotdDescriptor = NSSortDescriptor(key: #keyPath(FavouritePhoto.dateCreated), ascending: true)
         fetchRequest.sortDescriptors = [sotdDescriptor]
         fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataManager.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
 
         fetchResultController.delegate = self
+    }
 
+    private func fetchPhotos() {
         do {
             try fetchResultController.performFetch()
         } catch let error {
