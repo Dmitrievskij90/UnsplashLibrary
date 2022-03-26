@@ -23,7 +23,7 @@ class MainTabBarController: UITabBarController {
         navController.tabBarItem.title = title
         navController.navigationBar.prefersLargeTitles = true
         navController.tabBarItem.image = UIImage(systemName: imageName)
-        UITabBar.appearance().tintColor = .black
+        UITabBar.appearance().tintColor = .init(hex: 0xC74B50)
 
         return navController
     }

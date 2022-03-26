@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5C8688B527EF234E00324751 /* FavouritePhoto+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8688B427EF234E00324751 /* FavouritePhoto+CoreDataProperties.swift */; };
 		5C8688BA27EF249500324751 /* FavouritePhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8688B927EF249500324751 /* FavouritePhotoCell.swift */; };
+		5C8688BC27EF6F8900324751 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8688BB27EF6F8900324751 /* UIColor+Extension.swift */; };
 		5C8B867827EA1F5700FD7333 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5C8B867627EA1F5700FD7333 /* Model.xcdatamodeld */; };
 		5C8B867F27EA204A00FD7333 /* DataBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8B867E27EA204A00FD7333 /* DataBaseManager.swift */; };
 		5C8B868327EA2F3700FD7333 /* FavouritePhoto+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8B868227EA2F3700FD7333 /* FavouritePhoto+CoreDataClass.swift */; };
@@ -33,6 +34,7 @@
 		44AE869483973A0D47BBD15C /* Pods-UnsplashLibrary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnsplashLibrary.debug.xcconfig"; path = "Target Support Files/Pods-UnsplashLibrary/Pods-UnsplashLibrary.debug.xcconfig"; sourceTree = "<group>"; };
 		5C8688B427EF234E00324751 /* FavouritePhoto+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FavouritePhoto+CoreDataProperties.swift"; path = "/Users/DmitrievskiyK/Desktop/Dev/Repositories/UnsplashLibrary/UnsplashLibrary/UnsplashLibrary/UnsplashLibrary/DataBaseManager/FavouritePhoto+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		5C8688B927EF249500324751 /* FavouritePhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritePhotoCell.swift; sourceTree = "<group>"; };
+		5C8688BB27EF6F8900324751 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		5C8B867727EA1F5700FD7333 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		5C8B867E27EA204A00FD7333 /* DataBaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseManager.swift; sourceTree = "<group>"; };
 		5C8B868227EA2F3700FD7333 /* FavouritePhoto+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavouritePhoto+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 			children = (
 				5CA07B4427E61AA7002DA6C2 /* UIView+Extension.swift */,
 				5C8B868427EA321B00FD7333 /* Helpers.swift */,
+				5C8688BB27EF6F8900324751 /* UIColor+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -301,6 +304,7 @@
 				5C8B868327EA2F3700FD7333 /* FavouritePhoto+CoreDataClass.swift in Sources */,
 				5C8688BA27EF249500324751 /* FavouritePhotoCell.swift in Sources */,
 				5CA07B3027E5CBBA002DA6C2 /* PhotosViewController.swift in Sources */,
+				5C8688BC27EF6F8900324751 /* UIColor+Extension.swift in Sources */,
 				5CA07B4F27E62D6E002DA6C2 /* PhotoData.swift in Sources */,
 				5C8B867F27EA204A00FD7333 /* DataBaseManager.swift in Sources */,
 				5CA07B4C27E627F3002DA6C2 /* NetworkService.swift in Sources */,

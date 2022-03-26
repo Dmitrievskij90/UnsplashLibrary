@@ -11,7 +11,7 @@ import CoreData
 class FavouritePhotoViewController: UIViewController {
     private let dataManager = DataBaseManager()
     private var fetchResultController: NSFetchedResultsController<FavouritePhoto>!
-    var isAnableForDeletion = false
+    private var selectedPhotos = [UIImage]()
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -26,11 +26,17 @@ class FavouritePhotoViewController: UIViewController {
 
     private lazy var deleteBarButtonItem: UIBarButtonItem = {
         let button = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteBarButtonTapped))
-        button.isEnabled = true
+        button.isEnabled = false
         button.tintColor = .black
         return button
     }()
 
+    private lazy var selectBarButtonItem: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "Select", style: .plain, target: self, action: #selector(selectBarButtonTapped))
+        button.isEnabled = true
+        button.tintColor = .darkGray
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,14 +47,10 @@ class FavouritePhotoViewController: UIViewController {
         view.backgroundColor = .white
         self.view = view
 
-        navigationItem.rightBarButtonItem = deleteBarButtonItem
+//        navigationItem.rightBarButtonItem = deleteBarButtonItem
+        navigationItem.rightBarButtonItems = [deleteBarButtonItem, selectBarButtonItem]
 
         view.addSubview(collectionView)
-    }
-
-    @objc private func deleteBarButtonTapped() {
-        isAnableForDeletion.toggle()
-        print(isAnableForDeletion)
     }
 
     override func viewWillLayoutSubviews() {
@@ -76,6 +78,19 @@ class FavouritePhotoViewController: UIViewController {
             print(error)
         }
         collectionView.reloadData()
+    }
+
+    @objc private func deleteBarButtonTapped() {
+    }
+
+    @objc private func selectBarButtonTapped() {
+        if selectBarButtonItem.title == "Select" {
+            selectBarButtonItem.title = "Cancel"
+        } else {
+            selectBarButtonItem.title = "Select"
+        }
+        deleteBarButtonItem.isEnabled.toggle()
+        deleteBarButtonItem.tintColor = .init(hex: 0xC74B50)
     }
 }
 
@@ -110,7 +125,7 @@ extension FavouritePhotoViewController: UICollectionViewDelegate, UICollectionVi
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if isAnableForDeletion {
+        if deleteBarButtonItem.isEnabled {
 //            let user = fetchResultController.object(at: indexPath)
 //            dataManager.delete(photo: user)
 
