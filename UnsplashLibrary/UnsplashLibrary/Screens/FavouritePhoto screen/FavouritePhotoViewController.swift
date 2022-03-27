@@ -9,6 +9,17 @@ import UIKit
 import CoreData
 
 class FavouritePhotoViewController: UIViewController {
+    private var selecetedPhotoCountDescription: String {
+        switch selectedPhotos.count {
+        case 1:
+            return " \(selectedPhotos.count) photo"
+        case (let count) where count > 1:
+            return " \(selectedPhotos.count) photos"
+        default:
+            return " \(selectedPhotos.count) photo"
+        }
+    }
+
     private let dataManager = DataBaseManager()
     private var fetchResultController: NSFetchedResultsController<FavouritePhoto>!
     private var selectedPhotos = [FavouritePhoto]()
@@ -96,8 +107,19 @@ class FavouritePhotoViewController: UIViewController {
     }
 
     @objc private func deleteBarButtonTapped() {
-//        deleteBarButtonItem.isEnabled = false
-//        selectBarButtonItem.title = "Select"
+        let alertController = UIAlertController(title: "Delete photo", message: "\(selecetedPhotoCountDescription) will be delete", preferredStyle: .alert)
+        let addAction = UIAlertAction(title: "Delete", style: .default) { _ in
+            self.delete()
+        }
+        let cancelAction = UIAlertAction(title: "Undo", style: .destructive) { _ in
+            self.refresh()
+        }
+        alertController.addAction(addAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true)
+    }
+
+    private func delete() {
         dataManager.delete(photos: selectedPhotos)
         refresh()
     }
