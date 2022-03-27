@@ -20,9 +20,9 @@ class FavouritePhotoViewController: UIViewController {
         }
     }
 
-    private let dataManager = DataBaseManager()
     private var fetchResultController: NSFetchedResultsController<FavouritePhoto>!
     private var selectedPhotos = [FavouritePhoto]()
+    private let dataManager = DataBaseManager()
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -56,19 +56,10 @@ class FavouritePhotoViewController: UIViewController {
         return button
     }()
 
+    // MARK: - Lificycle methods
+    // MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-
-    override func loadView() {
-        let view = UIView(frame: UIScreen.main.bounds)
-        view.backgroundColor = .white
-        self.view = view
-
-        navigationItem.rightBarButtonItems = [deleteBarButtonItem, selectBarButtonItem]
-        navigationItem.leftBarButtonItem = shareBarButtonItem
-
-        view.addSubview(collectionView)
     }
 
     override func viewWillLayoutSubviews() {
@@ -86,6 +77,19 @@ class FavouritePhotoViewController: UIViewController {
         refresh()
     }
 
+    override func loadView() {
+        let view = UIView(frame: UIScreen.main.bounds)
+        view.backgroundColor = .white
+        self.view = view
+
+        navigationItem.rightBarButtonItems = [deleteBarButtonItem, selectBarButtonItem]
+        navigationItem.leftBarButtonItem = shareBarButtonItem
+
+        view.addSubview(collectionView)
+    }
+
+    // MARK: - CoreData methods
+    // MARK: -
     private func setupFetchResultController() {
         let fetchRequest: NSFetchRequest<FavouritePhoto> = FavouritePhoto.fetchRequest()
         let sotdDescriptor = NSSortDescriptor(key: #keyPath(FavouritePhoto.dateCreated), ascending: true)
@@ -103,17 +107,38 @@ class FavouritePhotoViewController: UIViewController {
         collectionView.reloadData()
     }
 
+    // MARK: - Data manipulation methods
+    // MARK: -
     private func refresh() {
-        selectedPhotos.removeAll()
-        collectionView.selectItem(at: nil, animated: true, scrollPosition: [])
-        collectionView.reloadData()
-
-      fetchResultController.fetchedObjects?.indices.forEach { fetchResultController.fetchedObjects?[$0].isSelected = false }
-
+        resetSeletedPhotos()
         deleteBarButtonItem.isEnabled = false
         selectBarButtonItem.title = "Select"
     }
 
+    private func delete() {
+        dataManager.delete(photos: selectedPhotos)
+        refresh()
+    }
+
+    private func resetSeletedPhotos() {
+        selectedPhotos.removeAll()
+        collectionView.reloadData()
+
+      fetchResultController.fetchedObjects?.indices.forEach { fetchResultController.fetchedObjects?[$0].isSelected = false }
+    }
+
+    private func getSelectedImages() -> [UIImage] {
+        var images = [UIImage]()
+        for image in selectedPhotos {
+            if let data = image.photo as Data?, let image = UIImage(data: data) {
+                    images.append(image)
+            }
+        }
+        return images
+    }
+
+    // MARK: - Actions
+    // MARK: -
     @objc private func deleteBarButtonTapped() {
         let alertController = UIAlertController(title: "Delete photo", message: "\(selecetedPhotoCountDescription) will be delete", preferredStyle: .alert)
         let addAction = UIAlertAction(title: "Delete", style: .default) { _ in
@@ -127,22 +152,15 @@ class FavouritePhotoViewController: UIViewController {
         present(alertController, animated: true)
     }
 
-    private func delete() {
-        dataManager.delete(photos: selectedPhotos)
-        refresh()
-    }
-
     @objc private func selectBarButtonTapped() {
         if selectBarButtonItem.title == "Select" {
             selectBarButtonItem.title = "Cancel"
         } else {
             selectBarButtonItem.title = "Select"
+            resetSeletedPhotos()
         }
         deleteBarButtonItem.isEnabled.toggle()
         deleteBarButtonItem.tintColor = .init(hex: 0xC74B50)
-
-//        fetchResultController.fetchedObjects?.indices.forEach { fetchResultController.fetchedObjects?[$0].isSelected = false }
-//        collectionView.reloadData()
     }
 
     @objc func shareButtonTapped(sender: UIBarButtonItem) {
@@ -155,16 +173,6 @@ class FavouritePhotoViewController: UIViewController {
         shareController.popoverPresentationController?.barButtonItem = sender
         shareController.popoverPresentationController?.permittedArrowDirections = .any
         present(shareController, animated: true, completion: nil)
-    }
-
-    private func getSelectedImages() -> [UIImage] {
-        var images = [UIImage]()
-        for image in selectedPhotos {
-            if let data = image.photo as Data?, let image = UIImage(data: data) {
-                    images.append(image)
-            }
-        }
-        return images
     }
 }
 
@@ -202,14 +210,6 @@ extension FavouritePhotoViewController: UICollectionViewDelegate, UICollectionVi
         let photo = fetchResultController.object(at: indexPath)
         if deleteBarButtonItem.isEnabled {
             selectedPhotos.update(photo)
-//            if selectedPhotos.contains(photo) {
-//                if let index = selectedPhotos.firstIndex(of: photo){
-//                    selectedPhotos.remove(at: index)
-//                }
-//            } else {
-//                selectedPhotos.append(photo)
-//            }
-
             photo.isSelected.toggle()
             collectionView.reloadItems(at: [indexPath])
         }
