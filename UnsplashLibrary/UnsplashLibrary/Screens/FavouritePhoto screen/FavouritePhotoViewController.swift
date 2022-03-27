@@ -49,6 +49,13 @@ class FavouritePhotoViewController: UIViewController {
         return button
     }()
 
+    private lazy var shareBarButtonItem: UIBarButtonItem = {
+        let button = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareButtonTapped))
+        button.isEnabled = true
+        button.tintColor = .darkGray
+        return button
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -59,6 +66,7 @@ class FavouritePhotoViewController: UIViewController {
         self.view = view
 
         navigationItem.rightBarButtonItems = [deleteBarButtonItem, selectBarButtonItem]
+        navigationItem.leftBarButtonItem = shareBarButtonItem
 
         view.addSubview(collectionView)
     }
@@ -132,6 +140,31 @@ class FavouritePhotoViewController: UIViewController {
         }
         deleteBarButtonItem.isEnabled.toggle()
         deleteBarButtonItem.tintColor = .init(hex: 0xC74B50)
+
+//        fetchResultController.fetchedObjects?.indices.forEach { fetchResultController.fetchedObjects?[$0].isSelected = false }
+//        collectionView.reloadData()
+    }
+
+    @objc func shareButtonTapped(sender: UIBarButtonItem) {
+        let shareController = UIActivityViewController(activityItems: getSelectedImages(), applicationActivities: nil)
+        shareController.completionWithItemsHandler = { activity, success, items, error in
+            if success {
+                self.refresh()
+            }
+        }
+        shareController.popoverPresentationController?.barButtonItem = sender
+        shareController.popoverPresentationController?.permittedArrowDirections = .any
+        present(shareController, animated: true, completion: nil)
+    }
+
+    private func getSelectedImages() -> [UIImage] {
+        var images = [UIImage]()
+        for image in selectedPhotos {
+            if let data = image.photo as Data?, let image = UIImage(data: data) {
+                    images.append(image)
+            }
+        }
+        return images
     }
 }
 
