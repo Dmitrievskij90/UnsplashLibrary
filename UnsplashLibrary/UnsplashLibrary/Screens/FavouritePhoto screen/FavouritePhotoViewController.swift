@@ -62,6 +62,11 @@ class FavouritePhotoViewController: UIViewController {
         fetchPhotos()
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        refresh()
+    }
+
     private func setupFetchResultController() {
         let fetchRequest: NSFetchRequest<FavouritePhoto> = FavouritePhoto.fetchRequest()
         let sotdDescriptor = NSSortDescriptor(key: #keyPath(FavouritePhoto.dateCreated), ascending: true)
@@ -86,12 +91,13 @@ class FavouritePhotoViewController: UIViewController {
 
       fetchResultController.fetchedObjects?.indices.forEach { fetchResultController.fetchedObjects?[$0].isSelected = false }
 
-
+        deleteBarButtonItem.isEnabled = false
+        selectBarButtonItem.title = "Select"
     }
 
     @objc private func deleteBarButtonTapped() {
-        deleteBarButtonItem.isEnabled = false
-        selectBarButtonItem.title = "Select"
+//        deleteBarButtonItem.isEnabled = false
+//        selectBarButtonItem.title = "Select"
         dataManager.delete(photos: selectedPhotos)
         refresh()
     }
@@ -140,13 +146,14 @@ extension FavouritePhotoViewController: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let photo = fetchResultController.object(at: indexPath)
         if deleteBarButtonItem.isEnabled {
-            if selectedPhotos.contains(photo) {
-                if let index = selectedPhotos.firstIndex(of: photo){
-                    selectedPhotos.remove(at: index)
-                }
-            } else {
-                selectedPhotos.append(photo)
-            }
+            selectedPhotos.update(photo)
+//            if selectedPhotos.contains(photo) {
+//                if let index = selectedPhotos.firstIndex(of: photo){
+//                    selectedPhotos.remove(at: index)
+//                }
+//            } else {
+//                selectedPhotos.append(photo)
+//            }
 
             photo.isSelected.toggle()
             collectionView.reloadItems(at: [indexPath])

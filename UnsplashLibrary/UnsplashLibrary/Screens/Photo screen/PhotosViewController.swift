@@ -149,14 +149,15 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! PhotoCollectionViewCell
         guard let image = cell.imageView.image else { return }
+        selectedPhotos.update(image)
 
-        if selectedPhotos.contains(image) {
-            if let index = selectedPhotos.firstIndex(of: image){
-                selectedPhotos.remove(at: index)
-            }
-        } else {
-            selectedPhotos.append(image)
-        }
+//        if selectedPhotos.contains(image) {
+//            if let index = selectedPhotos.firstIndex(of: image){
+//                selectedPhotos.remove(at: index)
+//            }
+//        } else {
+//            selectedPhotos.append(image)
+//        }
 
         undatesaveBarButton()
 
