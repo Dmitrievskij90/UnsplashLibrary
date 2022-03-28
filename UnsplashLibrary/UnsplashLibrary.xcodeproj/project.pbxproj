@@ -27,6 +27,8 @@
 		5CA07B4C27E627F3002DA6C2 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA07B4B27E627F3002DA6C2 /* NetworkService.swift */; };
 		5CA07B4F27E62D6E002DA6C2 /* PhotoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA07B4E27E62D6E002DA6C2 /* PhotoData.swift */; };
 		5CAE98CB27E76BE800A41770 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE98CA27E76BE800A41770 /* PhotoModel.swift */; };
+		5CC6F8DD27F2061400BB5290 /* ImageDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC6F8DC27F2061400BB5290 /* ImageDetailsViewController.swift */; };
+		5CC6F8DF27F209C200BB5290 /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC6F8DE27F209C200BB5290 /* Animator.swift */; };
 		DC8A3203D80CE8E7BB49C3F0 /* Pods_UnsplashLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A73A444BA187A6BD3D27A0A9 /* Pods_UnsplashLibrary.framework */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +57,8 @@
 		5CA07B4B27E627F3002DA6C2 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		5CA07B4E27E62D6E002DA6C2 /* PhotoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoData.swift; sourceTree = "<group>"; };
 		5CAE98CA27E76BE800A41770 /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
+		5CC6F8DC27F2061400BB5290 /* ImageDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailsViewController.swift; sourceTree = "<group>"; };
+		5CC6F8DE27F209C200BB5290 /* Animator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
 		A73A444BA187A6BD3D27A0A9 /* Pods_UnsplashLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnsplashLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -150,6 +154,7 @@
 				5CA07B3F27E6144C002DA6C2 /* MainTabBarController.swift */,
 				5CA07B4927E61B48002DA6C2 /* Photo screen */,
 				5C8688B827EF243A00324751 /* FavouritePhoto screen */,
+				5CC6F8DC27F2061400BB5290 /* ImageDetailsViewController.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -167,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				5CA07B4B27E627F3002DA6C2 /* NetworkService.swift */,
+				5CC6F8DE27F209C200BB5290 /* Animator.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -303,6 +309,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CC6F8DF27F209C200BB5290 /* Animator.swift in Sources */,
+				5CC6F8DD27F2061400BB5290 /* ImageDetailsViewController.swift in Sources */,
 				5CA07B4527E61AA7002DA6C2 /* UIView+Extension.swift in Sources */,
 				5C8B868327EA2F3700FD7333 /* FavouritePhoto+CoreDataClass.swift in Sources */,
 				5C8688BA27EF249500324751 /* FavouritePhotoCell.swift in Sources */,

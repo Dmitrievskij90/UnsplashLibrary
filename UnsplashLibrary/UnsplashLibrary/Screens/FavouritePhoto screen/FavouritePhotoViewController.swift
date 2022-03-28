@@ -20,9 +20,12 @@ class FavouritePhotoViewController: UIViewController {
         }
     }
 
+
+    private(set) var selectedImage: UIImageView!
     private var fetchResultController: NSFetchedResultsController<FavouritePhoto>!
     private var selectedPhotos = [FavouritePhoto]()
     private let dataManager = DataBaseManager()
+    private let popAnimator = Animator()
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -215,6 +218,17 @@ extension FavouritePhotoViewController: UICollectionViewDelegate, UICollectionVi
             photo.isSelected.toggle()
             collectionView.reloadItems(at: [indexPath])
         }
+
+        let selectedCell = collectionView.cellForItem(at: indexPath) as! FavouritePhotoCell
+        
+        self.selectedImage = selectedCell.imageView
+
+        if let data = photo.photo as Data? {
+            let image = UIImage(data: data)!
+            let destinationVC = ImageDetailsViewController(image: image)
+            destinationVC.transitioningDelegate = self
+            present(destinationVC, animated: true, completion: nil)
+        }
     }
 }
 
@@ -232,3 +246,21 @@ extension FavouritePhotoViewController: NSFetchedResultsControllerDelegate {
         }
     }
 }
+
+//MARK:- UIViewControllerTransitioningDelegate
+extension FavouritePhotoViewController: UIViewControllerTransitioningDelegate {
+  func animationController(
+    forPresented _: UIViewController, presenting _: UIViewController, source _: UIViewController
+  ) -> UIViewControllerAnimatedTransitioning? {
+    popAnimator.originFrame = selectedImage.superview!.convert(selectedImage.frame, to: nil)
+    popAnimator.presenting = true
+    return popAnimator
+  }
+
+  func animationController(forDismissed _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    popAnimator.presenting = false
+    return popAnimator
+  }
+}
+
+
