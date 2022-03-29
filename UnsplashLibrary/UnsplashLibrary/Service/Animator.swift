@@ -55,15 +55,11 @@ extension Animator: UIViewControllerAnimatedTransitioning {
 
     containerView.bringSubviewToFront(imageDetailView)
 
-    guard let herbDetailsContainer =
+    guard let imageDetailsContainer =
       ( transitionContext.viewController(forKey: presenting ? .to : .from)
         as? ImageDetailsViewController
       )?.view
     else { return }
-
-    if presenting {
-      herbDetailsContainer.alpha = 0
-    }
 
     //2) Animate!
     UIView.animate(
@@ -75,7 +71,7 @@ extension Animator: UIViewControllerAnimatedTransitioning {
         imageDetailView.layer.cornerRadius = self.presenting ? 0 : 20 / scaleTransform.a
         imageDetailView.transform = self.presenting ? .identity : scaleTransform
         imageDetailView.center = .init(x: finalFrame.midX, y: finalFrame.midY)
-        herbDetailsContainer.alpha = self.presenting ? 1 : 0
+        imageDetailsContainer.alpha = self.presenting ? 1 : 0
       },
       completion: { _ in
           //3) Complete transition

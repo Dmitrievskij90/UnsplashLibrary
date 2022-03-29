@@ -249,9 +249,7 @@ extension FavouritePhotoViewController: NSFetchedResultsControllerDelegate {
 
 //MARK:- UIViewControllerTransitioningDelegate
 extension FavouritePhotoViewController: UIViewControllerTransitioningDelegate {
-  func animationController(
-    forPresented _: UIViewController, presenting _: UIViewController, source _: UIViewController
-  ) -> UIViewControllerAnimatedTransitioning? {
+  func animationController( forPresented _: UIViewController, presenting _: UIViewController, source _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     popAnimator.originFrame = selectedImage.superview!.convert(selectedImage.frame, to: nil)
     popAnimator.presenting = true
     return popAnimator
