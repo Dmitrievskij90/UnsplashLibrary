@@ -8,6 +8,19 @@
 import UIKit
 
 class ActivityControllerButton: UIButton {
+    override var isHighlighted: Bool {
+        didSet {
+            if isHighlighted {
+                UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut) {
+                    self.accessoryImageView.tintColor = .systemPink
+                }
+            } else {
+                UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut) {
+                    self.accessoryImageView.tintColor = .gray
+                }
+            }
+        }
+    }
 
     private var label: UILabel = {
         let label = UILabel()
@@ -24,7 +37,7 @@ class ActivityControllerButton: UIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .init(hex: 0xfffff0)
+        backgroundColor = .white
         addSubview(label)
         addSubview(accessoryImageView)
     }
@@ -51,8 +64,7 @@ class ActivityControllerButton: UIButton {
 }
 
 extension ActivityControllerButton {
-    convenience init(text: String, imageName: String) {
-        self.init(frame: .zero)
+    func configureButton(text: String, imageName: String) {
         label.text = text
         accessoryImageView.image = UIImage(systemName: imageName)
     }

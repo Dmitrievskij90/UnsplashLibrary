@@ -20,12 +20,14 @@ class ImagePreviewViewController: UIViewController {
 
 
     private lazy var shareButton: ActivityControllerButton = {
-        let button = ActivityControllerButton(text: "Share", imageName: "square.and.arrow.up")
+        let button = ActivityControllerButton(type: .system)
+        button.configureButton(text: "Share", imageName: "square.and.arrow.up")
         return button
     }()
 
     private lazy var favouriteButton: ActivityControllerButton = {
-        let button = ActivityControllerButton(text: "Favourite", imageName: "heart")
+        let button = ActivityControllerButton(type: .system)
+        button.configureButton(text: "Favourite", imageName: "heart")
         return button
     }()
 
@@ -92,7 +94,7 @@ class ImagePreviewViewController: UIViewController {
         }
 
         imageView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-20)
             make.height.equalToSuperview().dividedBy(2)
             make.trailing.equalToSuperview().offset(-30)
             make.leading.equalToSuperview().offset(30)
