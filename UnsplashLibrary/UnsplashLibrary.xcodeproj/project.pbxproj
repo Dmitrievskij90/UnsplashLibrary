@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C1135E027F9909C00B0621F /* ActivityControllerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1135DF27F9909C00B0621F /* ActivityControllerButton.swift */; };
 		5C8688B527EF234E00324751 /* FavouritePhoto+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8688B427EF234E00324751 /* FavouritePhoto+CoreDataProperties.swift */; };
 		5C8688BA27EF249500324751 /* FavouritePhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8688B927EF249500324751 /* FavouritePhotoCell.swift */; };
 		5C8688BC27EF6F8900324751 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8688BB27EF6F8900324751 /* UIColor+Extension.swift */; };
@@ -36,6 +37,7 @@
 /* Begin PBXFileReference section */
 		048780B0E0D93A2BE177B225 /* Pods-UnsplashLibrary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnsplashLibrary.release.xcconfig"; path = "Target Support Files/Pods-UnsplashLibrary/Pods-UnsplashLibrary.release.xcconfig"; sourceTree = "<group>"; };
 		44AE869483973A0D47BBD15C /* Pods-UnsplashLibrary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnsplashLibrary.debug.xcconfig"; path = "Target Support Files/Pods-UnsplashLibrary/Pods-UnsplashLibrary.debug.xcconfig"; sourceTree = "<group>"; };
+		5C1135DF27F9909C00B0621F /* ActivityControllerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityControllerButton.swift; sourceTree = "<group>"; };
 		5C8688B427EF234E00324751 /* FavouritePhoto+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FavouritePhoto+CoreDataProperties.swift"; path = "/Users/DmitrievskiyK/Desktop/Dev/Repositories/UnsplashLibrary/UnsplashLibrary/UnsplashLibrary/UnsplashLibrary/DataBaseManager/FavouritePhoto+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		5C8688B927EF249500324751 /* FavouritePhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritePhotoCell.swift; sourceTree = "<group>"; };
 		5C8688BB27EF6F8900324751 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				5CA07B2F27E5CBBA002DA6C2 /* PhotosViewController.swift */,
 				5CA07B4727E61B0A002DA6C2 /* PhotoCollectionViewCell.swift */,
 				5C8DE1ED27F375BC001119CD /* ImagePreviewViewController.swift */,
+				5C1135DF27F9909C00B0621F /* ActivityControllerButton.swift */,
 			);
 			path = "Photo screen";
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C1135E027F9909C00B0621F /* ActivityControllerButton.swift in Sources */,
 				5CC6F8DF27F209C200BB5290 /* Animator.swift in Sources */,
 				5CC6F8DD27F2061400BB5290 /* ImageDetailsViewController.swift in Sources */,
 				5CA07B4527E61AA7002DA6C2 /* UIView+Extension.swift in Sources */,

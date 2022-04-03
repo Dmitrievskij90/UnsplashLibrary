@@ -11,11 +11,35 @@ import SDWebImage
 class ImagePreviewViewController: UIViewController {
     private let blurVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
 
-    var imageView: UIImageView = {
+    private var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .lightGray
         imageView.contentMode = .scaleAspectFill
         return imageView
+    }()
+
+
+    private lazy var shareButton: ActivityControllerButton = {
+        let button = ActivityControllerButton(text: "Share", imageName: "square.and.arrow.up")
+        return button
+    }()
+
+    private lazy var favouriteButton: ActivityControllerButton = {
+        let button = ActivityControllerButton(text: "Favourite", imageName: "heart")
+        return button
+    }()
+
+    let bottomView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        return view
+    }()
+
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [shareButton, bottomView, favouriteButton])
+        stackView.axis = .vertical
+        stackView.distribution = .fillProportionally
+        return stackView
     }()
 
     let image: String
@@ -54,8 +78,12 @@ class ImagePreviewViewController: UIViewController {
 
         view.addSubview(imageView)
         imageView.backgroundColor = .gray
-        imageView.layer.cornerRadius = 18
+        imageView.layer.cornerRadius = 15
         imageView.clipsToBounds = true
+
+        view.addSubview(stackView)
+        stackView.layer.cornerRadius = 15
+        stackView.clipsToBounds = true
     }
 
     override func viewWillLayoutSubviews() {
@@ -68,6 +96,18 @@ class ImagePreviewViewController: UIViewController {
             make.height.equalToSuperview().dividedBy(2)
             make.trailing.equalToSuperview().offset(-30)
             make.leading.equalToSuperview().offset(30)
+        }
+
+        stackView.snp.makeConstraints { make in
+            make.top.equalTo(imageView.snp.bottom).offset(10)
+            make.trailing.equalTo(imageView.snp.trailing)
+//            make.centerX.equalTo(imageView)
+            make.height.equalTo(80)
+            make.width.equalTo(imageView.snp.width).dividedBy(1.5)
+        }
+
+        bottomView.snp.makeConstraints { make in
+            make.height.equalTo(1)
         }
     }
 
