@@ -13,10 +13,12 @@ class ActivityControllerButton: UIButton {
             if isHighlighted {
                 UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut) {
                     self.accessoryImageView.tintColor = .systemPink
+                    self.label.textColor = .systemPink
                 }
             } else {
                 UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut) {
                     self.accessoryImageView.tintColor = .gray
+                    self.label.textColor = .darkGray
                 }
             }
         }
