@@ -10,6 +10,7 @@ import SDWebImage
 
 class ImagePreviewViewController: UIViewController {
     private let blurVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
+    private let dataManager = DataBaseManager()
 
     private var imageView: UIImageView = {
         let imageView = UIImageView()
@@ -30,6 +31,7 @@ class ImagePreviewViewController: UIViewController {
     private lazy var favouriteButton: ActivityControllerButton = {
         let button = ActivityControllerButton(type: .system)
         button.configureButton(text: "Favourite", imageName: "heart")
+        button.addTarget(self, action: #selector(favouriteButtonTapped), for: .touchUpInside)
         return button
     }()
 
@@ -127,5 +129,13 @@ class ImagePreviewViewController: UIViewController {
             }
         }
         present(shareController, animated: true, completion: nil)
+    }
+
+    @objc private func favouriteButtonTapped() {
+        var imageArray = [UIImage]()
+        guard let image = imageView.image else { return }
+        imageArray.append(image)
+        dataManager.save(images: imageArray)
+        self.dismiss(animated: true, completion: nil)
     }
 }
