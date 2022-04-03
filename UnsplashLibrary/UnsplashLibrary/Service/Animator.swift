@@ -11,7 +11,6 @@ final class Animator: NSObject {
     var originFrame = CGRect()
     var presenting = true
     private let duration: TimeInterval = 1
-
 }
 
 extension Animator: UIViewControllerAnimatedTransitioning {
@@ -56,8 +55,7 @@ extension Animator: UIViewControllerAnimatedTransitioning {
 
         containerView.bringSubviewToFront(imageDetailView)
 
-        guard let imageDetailsContainer = (transitionContext.viewController(forKey: presenting ? .to : .from) as? ImagePreviewViewController)?.view
-        else { return }
+        guard let imageDetailContainer = transitionContext.viewController(forKey: presenting ? .to : .from) else {return}
 
         //2) Animate!
         UIView.animate(
@@ -69,7 +67,7 @@ extension Animator: UIViewControllerAnimatedTransitioning {
                 imageDetailView.layer.cornerRadius = self.presenting ? 0 : 20 / scaleTransform.a
                 imageDetailView.transform = self.presenting ? .identity : scaleTransform
                 imageDetailView.center = .init(x: finalFrame.midX, y: finalFrame.midY)
-                imageDetailsContainer.alpha = self.presenting ? 1 : 0
+                imageDetailContainer.view.alpha = self.presenting ? 1 : 0
             },
             completion: { _ in
                 transitionContext.completeTransition(true)

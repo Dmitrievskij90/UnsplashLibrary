@@ -24,7 +24,7 @@ class FavouritePhotoViewController: UIViewController {
     private var fetchResultController: NSFetchedResultsController<FavouritePhoto>!
     private var selectedPhotos = [FavouritePhoto]()
     private let dataManager = DataBaseManager()
-    private let popAnimator = Animator()
+    private let animator = Animator()
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -249,13 +249,13 @@ extension FavouritePhotoViewController: NSFetchedResultsControllerDelegate {
 //MARK:- UIViewControllerTransitioningDelegate
 extension FavouritePhotoViewController: UIViewControllerTransitioningDelegate {
     func animationController( forPresented _: UIViewController, presenting _: UIViewController, source _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        popAnimator.originFrame = selectedImage.superview!.convert(selectedImage.frame, to: nil)
-        popAnimator.presenting = true
-        return popAnimator
+        animator.originFrame = selectedImage.superview!.convert(selectedImage.frame, to: nil)
+        animator.presenting = true
+        return animator
     }
 
     func animationController(forDismissed _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        popAnimator.presenting = false
-        return popAnimator
+        animator.presenting = false
+        return animator
     }
 }
