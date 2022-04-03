@@ -15,13 +15,15 @@ class ImagePreviewViewController: UIViewController {
         let imageView = UIImageView()
         imageView.backgroundColor = .lightGray
         imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 15
+        imageView.clipsToBounds = true
         return imageView
     }()
-
 
     private lazy var shareButton: ActivityControllerButton = {
         let button = ActivityControllerButton(type: .system)
         button.configureButton(text: "Share", imageName: "square.and.arrow.up")
+        button.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
         return button
     }()
 
@@ -41,6 +43,8 @@ class ImagePreviewViewController: UIViewController {
         let stackView = UIStackView(arrangedSubviews: [shareButton, bottomView, favouriteButton])
         stackView.axis = .vertical
         stackView.distribution = .fillProportionally
+        stackView.layer.cornerRadius = 15
+        stackView.clipsToBounds = true
         return stackView
     }()
 
@@ -79,13 +83,7 @@ class ImagePreviewViewController: UIViewController {
         blurVisualEffectView.alpha = 1
 
         view.addSubview(imageView)
-        imageView.backgroundColor = .gray
-        imageView.layer.cornerRadius = 15
-        imageView.clipsToBounds = true
-
         view.addSubview(stackView)
-        stackView.layer.cornerRadius = 15
-        stackView.clipsToBounds = true
     }
 
     override func viewWillLayoutSubviews() {
@@ -103,7 +101,6 @@ class ImagePreviewViewController: UIViewController {
         stackView.snp.makeConstraints { make in
             make.top.equalTo(imageView.snp.bottom).offset(10)
             make.trailing.equalTo(imageView.snp.trailing)
-//            make.centerX.equalTo(imageView)
             make.height.equalTo(80)
             make.width.equalTo(imageView.snp.width).dividedBy(1.5)
         }
@@ -113,7 +110,22 @@ class ImagePreviewViewController: UIViewController {
         }
     }
 
-    @objc func imageTapped() {
+    @objc private func imageTapped() {
         dismiss(animated: true, completion: nil)
+    }
+
+    @objc private func shareButtonTapped(sender: UIButton) {
+        guard let image = imageView.image else { return }
+        let shareController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        shareController.completionWithItemsHandler = { _, success, _, error in
+            if let error = error {
+                print("Finished with error:", error)
+            }
+
+            if success {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+        present(shareController, animated: true, completion: nil)
     }
 }
