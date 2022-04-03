@@ -20,7 +20,6 @@ class FavouritePhotoViewController: UIViewController {
         }
     }
 
-
     private(set) var selectedImage: UIImageView!
     private var fetchResultController: NSFetchedResultsController<FavouritePhoto>!
     private var selectedPhotos = [FavouritePhoto]()
@@ -127,14 +126,14 @@ class FavouritePhotoViewController: UIViewController {
         selectedPhotos.removeAll()
         collectionView.reloadData()
 
-      fetchResultController.fetchedObjects?.indices.forEach { fetchResultController.fetchedObjects?[$0].isSelected = false }
+        fetchResultController.fetchedObjects?.indices.forEach { fetchResultController.fetchedObjects?[$0].isSelected = false }
     }
 
     private func getSelectedImages() -> [UIImage] {
         var images = [UIImage]()
         for image in selectedPhotos {
             if let data = image.photo as Data?, let image = UIImage(data: data) {
-                    images.append(image)
+                images.append(image)
             }
         }
         return images
@@ -220,7 +219,7 @@ extension FavouritePhotoViewController: UICollectionViewDelegate, UICollectionVi
         }
 
         let selectedCell = collectionView.cellForItem(at: indexPath) as! FavouritePhotoCell
-        
+
         self.selectedImage = selectedCell.imageView
 
         if let data = photo.photo as Data? {
@@ -249,16 +248,14 @@ extension FavouritePhotoViewController: NSFetchedResultsControllerDelegate {
 
 //MARK:- UIViewControllerTransitioningDelegate
 extension FavouritePhotoViewController: UIViewControllerTransitioningDelegate {
-  func animationController( forPresented _: UIViewController, presenting _: UIViewController, source _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    popAnimator.originFrame = selectedImage.superview!.convert(selectedImage.frame, to: nil)
-    popAnimator.presenting = true
-    return popAnimator
-  }
+    func animationController( forPresented _: UIViewController, presenting _: UIViewController, source _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        popAnimator.originFrame = selectedImage.superview!.convert(selectedImage.frame, to: nil)
+        popAnimator.presenting = true
+        return popAnimator
+    }
 
-  func animationController(forDismissed _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    popAnimator.presenting = false
-    return popAnimator
-  }
+    func animationController(forDismissed _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        popAnimator.presenting = false
+        return popAnimator
+    }
 }
-
-

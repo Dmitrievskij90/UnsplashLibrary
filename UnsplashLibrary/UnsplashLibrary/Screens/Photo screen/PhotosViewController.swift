@@ -20,6 +20,8 @@ class PhotosViewController: UIViewController {
         }
     }
 
+    private(set) var selectedImage: UIImageView!
+    private let animator = Animator()
     private var timer: Timer?
     private var photos = [PhotoModel]()
     private var selectedPhotos = [UIImage]()
@@ -56,6 +58,11 @@ class PhotosViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+
+        let carMoveGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+        carMoveGestureRecognizer.minimumPressDuration = 0.5
+        collectionView.addGestureRecognizer(carMoveGestureRecognizer)
+
     }
 
     override func loadView() {
@@ -118,6 +125,27 @@ class PhotosViewController: UIViewController {
         dataManager.save(images: selectedPhotos)
         refresh()
     }
+
+    @objc func handleLongPress(gesture : UILongPressGestureRecognizer!) {
+        if gesture.state != .ended {
+            return
+        }
+
+        let p = gesture.location(in: self.collectionView)
+
+        if let indexPath = self.collectionView.indexPathForItem(at: p) {
+            guard let cell = self.collectionView.cellForItem(at: indexPath) as?  PhotoCollectionViewCell else { return }
+            self.selectedImage = cell.imageView
+
+            let photo = photos[indexPath.item].imageURL
+
+            let destinationVC = ImagePreviewViewController(image: photo)
+            destinationVC.transitioningDelegate = self
+            present(destinationVC, animated: true, completion: nil)
+        } else {
+            print("couldn't find index path")
+        }
+    }
 }
 
 extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -150,20 +178,10 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let cell = collectionView.cellForItem(at: indexPath) as! PhotoCollectionViewCell
         guard let image = cell.imageView.image else { return }
         selectedPhotos.update(image)
-
-//        if selectedPhotos.contains(image) {
-//            if let index = selectedPhotos.firstIndex(of: image){
-//                selectedPhotos.remove(at: index)
-//            }
-//        } else {
-//            selectedPhotos.append(image)
-//        }
-
         undatesaveBarButton()
 
         photos[indexPath.item].isSelected.toggle()
         collectionView.reloadItems(at: [indexPath])
-
     }
 }
 
@@ -187,6 +205,19 @@ extension PhotosViewController: UISearchBarDelegate {
                 }
             }
         })
+    }
+}
+
+extension PhotosViewController: UIViewControllerTransitioningDelegate {
+    func animationController( forPresented _: UIViewController, presenting _: UIViewController, source _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        animator.originFrame = selectedImage.superview!.convert(selectedImage.frame, to: nil)
+        animator.presenting = true
+        return animator
+    }
+
+    func animationController(forDismissed _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        animator.presenting = false
+        return animator
     }
 }
 

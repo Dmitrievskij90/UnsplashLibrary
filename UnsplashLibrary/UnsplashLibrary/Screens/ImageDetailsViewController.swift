@@ -9,6 +9,12 @@ import UIKit
 
 class ImageDetailsViewController: UIViewController {
 
+    var contView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        return view
+    }()
+
     var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .lightGray
@@ -46,7 +52,12 @@ class ImageDetailsViewController: UIViewController {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
         view.addGestureRecognizer(tapGestureRecognizer)
 
-        view.addSubview(imageView)
+        view.addSubview(contView)
+        contView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+
+        contView.addSubview(imageView)
         imageView.backgroundColor = .gray
         imageView.snp.makeConstraints { make in
             make.leading.trailing.centerY.centerX.equalToSuperview()

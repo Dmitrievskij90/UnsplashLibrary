@@ -15,6 +15,7 @@
 		5C8B867F27EA204A00FD7333 /* DataBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8B867E27EA204A00FD7333 /* DataBaseManager.swift */; };
 		5C8B868327EA2F3700FD7333 /* FavouritePhoto+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8B868227EA2F3700FD7333 /* FavouritePhoto+CoreDataClass.swift */; };
 		5C8B868527EA321B00FD7333 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8B868427EA321B00FD7333 /* Helpers.swift */; };
+		5C8DE1EE27F375BC001119CD /* ImagePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8DE1ED27F375BC001119CD /* ImagePreviewViewController.swift */; };
 		5CA07B2C27E5CBBA002DA6C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA07B2B27E5CBBA002DA6C2 /* AppDelegate.swift */; };
 		5CA07B2E27E5CBBA002DA6C2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA07B2D27E5CBBA002DA6C2 /* SceneDelegate.swift */; };
 		5CA07B3027E5CBBA002DA6C2 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA07B2F27E5CBBA002DA6C2 /* PhotosViewController.swift */; };
@@ -43,6 +44,7 @@
 		5C8B867E27EA204A00FD7333 /* DataBaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseManager.swift; sourceTree = "<group>"; };
 		5C8B868227EA2F3700FD7333 /* FavouritePhoto+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavouritePhoto+CoreDataClass.swift"; sourceTree = "<group>"; };
 		5C8B868427EA321B00FD7333 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		5C8DE1ED27F375BC001119CD /* ImagePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewViewController.swift; sourceTree = "<group>"; };
 		5CA07B2827E5CBBA002DA6C2 /* UnsplashLibrary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnsplashLibrary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CA07B2B27E5CBBA002DA6C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5CA07B2D27E5CBBA002DA6C2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 			children = (
 				5CA07B2F27E5CBBA002DA6C2 /* PhotosViewController.swift */,
 				5CA07B4727E61B0A002DA6C2 /* PhotoCollectionViewCell.swift */,
+				5C8DE1ED27F375BC001119CD /* ImagePreviewViewController.swift */,
 			);
 			path = "Photo screen";
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 				5CA07B4827E61B0A002DA6C2 /* PhotoCollectionViewCell.swift in Sources */,
 				5CA07B4027E6144C002DA6C2 /* MainTabBarController.swift in Sources */,
 				5C8688B527EF234E00324751 /* FavouritePhoto+CoreDataProperties.swift in Sources */,
+				5C8DE1EE27F375BC001119CD /* ImagePreviewViewController.swift in Sources */,
 				5C8B868527EA321B00FD7333 /* Helpers.swift in Sources */,
 				5CAE98CB27E76BE800A41770 /* PhotoModel.swift in Sources */,
 				5CA07B2E27E5CBBA002DA6C2 /* SceneDelegate.swift in Sources */,
