@@ -216,17 +216,16 @@ extension FavouritePhotoViewController: UICollectionViewDelegate, UICollectionVi
             selectedPhotos.update(photo)
             photo.isSelected.toggle()
             collectionView.reloadItems(at: [indexPath])
-        }
+        } else {
+            let selectedCell = collectionView.cellForItem(at: indexPath) as! FavouritePhotoCell
+            self.selectedImage = selectedCell.imageView
 
-        let selectedCell = collectionView.cellForItem(at: indexPath) as! FavouritePhotoCell
-
-        self.selectedImage = selectedCell.imageView
-
-        if let data = photo.photo as Data? {
-            let image = UIImage(data: data)!
-            let destinationVC = ImageDetailsViewController(image: image)
-            destinationVC.transitioningDelegate = self
-            present(destinationVC, animated: true, completion: nil)
+            if let data = photo.photo as Data? {
+                let image = UIImage(data: data)!
+                let destinationVC = ImageDetailsViewController(image: image)
+                destinationVC.transitioningDelegate = self
+                present(destinationVC, animated: true, completion: nil)
+            }
         }
     }
 }
