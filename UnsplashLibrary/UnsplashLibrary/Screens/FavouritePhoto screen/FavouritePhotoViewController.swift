@@ -114,6 +114,7 @@ class FavouritePhotoViewController: UIViewController {
     private func refresh() {
         resetSeletedPhotos()
         deleteBarButtonItem.isEnabled = false
+        shareBarButtonItem.isEnabled = false
         selectBarButtonItem.title = "Select"
     }
 
@@ -142,16 +143,18 @@ class FavouritePhotoViewController: UIViewController {
     // MARK: - Actions
     // MARK: -
     @objc private func deleteBarButtonTapped() {
-        let alertController = UIAlertController(title: "Delete photo", message: "\(selecetedPhotoCountDescription) will be delete", preferredStyle: .alert)
-        let addAction = UIAlertAction(title: "Delete", style: .default) { _ in
-            self.delete()
+        if !selectedPhotos.isEmpty {
+            let alertController = UIAlertController(title: "Delete photo", message: "\(selecetedPhotoCountDescription) will be delete", preferredStyle: .alert)
+            let addAction = UIAlertAction(title: "Delete", style: .default) { _ in
+                self.delete()
+            }
+            let cancelAction = UIAlertAction(title: "Undo", style: .destructive) { _ in
+                self.refresh()
+            }
+            alertController.addAction(addAction)
+            alertController.addAction(cancelAction)
+            present(alertController, animated: true)
         }
-        let cancelAction = UIAlertAction(title: "Undo", style: .destructive) { _ in
-            self.refresh()
-        }
-        alertController.addAction(addAction)
-        alertController.addAction(cancelAction)
-        present(alertController, animated: true)
     }
 
     @objc private func selectBarButtonTapped() {
