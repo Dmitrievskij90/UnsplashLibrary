@@ -8,14 +8,13 @@
 import UIKit
 
 class ImageDetailsViewController: UIViewController {
-    var imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = .lightGray
+    lazy var imageZoomView: ImageZoomView = {
+        let imageView = ImageZoomView(frame: view.bounds)
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
 
-    let image: UIImage
+   private let image: UIImage
 
     init(image: UIImage) {
         self.image = image
@@ -34,27 +33,31 @@ class ImageDetailsViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        imageView.image = image
+        self.imageZoomView.setImage(image: image)
     }
 
     override func loadView() {
         let view = UIView(frame: UIScreen.main.bounds)
-        view.backgroundColor = .white
+        view.backgroundColor = .black
         self.view = view
 
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
         view.addGestureRecognizer(tapGestureRecognizer)
 
-        view.addSubview(imageView)
-        imageView.backgroundColor = .gray
-        imageView.snp.makeConstraints { make in
-            make.leading.trailing.centerY.centerX.equalToSuperview()
-            make.height.equalToSuperview().dividedBy(2)
+        view.addSubview(imageZoomView)
+    }
+
+    override func viewWillLayoutSubviews() {
+        setupImageScrollView()
+    }
+
+   private func setupImageScrollView() {
+        imageZoomView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
     }
 
-    @objc func imageTapped() {
-        dismiss(animated: true, completion: nil)
+    @objc private func imageTapped() {
+        //        dismiss(animated: true, completion: nil)
     }
 }
-
