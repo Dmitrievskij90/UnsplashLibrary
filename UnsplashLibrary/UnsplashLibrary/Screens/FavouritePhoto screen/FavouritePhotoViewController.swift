@@ -31,7 +31,7 @@ class FavouritePhotoViewController: UIViewController {
         layout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         collectionView.register(FavouritePhotoCell.self, forCellWithReuseIdentifier: FavouritePhotoCell.identifier)
-        collectionView.backgroundColor = UIColor.white
+        collectionView.backgroundColor = UIColor.black
         collectionView.dataSource = self
         collectionView.delegate = self
         return collectionView
@@ -40,21 +40,21 @@ class FavouritePhotoViewController: UIViewController {
     private lazy var deleteBarButtonItem: UIBarButtonItem = {
         let button = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteBarButtonTapped))
         button.isEnabled = false
-        button.tintColor = .black
+        button.tintColor = .white
         return button
     }()
 
     private lazy var selectBarButtonItem: UIBarButtonItem = {
         let button = UIBarButtonItem(title: "Select", style: .plain, target: self, action: #selector(selectBarButtonTapped))
         button.isEnabled = true
-        button.tintColor = .darkGray
+        button.tintColor = .white
         return button
     }()
 
     private lazy var shareBarButtonItem: UIBarButtonItem = {
         let button = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareButtonTapped))
         button.isEnabled = false
-        button.tintColor = .darkGray
+        button.tintColor = .white
         return button
     }()
 
@@ -65,7 +65,7 @@ class FavouritePhotoViewController: UIViewController {
     }
 
     override func viewWillLayoutSubviews() {
-        collectionView.frame =  view.frame
+        collectionView.frame = view.frame
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -81,7 +81,7 @@ class FavouritePhotoViewController: UIViewController {
 
     override func loadView() {
         let view = UIView(frame: UIScreen.main.bounds)
-        view.backgroundColor = .white
+        view.backgroundColor = .black
         self.view = view
 
         navigationItem.rightBarButtonItems = [deleteBarButtonItem, selectBarButtonItem]

@@ -40,7 +40,7 @@ class FavouritePhotoCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        backgroundColor = .black
 
         clipsToBounds = true
         layer.cornerRadius = 18

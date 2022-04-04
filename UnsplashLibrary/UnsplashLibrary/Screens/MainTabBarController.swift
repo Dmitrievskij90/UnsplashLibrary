@@ -17,13 +17,18 @@ class MainTabBarController: UITabBarController {
     }
 
     private func createNavController(viewController: UIViewController, title: String, imageName: String) -> UIViewController {
-        viewController.view.backgroundColor = .white
+        viewController.view.backgroundColor = .black
         viewController.navigationItem.title = title
         let navController = UINavigationController(rootViewController: viewController)
         navController.tabBarItem.title = title
         navController.navigationBar.prefersLargeTitles = true
+        navController.navigationBar.tintColor = .white
         navController.tabBarItem.image = UIImage(systemName: imageName)
-        UITabBar.appearance().tintColor = .init(hex: 0xC74B50)
+        UITabBar.appearance().tintColor = .white
+        UITabBar.appearance().barTintColor = .black
+        UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        UINavigationBar.appearance().barTintColor = .black
+
 
         return navController
     }

@@ -32,7 +32,7 @@ class PhotosViewController: UIViewController {
         layout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: PhotoCollectionViewCell.identifier)
-        collectionView.backgroundColor = UIColor.white
+        collectionView.backgroundColor = UIColor.black
         collectionView.dataSource = self
         collectionView.delegate = self
         return collectionView
@@ -40,7 +40,7 @@ class PhotosViewController: UIViewController {
 
     private lazy var acrivityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .medium)
-        indicator.color = .darkGray
+        indicator.color = .lightGray
         indicator.hidesWhenStopped = true
         return indicator
     }()
@@ -48,7 +48,7 @@ class PhotosViewController: UIViewController {
     private lazy var saveBarButtonItem: UIBarButtonItem = {
         let button = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveBarButtonTapped))
         button.isEnabled = false
-        button.tintColor = .black
+        button.tintColor = .white
         return button
     }()
 
@@ -67,7 +67,7 @@ class PhotosViewController: UIViewController {
 
     override func loadView() {
         let view = UIView(frame: UIScreen.main.bounds)
-        view.backgroundColor = .white
+        view.backgroundColor = .black
         self.view = view
 
         view.addSubview(collectionView)
@@ -91,8 +91,8 @@ class PhotosViewController: UIViewController {
         navigationItem.hidesSearchBarWhenScrolling = false
         searhController.hidesNavigationBarDuringPresentation = false
         searhController.obscuresBackgroundDuringPresentation = false
-        searhController.searchBar.searchTextField.textColor = .black
-        searhController.searchBar.tintColor = .black
+        searhController.searchBar.searchTextField.textColor = .white
+        searhController.searchBar.tintColor = .white
         searhController.searchBar.delegate = self
     }
 
