@@ -78,6 +78,7 @@ class PhotosViewController: UIViewController {
     }
 
     override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         collectionView.frame =  view.frame
 
         acrivityIndicator.snp.makeConstraints { make in
@@ -146,6 +147,11 @@ class PhotosViewController: UIViewController {
             print("couldn't find index path")
         }
     }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        collectionView.collectionViewLayout.invalidateLayout()
+        super.viewWillTransition(to: size, with: coordinator)
+    }
 }
 
 extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -167,7 +173,12 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (view.frame.width / 2) - 10, height: (view.frame.width / 2))
+        let orientation = UIDevice.current.orientation
+        if orientation.isLandscape {
+            return CGSize(width: (view.frame.width / 5) - 10, height: (view.frame.width / 5))
+        } else {
+            return CGSize(width: (view.frame.width / 2) - 10, height: (view.frame.width / 2))
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

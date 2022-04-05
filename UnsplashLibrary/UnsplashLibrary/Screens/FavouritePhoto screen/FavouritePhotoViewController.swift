@@ -65,6 +65,7 @@ class FavouritePhotoViewController: UIViewController {
     }
 
     override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         collectionView.frame = view.frame
     }
 
@@ -182,6 +183,11 @@ class FavouritePhotoViewController: UIViewController {
         shareController.popoverPresentationController?.permittedArrowDirections = .any
         present(shareController, animated: true, completion: nil)
     }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        collectionView.collectionViewLayout.invalidateLayout()
+        super.viewWillTransition(to: size, with: coordinator)
+    }
 }
 
 //MARK: - UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
@@ -207,7 +213,12 @@ extension FavouritePhotoViewController: UICollectionViewDelegate, UICollectionVi
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (view.frame.width / 3) - 10, height: (view.frame.width / 3))
+        let orientation = UIDevice.current.orientation
+        if orientation.isLandscape {
+            return CGSize(width: (view.frame.width / 5) - 10, height: (view.frame.width / 5))
+        } else {
+            return CGSize(width: (view.frame.width / 3) - 10, height: (view.frame.width / 3))
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
