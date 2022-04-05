@@ -24,12 +24,6 @@ class MainTabBarController: UITabBarController {
         navController.navigationBar.prefersLargeTitles = true
         navController.navigationBar.tintColor = .white
         navController.tabBarItem.image = UIImage(systemName: imageName)
-        UITabBar.appearance().tintColor = .init(hex: 0xFFF56D)
-        UITabBar.appearance().barTintColor = .black
-        UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        UINavigationBar.appearance().barTintColor = .black
-
-
         return navController
     }
 }
