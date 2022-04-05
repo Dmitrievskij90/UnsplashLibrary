@@ -17,7 +17,7 @@ class ActivityControllerButton: UIButton {
                 }
             } else {
                 UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut) {
-                    self.accessoryImageView.tintColor = .gray
+                    self.accessoryImageView.tintColor = .darkGray
                     self.label.textColor = .darkGray
                 }
             }
@@ -33,13 +33,13 @@ class ActivityControllerButton: UIButton {
     private let accessoryImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.tintColor = .gray
+        imageView.tintColor = .darkGray
         return imageView
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        backgroundColor = UIColor(white: 1, alpha: 0.5)
         addSubview(label)
         addSubview(accessoryImageView)
     }
