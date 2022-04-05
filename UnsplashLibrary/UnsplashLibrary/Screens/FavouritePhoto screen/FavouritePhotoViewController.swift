@@ -167,7 +167,7 @@ class FavouritePhotoViewController: UIViewController {
             shareBarButtonItem.isEnabled = false
         }
         deleteBarButtonItem.isEnabled.toggle()
-        deleteBarButtonItem.tintColor = .init(hex: 0xC74B50)
+        deleteBarButtonItem.tintColor = .init(hex: 0xF900BF)
     }
 
     @objc func shareButtonTapped(sender: UIBarButtonItem) {

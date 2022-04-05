@@ -14,7 +14,15 @@ class ImageDetailsViewController: UIViewController {
         return imageView
     }()
 
-   private let image: UIImage
+    lazy var closeButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+        button.tintColor = .white
+        button.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
+        return button
+    }()
+
+    private let image: UIImage
 
     init(image: UIImage) {
         self.image = image
@@ -41,23 +49,28 @@ class ImageDetailsViewController: UIViewController {
         view.backgroundColor = .black
         self.view = view
 
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
-        view.addGestureRecognizer(tapGestureRecognizer)
-
         view.addSubview(imageZoomView)
+        view.addSubview(closeButton)
     }
 
     override func viewWillLayoutSubviews() {
-        setupImageScrollView()
+        setupSubviews()
     }
 
-   private func setupImageScrollView() {
+    private func setupSubviews() {
         imageZoomView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+
+        closeButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset(10)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(-5)
+            make.height.equalTo(40)
+            make.width.equalTo(80)
+        }
     }
 
-    @objc private func imageTapped() {
-        //        dismiss(animated: true, completion: nil)
+    @objc private func handleDismiss() {
+        dismiss(animated: true, completion: nil)
     }
 }
