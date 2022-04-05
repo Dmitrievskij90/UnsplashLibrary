@@ -63,7 +63,7 @@ class ImageDetailsViewController: UIViewController {
         }
 
         closeButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(10)
+            make.trailing.equalToSuperview().offset(5)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(-5)
             make.height.equalTo(40)
             make.width.equalTo(80)
