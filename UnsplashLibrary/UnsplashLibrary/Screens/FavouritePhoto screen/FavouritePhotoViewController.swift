@@ -160,14 +160,15 @@ class FavouritePhotoViewController: UIViewController {
     @objc private func selectBarButtonTapped() {
         if selectBarButtonItem.title == "Select" {
             selectBarButtonItem.title = "Cancel"
-            shareBarButtonItem.isEnabled = true
         } else {
             selectBarButtonItem.title = "Select"
             resetSeletedPhotos()
-            shareBarButtonItem.isEnabled = false
         }
         deleteBarButtonItem.isEnabled.toggle()
         deleteBarButtonItem.tintColor = .init(hex: 0xF900BF)
+        shareBarButtonItem.isEnabled.toggle()
+        shareBarButtonItem.tintColor = .init(hex: 0xFFF56D)
+//        FFF56D
     }
 
     @objc func shareButtonTapped(sender: UIBarButtonItem) {
