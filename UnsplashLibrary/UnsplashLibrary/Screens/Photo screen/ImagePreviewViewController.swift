@@ -12,7 +12,7 @@ class ImagePreviewViewController: UIViewController {
     private let blurVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
     private let dataManager = DataBaseManager()
 
-    private var imageView: UIImageView = {
+     var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .lightGray
         imageView.contentMode = .scaleAspectFill
@@ -35,13 +35,13 @@ class ImagePreviewViewController: UIViewController {
         return button
     }()
 
-    let bottomView: UIView = {
+    lazy var bottomView: UIView = {
         let view = UIView()
         view.backgroundColor = .lightGray
         return view
     }()
 
-    private lazy var stackView: UIStackView = {
+     lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [shareButton, bottomView, favouriteButton])
         stackView.axis = .vertical
         stackView.distribution = .fillProportionally
@@ -65,11 +65,13 @@ class ImagePreviewViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupConstraints()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         imageView.sd_setImage(with: URL(string: image))
+        remakeConstraints()
     }
 
     override func loadView() {
@@ -91,24 +93,6 @@ class ImagePreviewViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         blurVisualEffectView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-        }
-
-        imageView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview().offset(-20)
-            make.height.equalToSuperview().dividedBy(2)
-            make.trailing.equalToSuperview().offset(-30)
-            make.leading.equalToSuperview().offset(30)
-        }
-
-        stackView.snp.makeConstraints { make in
-            make.top.equalTo(imageView.snp.bottom).offset(10)
-            make.trailing.equalTo(imageView.snp.trailing)
-            make.height.equalTo(80)
-            make.width.equalTo(imageView.snp.width).dividedBy(1.5)
-        }
-
-        bottomView.snp.makeConstraints { make in
-            make.height.equalTo(1)
         }
     }
 
