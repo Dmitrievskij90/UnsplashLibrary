@@ -59,9 +59,9 @@ class PhotosViewController: UIViewController {
         super.viewDidLoad()
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
 
-        let carMoveGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
-        carMoveGestureRecognizer.minimumPressDuration = 0.5
-        collectionView.addGestureRecognizer(carMoveGestureRecognizer)
+        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+        longPressGestureRecognizer.minimumPressDuration = 0.3
+        collectionView.addGestureRecognizer(longPressGestureRecognizer)
 
     }
 
@@ -132,13 +132,13 @@ class PhotosViewController: UIViewController {
             return
         }
 
-        let p = gesture.location(in: self.collectionView)
-
-        if let indexPath = self.collectionView.indexPathForItem(at: p) {
+        let point = gesture.location(in: self.collectionView)
+        if let indexPath = self.collectionView.indexPathForItem(at: point) {
             guard let cell = self.collectionView.cellForItem(at: indexPath) as?  PhotoCollectionViewCell else { return }
             self.selectedImage = cell.imageView
-
             let photo = photos[indexPath.item].imageURL
+
+            HapticsManager.shared.vibrate(for: .success)
 
             let destinationVC = ImagePreviewViewController(image: photo)
             destinationVC.transitioningDelegate = self

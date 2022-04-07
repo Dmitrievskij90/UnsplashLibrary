@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/DmitrievskiyK/Desktop/Dev/Repositories/UnsplashLibrary/UnsplashLibrary/UnsplashLibrary/UnsplashLibrary/DataBaseManager/FavouritePhoto+CoreDataProperties.swift">
-   </FileRef>
-   <FileRef
       location = "group:UnsplashLibrary.xcodeproj">
    </FileRef>
    <FileRef
