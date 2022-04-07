@@ -10,7 +10,7 @@ import UIKit
 final class HapticsManager {
    static let shared = HapticsManager()
 
-    public func selecrion() {
+    public func selection() {
         DispatchQueue.main.async {
             let selection = UISelectionFeedbackGenerator()
             selection.prepare()

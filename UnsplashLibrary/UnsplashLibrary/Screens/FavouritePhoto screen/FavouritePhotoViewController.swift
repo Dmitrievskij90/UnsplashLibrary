@@ -226,6 +226,7 @@ extension FavouritePhotoViewController: UICollectionViewDelegate, UICollectionVi
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        HapticsManager.shared.selection()
         let photo = fetchResultController.object(at: indexPath)
         if deleteBarButtonItem.isEnabled {
             selectedPhotos.update(photo)

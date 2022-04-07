@@ -186,6 +186,7 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        HapticsManager.shared.selection()
         let cell = collectionView.cellForItem(at: indexPath) as! PhotoCollectionViewCell
         guard let image = cell.imageView.image else { return }
         selectedPhotos.update(image)
