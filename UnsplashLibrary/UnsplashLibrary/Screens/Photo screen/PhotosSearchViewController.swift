@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class PhotosViewController: UIViewController {
+class PhotosSearchViewController: UIViewController {
     private var selecetedPhotoCountDescription: String {
         switch selectedPhotos.count {
         case 1:
@@ -31,7 +31,7 @@ class PhotosViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
-        collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: PhotoCollectionViewCell.identifier)
+        collectionView.register(PhotoSearchCollectionViewCell.self, forCellWithReuseIdentifier: PhotoSearchCollectionViewCell.identifier)
         collectionView.backgroundColor = UIColor.black
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -134,7 +134,7 @@ class PhotosViewController: UIViewController {
 
         let point = gesture.location(in: self.collectionView)
         if let indexPath = self.collectionView.indexPathForItem(at: point) {
-            guard let cell = self.collectionView.cellForItem(at: indexPath) as?  PhotoCollectionViewCell else { return }
+            guard let cell = self.collectionView.cellForItem(at: indexPath) as?  PhotoSearchCollectionViewCell else { return }
             self.selectedImage = cell.imageView
             let photo = photos[indexPath.item].imageURL
 
@@ -154,14 +154,14 @@ class PhotosViewController: UIViewController {
     }
 }
 
-extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension PhotosSearchViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photos.count
     }
 
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.identifier, for: indexPath) as? PhotoCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoSearchCollectionViewCell.identifier, for: indexPath) as? PhotoSearchCollectionViewCell else {
             return UICollectionViewCell()
         }
         cell.data = photos[indexPath.item]
@@ -187,7 +187,7 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         HapticsManager.shared.selection()
-        let cell = collectionView.cellForItem(at: indexPath) as! PhotoCollectionViewCell
+        let cell = collectionView.cellForItem(at: indexPath) as! PhotoSearchCollectionViewCell
         guard let image = cell.imageView.image else { return }
         selectedPhotos.update(image)
         undatesaveBarButton()
@@ -197,7 +197,7 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
 }
 
-extension PhotosViewController: UISearchBarDelegate {
+extension PhotosSearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         acrivityIndicator.startAnimating()
         timer?.invalidate()
@@ -220,7 +220,7 @@ extension PhotosViewController: UISearchBarDelegate {
     }
 }
 
-extension PhotosViewController: UIViewControllerTransitioningDelegate {
+extension PhotosSearchViewController: UIViewControllerTransitioningDelegate {
     func animationController( forPresented _: UIViewController, presenting _: UIViewController, source _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         animator.originFrame = selectedImage.superview!.convert(selectedImage.frame, to: nil)
         animator.presenting = true
