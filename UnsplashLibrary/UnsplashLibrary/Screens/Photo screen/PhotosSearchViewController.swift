@@ -27,7 +27,9 @@ class PhotosSearchViewController: UIViewController {
     private var selectedPhotos = [UIImage]()
     private let dataManager = DataBaseManager()
 
-    private lazy var collectionView: UICollectionView = {
+    lazy var presenter = PhotoSearchPresenter(view: self)
+
+     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
@@ -38,7 +40,7 @@ class PhotosSearchViewController: UIViewController {
         return collectionView
     }()
 
-    private lazy var acrivityIndicator: UIActivityIndicatorView = {
+     lazy var acrivityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .medium)
         indicator.color = .lightGray
         indicator.hidesWhenStopped = true
@@ -136,7 +138,7 @@ class PhotosSearchViewController: UIViewController {
         if let indexPath = self.collectionView.indexPathForItem(at: point) {
             guard let cell = self.collectionView.cellForItem(at: indexPath) as?  PhotoSearchCollectionViewCell else { return }
             self.selectedImage = cell.imageView
-            let photo = photos[indexPath.item].imageURL
+            let photo = presenter.photos[indexPath.item].imageURL
 
             HapticsManager.shared.vibrate(for: .success)
 
@@ -156,7 +158,8 @@ class PhotosSearchViewController: UIViewController {
 
 extension PhotosSearchViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photos.count
+//        return photos.count
+        return presenter.photos.count
     }
 
 
@@ -164,7 +167,7 @@ extension PhotosSearchViewController: UICollectionViewDelegate, UICollectionView
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoSearchCollectionViewCell.identifier, for: indexPath) as? PhotoSearchCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.data = photos[indexPath.item]
+        cell.data = presenter.photos[indexPath.item]
         return cell
     }
 
@@ -192,7 +195,7 @@ extension PhotosSearchViewController: UICollectionViewDelegate, UICollectionView
         selectedPhotos.update(image)
         undatesaveBarButton()
 
-        photos[indexPath.item].isSelected.toggle()
+        presenter.photos[indexPath.item].isSelected.toggle()
         collectionView.reloadItems(at: [indexPath])
     }
 }
@@ -202,20 +205,22 @@ extension PhotosSearchViewController: UISearchBarDelegate {
         acrivityIndicator.startAnimating()
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
-            self.networkService.searchPhoto(searchTerm: searchText) { [weak self] result, error in
-                if let err = error {
-                    print("we hawe probler", err)
-                }
-
-                if let saveData = result?.results {
-                    self?.photos = saveData.compactMap { PhotoModel(imageURL: $0.urls.regular)}
-                    DispatchQueue.main.async {
-                        self?.acrivityIndicator.stopAnimating()
-                        self?.collectionView.reloadData()
-                        self?.refresh()
-                    }
-                }
-            }
+            self.presenter.searchPhotos(with: searchText)
+            self.refresh()
+//            self.networkService.searchPhoto(searchTerm: searchText) { [weak self] result, error in
+//                if let err = error {
+//                    print("we hawe probler", err)
+//                }
+//
+//                if let saveData = result?.results {
+//                    self?.photos = saveData.compactMap { PhotoModel(imageURL: $0.urls.regular)}
+//                    DispatchQueue.main.async {
+//                        self?.acrivityIndicator.stopAnimating()
+//                        self?.collectionView.reloadData()
+//                        self?.refresh()
+//                    }
+//                }
+//            }
         })
     }
 }

@@ -30,6 +30,7 @@
 		5CA07B4C27E627F3002DA6C2 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA07B4B27E627F3002DA6C2 /* NetworkService.swift */; };
 		5CA07B4F27E62D6E002DA6C2 /* PhotoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA07B4E27E62D6E002DA6C2 /* PhotoData.swift */; };
 		5CAE98CB27E76BE800A41770 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE98CA27E76BE800A41770 /* PhotoModel.swift */; };
+		5CAF86A028008CCD0023F782 /* PhotoSearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAF869F28008CCD0023F782 /* PhotoSearchPresenter.swift */; };
 		5CC6F8DD27F2061400BB5290 /* ImageDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC6F8DC27F2061400BB5290 /* ImageDetailsViewController.swift */; };
 		5CC6F8DF27F209C200BB5290 /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC6F8DE27F209C200BB5290 /* Animator.swift */; };
 		5CD9B44227FE051A003D1438 /* ImagePreviewViewController+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD9B44127FE051A003D1438 /* ImagePreviewViewController+Constraints.swift */; };
@@ -65,6 +66,7 @@
 		5CA07B4B27E627F3002DA6C2 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		5CA07B4E27E62D6E002DA6C2 /* PhotoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoData.swift; sourceTree = "<group>"; };
 		5CAE98CA27E76BE800A41770 /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
+		5CAF869F28008CCD0023F782 /* PhotoSearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSearchPresenter.swift; sourceTree = "<group>"; };
 		5CC6F8DC27F2061400BB5290 /* ImageDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailsViewController.swift; sourceTree = "<group>"; };
 		5CC6F8DE27F209C200BB5290 /* Animator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
 		5CD9B44127FE051A003D1438 /* ImagePreviewViewController+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImagePreviewViewController+Constraints.swift"; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 			children = (
 				5CA07B2F27E5CBBA002DA6C2 /* PhotosSearchViewController.swift */,
 				5CA07B4727E61B0A002DA6C2 /* PhotoSearchCollectionViewCell.swift */,
+				5CAF869F28008CCD0023F782 /* PhotoSearchPresenter.swift */,
 				5C8DE1ED27F375BC001119CD /* ImagePreviewViewController.swift */,
 				5C1135DF27F9909C00B0621F /* ActivityControllerButton.swift */,
 				5CD9B44127FE051A003D1438 /* ImagePreviewViewController+Constraints.swift */,
@@ -325,6 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C1135E027F9909C00B0621F /* ActivityControllerButton.swift in Sources */,
+				5CAF86A028008CCD0023F782 /* PhotoSearchPresenter.swift in Sources */,
 				5CC6F8DF27F209C200BB5290 /* Animator.swift in Sources */,
 				5CC6F8DD27F2061400BB5290 /* ImageDetailsViewController.swift in Sources */,
 				5CDE9BBC27FF3C320091533B /* HapticsManager.swift in Sources */,
