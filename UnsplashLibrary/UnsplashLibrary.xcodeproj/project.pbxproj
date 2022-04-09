@@ -35,6 +35,7 @@
 		5CC6F8DF27F209C200BB5290 /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC6F8DE27F209C200BB5290 /* Animator.swift */; };
 		5CD9B44227FE051A003D1438 /* ImagePreviewViewController+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD9B44127FE051A003D1438 /* ImagePreviewViewController+Constraints.swift */; };
 		5CDE9BBC27FF3C320091533B /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDE9BBB27FF3C320091533B /* HapticsManager.swift */; };
+		5CE36FD32801829700B9FDFE /* UIViewController+UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE36FD22801829700B9FDFE /* UIViewController+UIAlertController.swift */; };
 		DC8A3203D80CE8E7BB49C3F0 /* Pods_UnsplashLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A73A444BA187A6BD3D27A0A9 /* Pods_UnsplashLibrary.framework */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,7 @@
 		5CC6F8DE27F209C200BB5290 /* Animator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
 		5CD9B44127FE051A003D1438 /* ImagePreviewViewController+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImagePreviewViewController+Constraints.swift"; sourceTree = "<group>"; };
 		5CDE9BBB27FF3C320091533B /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
+		5CE36FD22801829700B9FDFE /* UIViewController+UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+UIAlertController.swift"; sourceTree = "<group>"; };
 		A73A444BA187A6BD3D27A0A9 /* Pods_UnsplashLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnsplashLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -158,6 +160,7 @@
 				5C8B868427EA321B00FD7333 /* Helpers.swift */,
 				5C8688BB27EF6F8900324751 /* UIColor+Extension.swift */,
 				5C8688BD27EF795300324751 /* Collection+Extension.swift */,
+				5CE36FD22801829700B9FDFE /* UIViewController+UIAlertController.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -175,9 +178,9 @@
 		5CA07B4927E61B48002DA6C2 /* Photo screen */ = {
 			isa = PBXGroup;
 			children = (
+				5CAF869F28008CCD0023F782 /* PhotoSearchPresenter.swift */,
 				5CA07B2F27E5CBBA002DA6C2 /* PhotosSearchViewController.swift */,
 				5CA07B4727E61B0A002DA6C2 /* PhotoSearchCollectionViewCell.swift */,
-				5CAF869F28008CCD0023F782 /* PhotoSearchPresenter.swift */,
 				5C8DE1ED27F375BC001119CD /* ImagePreviewViewController.swift */,
 				5C1135DF27F9909C00B0621F /* ActivityControllerButton.swift */,
 				5CD9B44127FE051A003D1438 /* ImagePreviewViewController+Constraints.swift */,
@@ -339,6 +342,7 @@
 				5C8688BC27EF6F8900324751 /* UIColor+Extension.swift in Sources */,
 				5CA07B4F27E62D6E002DA6C2 /* PhotoData.swift in Sources */,
 				5C8B867F27EA204A00FD7333 /* DataBaseManager.swift in Sources */,
+				5CE36FD32801829700B9FDFE /* UIViewController+UIAlertController.swift in Sources */,
 				5C8688BE27EF795300324751 /* Collection+Extension.swift in Sources */,
 				5C00F48C27FB4B1800E01697 /* ImageZoomView.swift in Sources */,
 				5CA07B4C27E627F3002DA6C2 /* NetworkService.swift in Sources */,

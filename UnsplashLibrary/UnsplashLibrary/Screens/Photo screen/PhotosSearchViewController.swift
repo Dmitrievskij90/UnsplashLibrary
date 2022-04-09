@@ -9,27 +9,14 @@ import UIKit
 import CoreData
 
 class PhotosSearchViewController: UIViewController {
-    private var selecetedPhotoCountDescription: String {
-        switch selectedPhotos.count {
-        case 1:
-            return " \(selectedPhotos.count) photo"
-        case (let count) where count > 1:
-            return " \(selectedPhotos.count) photos"
-        default:
-            return " \(selectedPhotos.count) photo"
-        }
-    }
-
     private(set) var selectedImage: UIImageView!
     private let animator = Animator()
-    private var timer: Timer?
     private var photos = [PhotoModel]()
     private var selectedPhotos = [UIImage]()
-    private let dataManager = DataBaseManager()
 
     lazy var presenter = PhotoSearchPresenter(view: self)
 
-     lazy var collectionView: UICollectionView = {
+    private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
@@ -40,7 +27,7 @@ class PhotosSearchViewController: UIViewController {
         return collectionView
     }()
 
-     lazy var acrivityIndicator: UIActivityIndicatorView = {
+     private lazy var acrivityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .medium)
         indicator.color = .lightGray
         indicator.hidesWhenStopped = true
@@ -55,7 +42,6 @@ class PhotosSearchViewController: UIViewController {
     }()
 
     private let searhController = UISearchController(searchResultsController: nil)
-    private let networkService = NetworkService()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,30 +89,19 @@ class PhotosSearchViewController: UIViewController {
         saveBarButtonItem.isEnabled = selectedPhotos.count > 0
     }
 
-    private func refresh() {
-        selectedPhotos.removeAll()
-        photos.indices.forEach { photos[$0].isSelected = false }
-        collectionView.selectItem(at: nil, animated: true, scrollPosition: [])
-        collectionView.reloadData()
-        undatesaveBarButton()
-    }
 
     @objc private func saveBarButtonTapped() {
-        let alertController = UIAlertController(title: "Add to favorites?", message: "\(selecetedPhotoCountDescription) will be added", preferredStyle: .alert)
+        let alertController = createAlertController(type: .add, array: selectedPhotos)
         let addAction = UIAlertAction(title: "Add", style: .default) { _ in
-            self.savePhotos()
+            self.presenter.savePhotos(images: self.selectedPhotos)
         }
-        let cancelAction = UIAlertAction(title: "Dismiss", style: .destructive) { _ in
+        let cancelAction = UIAlertAction(title: "Undo", style: .destructive) { _ in
             self.refresh()
         }
+
         alertController.addAction(addAction)
         alertController.addAction(cancelAction)
         present(alertController, animated: true)
-    }
-
-    private func savePhotos() {
-        dataManager.save(images: selectedPhotos)
-        refresh()
     }
 
     @objc func handleLongPress(gesture : UILongPressGestureRecognizer!) {
@@ -138,7 +113,7 @@ class PhotosSearchViewController: UIViewController {
         if let indexPath = self.collectionView.indexPathForItem(at: point) {
             guard let cell = self.collectionView.cellForItem(at: indexPath) as?  PhotoSearchCollectionViewCell else { return }
             self.selectedImage = cell.imageView
-            let photo = presenter.photos[indexPath.item].imageURL
+            let photo = photos[indexPath.item].imageURL
 
             HapticsManager.shared.vibrate(for: .success)
 
@@ -158,8 +133,7 @@ class PhotosSearchViewController: UIViewController {
 
 extension PhotosSearchViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return photos.count
-        return presenter.photos.count
+        return photos.count
     }
 
 
@@ -167,7 +141,7 @@ extension PhotosSearchViewController: UICollectionViewDelegate, UICollectionView
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoSearchCollectionViewCell.identifier, for: indexPath) as? PhotoSearchCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.data = presenter.photos[indexPath.item]
+        cell.data = photos[indexPath.item]
         return cell
     }
 
@@ -190,12 +164,12 @@ extension PhotosSearchViewController: UICollectionViewDelegate, UICollectionView
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         HapticsManager.shared.selection()
-        let cell = collectionView.cellForItem(at: indexPath) as! PhotoSearchCollectionViewCell
-        guard let image = cell.imageView.image else { return }
+        guard let cell = collectionView.cellForItem(at: indexPath) as? PhotoSearchCollectionViewCell,
+        let image = cell.imageView.image else { return }
         selectedPhotos.update(image)
         undatesaveBarButton()
 
-        presenter.photos[indexPath.item].isSelected.toggle()
+        photos[indexPath.item].isSelected.toggle()
         collectionView.reloadItems(at: [indexPath])
     }
 }
@@ -203,25 +177,7 @@ extension PhotosSearchViewController: UICollectionViewDelegate, UICollectionView
 extension PhotosSearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         acrivityIndicator.startAnimating()
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
-            self.presenter.searchPhotos(with: searchText)
-            self.refresh()
-//            self.networkService.searchPhoto(searchTerm: searchText) { [weak self] result, error in
-//                if let err = error {
-//                    print("we hawe probler", err)
-//                }
-//
-//                if let saveData = result?.results {
-//                    self?.photos = saveData.compactMap { PhotoModel(imageURL: $0.urls.regular)}
-//                    DispatchQueue.main.async {
-//                        self?.acrivityIndicator.stopAnimating()
-//                        self?.collectionView.reloadData()
-//                        self?.refresh()
-//                    }
-//                }
-//            }
-        })
+        presenter.searchPhotos(with: searchText)
     }
 }
 
@@ -238,3 +194,20 @@ extension PhotosSearchViewController: UIViewControllerTransitioningDelegate {
     }
 }
 
+extension PhotosSearchViewController: PhotoSearchPresenterProtocol {
+    func refresh() {
+        selectedPhotos.removeAll()
+        photos.indices.forEach { photos[$0].isSelected = false }
+        collectionView.selectItem(at: nil, animated: true, scrollPosition: [])
+        collectionView.reloadData()
+        undatesaveBarButton()
+    }
+
+    func setPhotos(photos: [PhotoModel]) {
+        self.photos = photos
+        collectionView.reloadData()
+        acrivityIndicator.stopAnimating()
+    }
+
+
+}

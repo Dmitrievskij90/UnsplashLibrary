@@ -7,41 +7,45 @@
 
 import UIKit
 
-protocol PhotoSearchPresenterProtocol {
-    var photos: [PhotoModel] { get set }
-    var selectedPhotos: [UIImage] { get set }
-    var dataManager: DataBaseManager { get }
-    var networkService: NetworkService { get }
+protocol PhotoSearchPresenterProtocol: AnyObject {
+    func setPhotos(photos: [PhotoModel])
+    func refresh()
+
 }
 
-class PhotoSearchPresenter: PhotoSearchPresenterProtocol {
-    var photos = [PhotoModel]()
+class PhotoSearchPresenter {
     var selectedPhotos = [UIImage]()
     let dataManager = DataBaseManager()
     let networkService = NetworkService()
+    private var timer: Timer?
 
+    weak var view: PhotoSearchPresenterProtocol?
 
-    weak var view: PhotosSearchViewController?
-
-    init(view: PhotosSearchViewController) {
+    init(view: PhotoSearchPresenterProtocol) {
         self.view = view
     }
 
     func searchPhotos(with searchText: String) {
-        self.networkService.searchPhoto(searchTerm: searchText) { [weak self] result, error in
-            if let err = error {
-                print("we hawe probler", err)
-            }
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
+            self.networkService.searchPhoto(searchTerm: searchText) { [weak self] result, error in
+                if let err = error {
+                    print("we hawe probler", err)
+                }
 
-            if let saveData = result?.results {
-                self?.photos = saveData.compactMap { PhotoModel(imageURL: $0.urls.regular)}
-                DispatchQueue.main.async {
-                    self?.view?.acrivityIndicator.stopAnimating()
-                    self?.view?.collectionView.reloadData()
-//                    self?.refresh()
+                if let saveData = result?.results {
+                    let photos = saveData.compactMap { PhotoModel(imageURL: $0.urls.regular)}
+                    DispatchQueue.main.async {
+                        self?.view?.setPhotos(photos: photos)
+                        self?.view?.refresh()
+                    }
                 }
             }
-        }
+        })
     }
 
+    func savePhotos(images: [UIImage]) {
+        dataManager.save(images: images)
+        view?.refresh()
+    }
 }
