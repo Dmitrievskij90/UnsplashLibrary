@@ -9,7 +9,7 @@ import UIKit
 import CoreData
 
 class FavouritePhotoViewController: UIViewController {
-    private(set) var selectedImage: UIImageView!
+    var selectedImage: UIImageView!
     private var fetchResultController: NSFetchedResultsController<FavouritePhoto>!
     private var selectedPhotos = [FavouritePhoto]()
     private let dataManager = DataBaseManager()
@@ -189,9 +189,7 @@ extension FavouritePhotoViewController: UICollectionViewDelegate, UICollectionVi
 
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavouritePhotoCell.identifier, for: indexPath) as? FavouritePhotoCell else {
-            return UICollectionViewCell()
-        }
+        let cell = collectionView.dequeueReusableCell(withClass: FavouritePhotoCell.self, for: indexPath)
         let photo = fetchResultController.object(at: indexPath)
         cell.data = photo
         return cell

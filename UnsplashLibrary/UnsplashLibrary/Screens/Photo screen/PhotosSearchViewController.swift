@@ -9,12 +9,11 @@ import UIKit
 import CoreData
 
 class PhotosSearchViewController: UIViewController {
-    private(set) var selectedImage: UIImageView!
+    var selectedImage: UIImageView!
     private let animator = Animator()
     private var photos = [PhotoModel]()
     private var selectedPhotos = [UIImage]()
-
-    lazy var presenter = PhotoSearchPresenter(view: self)
+    private lazy var presenter = PhotoSearchPresenter(view: self)
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -140,9 +139,7 @@ extension PhotosSearchViewController: UICollectionViewDelegate, UICollectionView
 
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoSearchCollectionViewCell.identifier, for: indexPath) as? PhotoSearchCollectionViewCell else {
-            return UICollectionViewCell()
-        }
+        let cell = collectionView.dequeueReusableCell(withClass: PhotoSearchCollectionViewCell.self, for: indexPath)
         cell.data = photos[indexPath.item]
         return cell
     }
@@ -216,6 +213,4 @@ extension PhotosSearchViewController: PhotoSearchPresenterProtocol {
         collectionView.reloadData()
         acrivityIndicator.stopAnimating()
     }
-
-
 }

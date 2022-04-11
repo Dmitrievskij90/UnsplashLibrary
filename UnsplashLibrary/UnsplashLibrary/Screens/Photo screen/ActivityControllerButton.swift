@@ -17,8 +17,8 @@ class ActivityControllerButton: UIButton {
                 }
             } else {
                 UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut) {
-                    self.accessoryImageView.tintColor = .darkGray
-                    self.label.textColor = .darkGray
+                    self.accessoryImageView.tintColor = .black
+                    self.label.textColor = .black
                 }
             }
         }
@@ -26,14 +26,14 @@ class ActivityControllerButton: UIButton {
 
     private var label: UILabel = {
         let label = UILabel()
-        label.textColor = .darkGray
+        label.textColor = .black
         return label
     }()
 
     private let accessoryImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.tintColor = .darkGray
+        imageView.tintColor = .black
         return imageView
     }()
     
