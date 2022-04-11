@@ -19,6 +19,8 @@
 		5C8B868527EA321B00FD7333 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8B868427EA321B00FD7333 /* Helpers.swift */; };
 		5C8DE1EE27F375BC001119CD /* ImagePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8DE1ED27F375BC001119CD /* ImagePreviewViewController.swift */; };
 		5C926BBE28047B7B00D807DC /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C926BBD28047B7B00D807DC /* UICollectionView+Extension.swift */; };
+		5C926BC82804840A00D807DC /* PhotosSearchViewController+Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C926BC72804840A00D807DC /* PhotosSearchViewController+Animator.swift */; };
+		5C926BCA2804847700D807DC /* FavouritePhotoViewController+Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C926BC92804847700D807DC /* FavouritePhotoViewController+Animator.swift */; };
 		5CA07B2C27E5CBBA002DA6C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA07B2B27E5CBBA002DA6C2 /* AppDelegate.swift */; };
 		5CA07B2E27E5CBBA002DA6C2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA07B2D27E5CBBA002DA6C2 /* SceneDelegate.swift */; };
 		5CA07B3027E5CBBA002DA6C2 /* PhotosSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA07B2F27E5CBBA002DA6C2 /* PhotosSearchViewController.swift */; };
@@ -55,6 +57,8 @@
 		5C8B868427EA321B00FD7333 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		5C8DE1ED27F375BC001119CD /* ImagePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewViewController.swift; sourceTree = "<group>"; };
 		5C926BBD28047B7B00D807DC /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
+		5C926BC72804840A00D807DC /* PhotosSearchViewController+Animator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotosSearchViewController+Animator.swift"; sourceTree = "<group>"; };
+		5C926BC92804847700D807DC /* FavouritePhotoViewController+Animator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavouritePhotoViewController+Animator.swift"; sourceTree = "<group>"; };
 		5CA07B2827E5CBBA002DA6C2 /* UnsplashLibrary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnsplashLibrary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CA07B2B27E5CBBA002DA6C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5CA07B2D27E5CBBA002DA6C2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -175,6 +179,16 @@
 			path = "Supporting files";
 			sourceTree = "<group>";
 		};
+		5C926BC62804839E00D807DC /* UIViewController custom transition */ = {
+			isa = PBXGroup;
+			children = (
+				5CC6F8DE27F209C200BB5290 /* Animator.swift */,
+				5C926BC72804840A00D807DC /* PhotosSearchViewController+Animator.swift */,
+				5C926BC92804847700D807DC /* FavouritePhotoViewController+Animator.swift */,
+			);
+			path = "UIViewController custom transition";
+			sourceTree = "<group>";
+		};
 		5CA07B1F27E5CBBA002DA6C2 = {
 			isa = PBXGroup;
 			children = (
@@ -243,8 +257,8 @@
 			isa = PBXGroup;
 			children = (
 				5C926BC228047D7300D807DC /* NetworkService */,
+				5C926BC62804839E00D807DC /* UIViewController custom transition */,
 				5C8B867E27EA204A00FD7333 /* DataBaseManager.swift */,
-				5CC6F8DE27F209C200BB5290 /* Animator.swift */,
 				5CDE9BBB27FF3C320091533B /* HapticsManager.swift */,
 			);
 			path = Service;
@@ -391,11 +405,13 @@
 				5C00F48C27FB4B1800E01697 /* ImageZoomView.swift in Sources */,
 				5CA07B4C27E627F3002DA6C2 /* NetworkService.swift in Sources */,
 				5CA07B2C27E5CBBA002DA6C2 /* AppDelegate.swift in Sources */,
+				5C926BC82804840A00D807DC /* PhotosSearchViewController+Animator.swift in Sources */,
 				5CA07B4227E615DF002DA6C2 /* FavouritePhotoViewController.swift in Sources */,
 				5CA07B4827E61B0A002DA6C2 /* PhotoSearchCollectionViewCell.swift in Sources */,
 				5CA07B4027E6144C002DA6C2 /* MainTabBarController.swift in Sources */,
 				5C8688B527EF234E00324751 /* FavouritePhoto+CoreDataProperties.swift in Sources */,
 				5C8DE1EE27F375BC001119CD /* ImagePreviewViewController.swift in Sources */,
+				5C926BCA2804847700D807DC /* FavouritePhotoViewController+Animator.swift in Sources */,
 				5C8B868527EA321B00FD7333 /* Helpers.swift in Sources */,
 				5CAE98CB27E76BE800A41770 /* PhotoModel.swift in Sources */,
 				5CA07B2E27E5CBBA002DA6C2 /* SceneDelegate.swift in Sources */,

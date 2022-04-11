@@ -10,7 +10,6 @@ import CoreData
 
 class PhotosSearchViewController: UIViewController {
     var selectedImage: UIImageView!
-    private let animator = Animator()
     private var photos = [PhotoModel]()
     private var selectedPhotos = [UIImage]()
     private lazy var presenter = PhotoSearchPresenter(view: self)
@@ -179,21 +178,6 @@ extension PhotosSearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         acrivityIndicator.startAnimating()
         presenter.searchPhotos(with: searchText)
-    }
-}
-
-// MARK: - UIViewControllerTransitioningDelegate methods
-// MARK: -
-extension PhotosSearchViewController: UIViewControllerTransitioningDelegate {
-    func animationController( forPresented _: UIViewController, presenting _: UIViewController, source _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        animator.originFrame = selectedImage.superview!.convert(selectedImage.frame, to: nil)
-        animator.presenting = true
-        return animator
-    }
-
-    func animationController(forDismissed _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        animator.presenting = false
-        return animator
     }
 }
 

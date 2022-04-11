@@ -13,7 +13,6 @@ class FavouritePhotoViewController: UIViewController {
     private var fetchResultController: NSFetchedResultsController<FavouritePhoto>!
     private var selectedPhotos = [FavouritePhoto]()
     private let dataManager = DataBaseManager()
-    private let animator = Animator()
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -245,19 +244,5 @@ extension FavouritePhotoViewController: NSFetchedResultsControllerDelegate {
         default:
             break
         }
-    }
-}
-
-//MARK:- UIViewControllerTransitioningDelegate
-extension FavouritePhotoViewController: UIViewControllerTransitioningDelegate {
-    func animationController( forPresented _: UIViewController, presenting _: UIViewController, source _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        animator.originFrame = selectedImage.superview!.convert(selectedImage.frame, to: nil)
-        animator.presenting = true
-        return animator
-    }
-
-    func animationController(forDismissed _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        animator.presenting = false
-        return animator
     }
 }
