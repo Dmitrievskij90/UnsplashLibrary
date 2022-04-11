@@ -13,7 +13,7 @@ class PhotosSearchViewController: UIViewController {
     private var photos = [PhotoModel]()
     private var selectedPhotos = [UIImage]()
     private lazy var presenter = PhotoSearchPresenter(view: self)
-
+    
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -24,59 +24,63 @@ class PhotosSearchViewController: UIViewController {
         collectionView.delegate = self
         return collectionView
     }()
-
+    
     private lazy var acrivityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .medium)
         indicator.color = .lightGray
         indicator.hidesWhenStopped = true
         return indicator
     }()
-
+    
     private lazy var saveBarButtonItem: UIBarButtonItem = {
         let button = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveBarButtonTapped))
         button.isEnabled = false
         button.tintColor = .white
         return button
     }()
-
+    
     private let searhController = UISearchController(searchResultsController: nil)
-
+    
+    // MARK: - Lificycle methods
+    // MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
-
+        
         let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
         longPressGestureRecognizer.minimumPressDuration = 0.3
         collectionView.addGestureRecognizer(longPressGestureRecognizer)
-
+        
     }
-
+    
     override func loadView() {
         let view = UIView(frame: UIScreen.main.bounds)
         view.backgroundColor = .black
         self.view = view
-
+        
         view.addSubview(collectionView)
         view.addSubview(acrivityIndicator)
         setupSearchBar()
-
+        
         navigationItem.rightBarButtonItem = saveBarButtonItem
     }
-
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         collectionView.frame =  view.frame
-
+        
         acrivityIndicator.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
     }
-
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         collectionView.collectionViewLayout.invalidateLayout()
         super.viewWillTransition(to: size, with: coordinator)
     }
-
+    
+    // MARK: - setup UI methods
+    // MARK: -
     private func setupSearchBar() {
         definesPresentationContext = true
         navigationItem.searchController = self.searhController
@@ -87,12 +91,13 @@ class PhotosSearchViewController: UIViewController {
         searhController.searchBar.tintColor = .white
         searhController.searchBar.delegate = self
     }
-
+    
     private func undatesaveBarButton() {
         saveBarButtonItem.isEnabled = selectedPhotos.count > 0
     }
-
-
+    
+    // MARK: - Actions
+    // MARK: -
     @objc private func saveBarButtonTapped() {
         let alertController = createAlertController(type: .add, array: selectedPhotos)
         let addAction = UIAlertAction(title: "Add", style: .default) { _ in
@@ -101,26 +106,26 @@ class PhotosSearchViewController: UIViewController {
         let cancelAction = UIAlertAction(title: "Undo", style: .destructive) { _ in
             self.refresh()
         }
-
+        
         alertController.addAction(addAction)
         alertController.addAction(cancelAction)
         present(alertController, animated: true)
     }
-
+    
     @objc func handleLongPress(gesture : UILongPressGestureRecognizer!) {
         if gesture.state != .ended {
             return
         }
         let point = gesture.location(in: self.collectionView)
-
+        
         guard let indexPath = self.collectionView.indexPathForItem(at: point),
               let cell = self.collectionView.cellForItem(at: indexPath) as?  PhotoSearchCollectionViewCell else { return }
         self.selectedImage = cell.imageView
         let photo = photos[indexPath.item].imageURL
-
+        
         presentImagePreviewController(with: photo)
     }
-
+    
     private func presentImagePreviewController(with image: String) {
         HapticsManager.shared.vibrate(for: .success)
         let destinationVC = ImagePreviewViewController(image: image)
@@ -135,18 +140,18 @@ extension PhotosSearchViewController: UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photos.count
     }
-
-
+    
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withClass: PhotoSearchCollectionViewCell.self, for: indexPath)
         cell.data = photos[indexPath.item]
         return cell
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 5
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let orientation = UIDevice.current.orientation
         if orientation.isLandscape {
@@ -155,18 +160,18 @@ extension PhotosSearchViewController: UICollectionViewDelegate, UICollectionView
             return CGSize(width: (view.frame.width / 2) - 10, height: (view.frame.width / 2))
         }
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return .init(top: 0, left: 5, bottom: 0, right: 5)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         HapticsManager.shared.selection()
         guard let cell = collectionView.cellForItem(at: indexPath) as? PhotoSearchCollectionViewCell,
               let image = cell.imageView.image else { return }
         selectedPhotos.update(image)
         undatesaveBarButton()
-
+        
         photos[indexPath.item].isSelected.toggle()
         collectionView.reloadItems(at: [indexPath])
     }
@@ -191,7 +196,7 @@ extension PhotosSearchViewController: PhotoSearchPresenterProtocol {
         collectionView.reloadData()
         undatesaveBarButton()
     }
-
+    
     func setPhotos(photos: [PhotoModel]) {
         self.photos = photos
         collectionView.reloadData()

@@ -52,6 +52,17 @@ class FavouritePhotoViewController: UIViewController {
         super.viewDidLoad()
     }
 
+    override func loadView() {
+        let view = UIView(frame: UIScreen.main.bounds)
+        view.backgroundColor = .black
+        self.view = view
+
+        navigationItem.rightBarButtonItems = [deleteBarButtonItem, selectBarButtonItem]
+        navigationItem.leftBarButtonItem = shareBarButtonItem
+
+        view.addSubview(collectionView)
+    }
+
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         collectionView.frame = view.frame
@@ -68,15 +79,9 @@ class FavouritePhotoViewController: UIViewController {
         refresh()
     }
 
-    override func loadView() {
-        let view = UIView(frame: UIScreen.main.bounds)
-        view.backgroundColor = .black
-        self.view = view
-
-        navigationItem.rightBarButtonItems = [deleteBarButtonItem, selectBarButtonItem]
-        navigationItem.leftBarButtonItem = shareBarButtonItem
-
-        view.addSubview(collectionView)
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        collectionView.collectionViewLayout.invalidateLayout()
+        super.viewWillTransition(to: size, with: coordinator)
     }
 
     // MARK: - CoreData methods
@@ -157,7 +162,6 @@ class FavouritePhotoViewController: UIViewController {
         deleteBarButtonItem.tintColor = .init(hex: 0xF900BF)
         shareBarButtonItem.isEnabled.toggle()
         shareBarButtonItem.tintColor = .init(hex: 0xFFF56D)
-//        FFF56D
     }
 
     @objc func shareButtonTapped(sender: UIBarButtonItem) {
@@ -170,11 +174,6 @@ class FavouritePhotoViewController: UIViewController {
         shareController.popoverPresentationController?.barButtonItem = sender
         shareController.popoverPresentationController?.permittedArrowDirections = .any
         present(shareController, animated: true, completion: nil)
-    }
-
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        collectionView.collectionViewLayout.invalidateLayout()
-        super.viewWillTransition(to: size, with: coordinator)
     }
 }
 
