@@ -27,7 +27,7 @@ class PhotosSearchViewController: UIViewController {
         return collectionView
     }()
 
-     private lazy var acrivityIndicator: UIActivityIndicatorView = {
+    private lazy var acrivityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .medium)
         indicator.color = .lightGray
         indicator.hidesWhenStopped = true
@@ -74,6 +74,11 @@ class PhotosSearchViewController: UIViewController {
         }
     }
 
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        collectionView.collectionViewLayout.invalidateLayout()
+        super.viewWillTransition(to: size, with: coordinator)
+    }
+
     private func setupSearchBar() {
         definesPresentationContext = true
         navigationItem.searchController = self.searhController
@@ -108,29 +113,26 @@ class PhotosSearchViewController: UIViewController {
         if gesture.state != .ended {
             return
         }
-
         let point = gesture.location(in: self.collectionView)
-        if let indexPath = self.collectionView.indexPathForItem(at: point) {
-            guard let cell = self.collectionView.cellForItem(at: indexPath) as?  PhotoSearchCollectionViewCell else { return }
-            self.selectedImage = cell.imageView
-            let photo = photos[indexPath.item].imageURL
 
-            HapticsManager.shared.vibrate(for: .success)
+        guard let indexPath = self.collectionView.indexPathForItem(at: point),
+              let cell = self.collectionView.cellForItem(at: indexPath) as?  PhotoSearchCollectionViewCell else { return }
+        self.selectedImage = cell.imageView
+        let photo = photos[indexPath.item].imageURL
 
-            let destinationVC = ImagePreviewViewController(image: photo)
-            destinationVC.transitioningDelegate = self
-            present(destinationVC, animated: true, completion: nil)
-        } else {
-            print("couldn't find index path")
-        }
+        presentImagePreviewController(with: photo)
     }
 
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        collectionView.collectionViewLayout.invalidateLayout()
-        super.viewWillTransition(to: size, with: coordinator)
+    private func presentImagePreviewController(with image: String) {
+        HapticsManager.shared.vibrate(for: .success)
+        let destinationVC = ImagePreviewViewController(image: image)
+        destinationVC.transitioningDelegate = self
+        present(destinationVC, animated: true, completion: nil)
     }
 }
 
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
+// MARK: -
 extension PhotosSearchViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photos.count
@@ -165,7 +167,7 @@ extension PhotosSearchViewController: UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         HapticsManager.shared.selection()
         guard let cell = collectionView.cellForItem(at: indexPath) as? PhotoSearchCollectionViewCell,
-        let image = cell.imageView.image else { return }
+              let image = cell.imageView.image else { return }
         selectedPhotos.update(image)
         undatesaveBarButton()
 
@@ -174,6 +176,8 @@ extension PhotosSearchViewController: UICollectionViewDelegate, UICollectionView
     }
 }
 
+// MARK: - UISearchBarDelegate methods
+// MARK: -
 extension PhotosSearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         acrivityIndicator.startAnimating()
@@ -181,6 +185,8 @@ extension PhotosSearchViewController: UISearchBarDelegate {
     }
 }
 
+// MARK: - UIViewControllerTransitioningDelegate methods
+// MARK: -
 extension PhotosSearchViewController: UIViewControllerTransitioningDelegate {
     func animationController( forPresented _: UIViewController, presenting _: UIViewController, source _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         animator.originFrame = selectedImage.superview!.convert(selectedImage.frame, to: nil)
@@ -194,6 +200,8 @@ extension PhotosSearchViewController: UIViewControllerTransitioningDelegate {
     }
 }
 
+// MARK: - PhotoSearchPresenterProtocol methods
+// MARK: -
 extension PhotosSearchViewController: PhotoSearchPresenterProtocol {
     func refresh() {
         selectedPhotos.removeAll()
