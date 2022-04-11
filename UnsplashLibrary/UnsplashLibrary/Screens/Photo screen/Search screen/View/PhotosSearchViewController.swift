@@ -128,7 +128,8 @@ class PhotosSearchViewController: UIViewController {
     
     private func presentImagePreviewController(with image: String) {
         HapticsManager.shared.vibrate(for: .success)
-        let destinationVC = ImagePreviewViewController(image: image)
+        let imageName = ImagePreviewModel(name: image)
+        let destinationVC = ImagePreviewViewController(imageURL: imageName)
         destinationVC.transitioningDelegate = self
         present(destinationVC, animated: true, completion: nil)
     }

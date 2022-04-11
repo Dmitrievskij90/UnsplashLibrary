@@ -10,7 +10,7 @@ import SDWebImage
 
 class ImagePreviewViewController: UIViewController {
     private let blurVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
-    private let dataManager = DataBaseManager()
+    private lazy var presenter = ImagePreviewPresenter(view: self)
 
      var imageView: UIImageView = {
         let imageView = UIImageView()
@@ -50,10 +50,10 @@ class ImagePreviewViewController: UIViewController {
         return stackView
     }()
 
-    let image: String
+    let imageURL: ImagePreviewModel
 
-    init(image: String) {
-        self.image = image
+    init(imageURL: ImagePreviewModel) {
+        self.imageURL = imageURL
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .overFullScreen
     }
@@ -70,7 +70,7 @@ class ImagePreviewViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        imageView.sd_setImage(with: URL(string: image))
+        imageView.sd_setImage(with: URL(string: imageURL.name))
         remakeConstraints()
     }
 
@@ -100,7 +100,7 @@ class ImagePreviewViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 
-    @objc private func shareButtonTapped(sender: UIButton) {
+    @objc private func shareButtonTapped() {
         guard let image = imageView.image else { return }
         let shareController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         shareController.completionWithItemsHandler = { _, success, _, error in
@@ -116,10 +116,12 @@ class ImagePreviewViewController: UIViewController {
     }
 
     @objc private func favouriteButtonTapped() {
-        var imageArray = [UIImage]()
-        guard let image = imageView.image else { return }
-        imageArray.append(image)
-        dataManager.save(images: imageArray)
+        presenter.saveImage(with: imageView)
+    }
+}
+
+extension ImagePreviewViewController: ImagePreviewPresenterProtocol {
+    func dismiss() {
         self.dismiss(animated: true, completion: nil)
     }
 }
