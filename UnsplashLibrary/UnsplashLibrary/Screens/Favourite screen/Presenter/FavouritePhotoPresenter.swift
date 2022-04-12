@@ -15,16 +15,14 @@ protocol FavouritePhotoPresenterProtocol: NSFetchedResultsControllerDelegate {
 
 class FavouritePhotoPresenter {
     weak var view: FavouritePhotoPresenterProtocol?
-    private let dataManager = DataBaseManager()
     var fetchResultController: NSFetchedResultsController<FavouritePhoto>!
     var selectedPhotos = [FavouritePhoto]()
+    private let dataManager = DataBaseManager()
     
     init(view: FavouritePhotoPresenterProtocol) {
         self.view = view
     }
-    
-    // MARK: - CoreData methods
-    // MARK: -
+
     func setupFetchResultController() {
         let fetchRequest: NSFetchRequest<FavouritePhoto> = FavouritePhoto.fetchRequest()
         let sotdDescriptor = NSSortDescriptor(key: #keyPath(FavouritePhoto.dateCreated), ascending: true)
