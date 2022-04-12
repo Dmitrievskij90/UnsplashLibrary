@@ -10,9 +10,8 @@ import CoreData
 
 class FavouritePhotoViewController: UIViewController {
     var selectedImage: UIImageView!
-    private var fetchResultController: NSFetchedResultsController<FavouritePhoto>!
     private var selectedPhotos = [FavouritePhoto]()
-    private let dataManager = DataBaseManager()
+    private lazy var presenter = FavouritePhotoPresenter(view: self)
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -70,8 +69,7 @@ class FavouritePhotoViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupFetchResultController()
-        fetchPhotos()
+        presenter.setupFetchResultController()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -84,44 +82,17 @@ class FavouritePhotoViewController: UIViewController {
         super.viewWillTransition(to: size, with: coordinator)
     }
 
-    // MARK: - CoreData methods
-    // MARK: -
-    private func setupFetchResultController() {
-        let fetchRequest: NSFetchRequest<FavouritePhoto> = FavouritePhoto.fetchRequest()
-        let sotdDescriptor = NSSortDescriptor(key: #keyPath(FavouritePhoto.dateCreated), ascending: true)
-        fetchRequest.sortDescriptors = [sotdDescriptor]
-        fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataManager.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-        fetchResultController.delegate = self
-    }
-
-    private func fetchPhotos() {
-        do {
-            try fetchResultController.performFetch()
-        } catch let error {
-            print(error)
-        }
-        collectionView.reloadData()
-    }
-
     // MARK: - Data manipulation methods
     // MARK: -
-    private func refresh() {
-        resetSeletedPhotos()
-        deleteBarButtonItem.isEnabled = false
-        shareBarButtonItem.isEnabled = false
-        selectBarButtonItem.title = "Select"
-    }
-
     private func delete() {
-        dataManager.delete(photos: selectedPhotos)
-        refresh()
+        presenter.deletePhotos(selectedPhotos)
     }
 
     private func resetSeletedPhotos() {
         selectedPhotos.removeAll()
         collectionView.reloadData()
 
-        fetchResultController.fetchedObjects?.indices.forEach { fetchResultController.fetchedObjects?[$0].isSelected = false }
+        presenter.fetchResultController.fetchedObjects?.indices.forEach { presenter.fetchResultController.fetchedObjects?[$0].isSelected = false }
     }
 
     private func getSelectedImages() -> [UIImage] {
@@ -181,14 +152,14 @@ class FavouritePhotoViewController: UIViewController {
 //MARK: -
 extension FavouritePhotoViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let sectionInfo = fetchResultController.sections?[section]
+        let sectionInfo = presenter.fetchResultController.sections?[section]
         return sectionInfo?.numberOfObjects ?? 0
     }
 
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withClass: FavouritePhotoCell.self, for: indexPath)
-        let photo = fetchResultController.object(at: indexPath)
+        let photo = presenter.fetchResultController.object(at: indexPath)
         cell.data = photo
         return cell
     }
@@ -212,7 +183,7 @@ extension FavouritePhotoViewController: UICollectionViewDelegate, UICollectionVi
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         HapticsManager.shared.selection()
-        let photo = fetchResultController.object(at: indexPath)
+        let photo = presenter.fetchResultController.object(at: indexPath)
         if deleteBarButtonItem.isEnabled {
             selectedPhotos.update(photo)
             photo.isSelected.toggle()
@@ -244,4 +215,18 @@ extension FavouritePhotoViewController: NSFetchedResultsControllerDelegate {
             break
         }
     }
+}
+
+extension FavouritePhotoViewController: FavouritePhotoPresenterProtocol {
+    func reloadData() {
+        collectionView.reloadData()
+    }
+
+    func refresh() {
+        resetSeletedPhotos()
+        deleteBarButtonItem.isEnabled = false
+        shareBarButtonItem.isEnabled = false
+        selectBarButtonItem.title = "Select"
+    }
+    
 }

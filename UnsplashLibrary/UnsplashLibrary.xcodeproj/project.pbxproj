@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5C00F48C27FB4B1800E01697 /* ImageZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C00F48B27FB4B1800E01697 /* ImageZoomView.swift */; };
 		5C1135E027F9909C00B0621F /* ActivityControllerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1135DF27F9909C00B0621F /* ActivityControllerButton.swift */; };
+		5C804D972805CBB1001FA017 /* FavouritePhotoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C804D962805CBB1001FA017 /* FavouritePhotoPresenter.swift */; };
 		5C8688B527EF234E00324751 /* FavouritePhoto+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8688B427EF234E00324751 /* FavouritePhoto+CoreDataProperties.swift */; };
 		5C8688BA27EF249500324751 /* FavouritePhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8688B927EF249500324751 /* FavouritePhotoCell.swift */; };
 		5C8688BC27EF6F8900324751 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8688BB27EF6F8900324751 /* UIColor+Extension.swift */; };
@@ -49,6 +50,7 @@
 		44AE869483973A0D47BBD15C /* Pods-UnsplashLibrary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnsplashLibrary.debug.xcconfig"; path = "Target Support Files/Pods-UnsplashLibrary/Pods-UnsplashLibrary.debug.xcconfig"; sourceTree = "<group>"; };
 		5C00F48B27FB4B1800E01697 /* ImageZoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageZoomView.swift; sourceTree = "<group>"; };
 		5C1135DF27F9909C00B0621F /* ActivityControllerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityControllerButton.swift; sourceTree = "<group>"; };
+		5C804D962805CBB1001FA017 /* FavouritePhotoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritePhotoPresenter.swift; sourceTree = "<group>"; };
 		5C8688B427EF234E00324751 /* FavouritePhoto+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FavouritePhoto+CoreDataProperties.swift"; path = "/Users/DmitrievskiyK/Desktop/Dev/Repositories/UnsplashLibrary/UnsplashLibrary/UnsplashLibrary/UnsplashLibrary/DataBaseManager/FavouritePhoto+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		5C8688B927EF249500324751 /* FavouritePhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritePhotoCell.swift; sourceTree = "<group>"; };
 		5C8688BB27EF6F8900324751 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
@@ -106,25 +108,83 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		5C8688B827EF243A00324751 /* FavouritePhoto screen */ = {
+		5C804D8E2805CA68001FA017 /* FavouritePhotos screen */ = {
+			isa = PBXGroup;
+			children = (
+				5C804D902805CB0C001FA017 /* Model */,
+				5C804D8F2805CAF7001FA017 /* View */,
+				5C804D912805CB16001FA017 /* Presenter */,
+			);
+			path = "FavouritePhotos screen";
+			sourceTree = "<group>";
+		};
+		5C804D8F2805CAF7001FA017 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				5CA07B4127E615DF002DA6C2 /* FavouritePhotoViewController.swift */,
 				5C8688B927EF249500324751 /* FavouritePhotoCell.swift */,
-				5CC6F8DC27F2061400BB5290 /* ImageDetailsViewController.swift */,
-				5C00F48B27FB4B1800E01697 /* ImageZoomView.swift */,
 			);
-			path = "FavouritePhoto screen";
+			path = View;
 			sourceTree = "<group>";
 		};
-		5C8B867D27EA1FEE00FD7333 /* DataBaseManager */ = {
+		5C804D902805CB0C001FA017 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				5C8688B427EF234E00324751 /* FavouritePhoto+CoreDataProperties.swift */,
 				5C8B868227EA2F3700FD7333 /* FavouritePhoto+CoreDataClass.swift */,
 				5C8B867627EA1F5700FD7333 /* Model.xcdatamodeld */,
 			);
-			path = DataBaseManager;
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5C804D912805CB16001FA017 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				5C804D962805CBB1001FA017 /* FavouritePhotoPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		5C804D922805CB30001FA017 /* ImageDetails screen */ = {
+			isa = PBXGroup;
+			children = (
+				5C804D942805CB50001FA017 /* Model */,
+				5C804D932805CB48001FA017 /* View */,
+				5C804D952805CB56001FA017 /* Presenter */,
+			);
+			path = "ImageDetails screen";
+			sourceTree = "<group>";
+		};
+		5C804D932805CB48001FA017 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5CC6F8DC27F2061400BB5290 /* ImageDetailsViewController.swift */,
+				5C00F48B27FB4B1800E01697 /* ImageZoomView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5C804D942805CB50001FA017 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5C804D952805CB56001FA017 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		5C8688B827EF243A00324751 /* Favourite screen */ = {
+			isa = PBXGroup;
+			children = (
+				5C804D8E2805CA68001FA017 /* FavouritePhotos screen */,
+				5C804D922805CB30001FA017 /* ImageDetails screen */,
+			);
+			path = "Favourite screen";
 			sourceTree = "<group>";
 		};
 		5C926BBF28047C1B00D807DC /* Model */ = {
@@ -260,7 +320,6 @@
 				5CA07B4A27E627DC002DA6C2 /* Service */,
 				5CA07B4327E61A92002DA6C2 /* Helpers */,
 				5CA07B4627E61AE9002DA6C2 /* Screens */,
-				5C8B867D27EA1FEE00FD7333 /* DataBaseManager */,
 				5C926BC428047E7000D807DC /* Supporting files */,
 				5CA07B3927E5CBBD002DA6C2 /* Info.plist */,
 			);
@@ -285,7 +344,7 @@
 			children = (
 				5C926BC328047DEC00D807DC /* MainTabBarScreen */,
 				5CA07B4927E61B48002DA6C2 /* Photo screen */,
-				5C8688B827EF243A00324751 /* FavouritePhoto screen */,
+				5C8688B827EF243A00324751 /* Favourite screen */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -438,6 +497,7 @@
 				5CC6F8DF27F209C200BB5290 /* Animator.swift in Sources */,
 				5C926BCC280487A000D807DC /* ImagePreviewPresenter.swift in Sources */,
 				5CC6F8DD27F2061400BB5290 /* ImageDetailsViewController.swift in Sources */,
+				5C804D972805CBB1001FA017 /* FavouritePhotoPresenter.swift in Sources */,
 				5CDE9BBC27FF3C320091533B /* HapticsManager.swift in Sources */,
 				5CA07B4527E61AA7002DA6C2 /* UIView+Extension.swift in Sources */,
 				5C8B868327EA2F3700FD7333 /* FavouritePhoto+CoreDataClass.swift in Sources */,
