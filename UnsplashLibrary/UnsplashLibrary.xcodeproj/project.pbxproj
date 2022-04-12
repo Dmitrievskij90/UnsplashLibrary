@@ -108,21 +108,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		5C804D8E2805CA68001FA017 /* FavouritePhotos screen */ = {
-			isa = PBXGroup;
-			children = (
-				5C804D902805CB0C001FA017 /* Model */,
-				5C804D8F2805CAF7001FA017 /* View */,
-				5C804D912805CB16001FA017 /* Presenter */,
-			);
-			path = "FavouritePhotos screen";
-			sourceTree = "<group>";
-		};
 		5C804D8F2805CAF7001FA017 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				5CA07B4127E615DF002DA6C2 /* FavouritePhotoViewController.swift */,
 				5C8688B927EF249500324751 /* FavouritePhotoCell.swift */,
+				5CC6F8DC27F2061400BB5290 /* ImageDetailsViewController.swift */,
+				5C00F48B27FB4B1800E01697 /* ImageZoomView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -145,44 +137,12 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
-		5C804D922805CB30001FA017 /* ImageDetails screen */ = {
-			isa = PBXGroup;
-			children = (
-				5C804D942805CB50001FA017 /* Model */,
-				5C804D932805CB48001FA017 /* View */,
-				5C804D952805CB56001FA017 /* Presenter */,
-			);
-			path = "ImageDetails screen";
-			sourceTree = "<group>";
-		};
-		5C804D932805CB48001FA017 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				5CC6F8DC27F2061400BB5290 /* ImageDetailsViewController.swift */,
-				5C00F48B27FB4B1800E01697 /* ImageZoomView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		5C804D942805CB50001FA017 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		5C804D952805CB56001FA017 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
 		5C8688B827EF243A00324751 /* Favourite screen */ = {
 			isa = PBXGroup;
 			children = (
-				5C804D8E2805CA68001FA017 /* FavouritePhotos screen */,
-				5C804D922805CB30001FA017 /* ImageDetails screen */,
+				5C804D902805CB0C001FA017 /* Model */,
+				5C804D8F2805CAF7001FA017 /* View */,
+				5C804D912805CB16001FA017 /* Presenter */,
 			);
 			path = "Favourite screen";
 			sourceTree = "<group>";
@@ -317,8 +277,8 @@
 		5CA07B2A27E5CBBA002DA6C2 /* UnsplashLibrary */ = {
 			isa = PBXGroup;
 			children = (
-				5CA07B4A27E627DC002DA6C2 /* Service */,
 				5CA07B4327E61A92002DA6C2 /* Helpers */,
+				5CA07B4A27E627DC002DA6C2 /* Service */,
 				5CA07B4627E61AE9002DA6C2 /* Screens */,
 				5C926BC428047E7000D807DC /* Supporting files */,
 				5CA07B3927E5CBBD002DA6C2 /* Info.plist */,

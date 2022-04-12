@@ -227,5 +227,4 @@ extension FavouritePhotoViewController: FavouritePhotoPresenterProtocol {
         shareBarButtonItem.isEnabled = false
         selectBarButtonItem.title = "Select"
     }
-    
 }

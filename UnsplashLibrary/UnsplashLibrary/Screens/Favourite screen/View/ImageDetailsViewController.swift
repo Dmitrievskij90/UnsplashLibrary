@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class ImageDetailsViewController: UIViewController {
     lazy var imageZoomView: ImageZoomView = {
         let imageView = ImageZoomView(frame: view.bounds)
