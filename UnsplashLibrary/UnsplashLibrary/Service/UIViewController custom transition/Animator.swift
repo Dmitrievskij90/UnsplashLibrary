@@ -8,6 +8,7 @@
 import UIKit
 
 final class Animator: NSObject {
+    static var shared = Animator()
     var originFrame = CGRect()
     var presenting = true
     private let duration: TimeInterval = 1
@@ -57,7 +58,7 @@ extension Animator: UIViewControllerAnimatedTransitioning {
 
         guard let imageContainer = transitionContext.viewController(forKey: presenting ? .to : .from) else {return}
 
-        //2) Animate!
+        //2) Animate
         UIView.animate(
             withDuration: duration,
             delay: 0,
@@ -75,4 +76,3 @@ extension Animator: UIViewControllerAnimatedTransitioning {
         )
     }
 }
-

@@ -9,22 +9,8 @@ import UIKit
 import CoreData
 
 class FavouritePhotoViewController: UIViewController {
-    private var selecetedPhotoCountDescription: String {
-        switch selectedPhotos.count {
-        case 1:
-            return " \(selectedPhotos.count) photo"
-        case (let count) where count > 1:
-            return " \(selectedPhotos.count) photos"
-        default:
-            return " \(selectedPhotos.count) photo"
-        }
-    }
-
-    private(set) var selectedImage: UIImageView!
-    private var fetchResultController: NSFetchedResultsController<FavouritePhoto>!
-    private var selectedPhotos = [FavouritePhoto]()
-    private let dataManager = DataBaseManager()
-    private let animator = Animator()
+    var selectedImage: UIImageView!
+    private lazy var presenter = FavouritePhotoPresenter(view: self)
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -64,22 +50,6 @@ class FavouritePhotoViewController: UIViewController {
         super.viewDidLoad()
     }
 
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        collectionView.frame = view.frame
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setupFetchResultController()
-        fetchPhotos()
-    }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        refresh()
-    }
-
     override func loadView() {
         let view = UIView(frame: UIScreen.main.bounds)
         view.backgroundColor = .black
@@ -91,49 +61,39 @@ class FavouritePhotoViewController: UIViewController {
         view.addSubview(collectionView)
     }
 
-    // MARK: - CoreData methods
-    // MARK: -
-    private func setupFetchResultController() {
-        let fetchRequest: NSFetchRequest<FavouritePhoto> = FavouritePhoto.fetchRequest()
-        let sotdDescriptor = NSSortDescriptor(key: #keyPath(FavouritePhoto.dateCreated), ascending: true)
-        fetchRequest.sortDescriptors = [sotdDescriptor]
-        fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataManager.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-        fetchResultController.delegate = self
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        collectionView.frame = view.frame
     }
 
-    private func fetchPhotos() {
-        do {
-            try fetchResultController.performFetch()
-        } catch let error {
-            print(error)
-        }
-        collectionView.reloadData()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.setupFetchResultController()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        refresh()
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        collectionView.collectionViewLayout.invalidateLayout()
+        super.viewWillTransition(to: size, with: coordinator)
     }
 
     // MARK: - Data manipulation methods
     // MARK: -
-    private func refresh() {
-        resetSeletedPhotos()
-        deleteBarButtonItem.isEnabled = false
-        shareBarButtonItem.isEnabled = false
-        selectBarButtonItem.title = "Select"
-    }
-
     private func delete() {
-        dataManager.delete(photos: selectedPhotos)
-        refresh()
+        presenter.deletePhotos()
     }
 
     private func resetSeletedPhotos() {
-        selectedPhotos.removeAll()
-        collectionView.reloadData()
-
-        fetchResultController.fetchedObjects?.indices.forEach { fetchResultController.fetchedObjects?[$0].isSelected = false }
+        presenter.resetSeletedPhotos()
     }
 
     private func getSelectedImages() -> [UIImage] {
         var images = [UIImage]()
-        for image in selectedPhotos {
+        for image in presenter.selectedPhotos {
             if let data = image.photo as Data?, let image = UIImage(data: data) {
                 images.append(image)
             }
@@ -144,8 +104,8 @@ class FavouritePhotoViewController: UIViewController {
     // MARK: - Actions
     // MARK: -
     @objc private func deleteBarButtonTapped() {
-        if !selectedPhotos.isEmpty {
-            let alertController = UIAlertController(title: "Delete photo", message: "\(selecetedPhotoCountDescription) will be delete", preferredStyle: .alert)
+        if !presenter.selectedPhotos.isEmpty {
+            let alertController = createAlertController(type: .delete, array: presenter.selectedPhotos)
             let addAction = UIAlertAction(title: "Delete", style: .default) { _ in
                 self.delete()
             }
@@ -169,7 +129,6 @@ class FavouritePhotoViewController: UIViewController {
         deleteBarButtonItem.tintColor = .init(hex: 0xF900BF)
         shareBarButtonItem.isEnabled.toggle()
         shareBarButtonItem.tintColor = .init(hex: 0xFFF56D)
-//        FFF56D
     }
 
     @objc func shareButtonTapped(sender: UIBarButtonItem) {
@@ -184,9 +143,12 @@ class FavouritePhotoViewController: UIViewController {
         present(shareController, animated: true, completion: nil)
     }
 
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        collectionView.collectionViewLayout.invalidateLayout()
-        super.viewWillTransition(to: size, with: coordinator)
+    func presentImageDetailsViewController(with photo: FavouritePhoto) {
+        if let data = photo.photo as Data?, let image = UIImage(data: data) {
+            let destinationVC = ImageDetailsViewController(image: image)
+            destinationVC.transitioningDelegate = self
+            present(destinationVC, animated: true, completion: nil)
+        }
     }
 }
 
@@ -194,16 +156,14 @@ class FavouritePhotoViewController: UIViewController {
 //MARK: -
 extension FavouritePhotoViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let sectionInfo = fetchResultController.sections?[section]
+        let sectionInfo = presenter.fetchResultController.sections?[section]
         return sectionInfo?.numberOfObjects ?? 0
     }
 
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavouritePhotoCell.identifier, for: indexPath) as? FavouritePhotoCell else {
-            return UICollectionViewCell()
-        }
-        let photo = fetchResultController.object(at: indexPath)
+        let cell = collectionView.dequeueReusableCell(withClass: FavouritePhotoCell.self, for: indexPath)
+        let photo = presenter.fetchResultController.object(at: indexPath)
         cell.data = photo
         return cell
     }
@@ -227,21 +187,16 @@ extension FavouritePhotoViewController: UICollectionViewDelegate, UICollectionVi
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         HapticsManager.shared.selection()
-        let photo = fetchResultController.object(at: indexPath)
+        let photo = presenter.fetchResultController.object(at: indexPath)
         if deleteBarButtonItem.isEnabled {
-            selectedPhotos.update(photo)
+            presenter.selectedPhotos.update(photo)
             photo.isSelected.toggle()
             collectionView.reloadItems(at: [indexPath])
         } else {
             let selectedCell = collectionView.cellForItem(at: indexPath) as! FavouritePhotoCell
             self.selectedImage = selectedCell.imageView
 
-            if let data = photo.photo as Data? {
-                let image = UIImage(data: data)!
-                let destinationVC = ImageDetailsViewController(image: image)
-                destinationVC.transitioningDelegate = self
-                present(destinationVC, animated: true, completion: nil)
-            }
+            presentImageDetailsViewController(with: photo)
         }
     }
 }
@@ -261,16 +216,15 @@ extension FavouritePhotoViewController: NSFetchedResultsControllerDelegate {
     }
 }
 
-//MARK:- UIViewControllerTransitioningDelegate
-extension FavouritePhotoViewController: UIViewControllerTransitioningDelegate {
-    func animationController( forPresented _: UIViewController, presenting _: UIViewController, source _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        animator.originFrame = selectedImage.superview!.convert(selectedImage.frame, to: nil)
-        animator.presenting = true
-        return animator
+extension FavouritePhotoViewController: FavouritePhotoPresenterProtocol {
+    func reloadData() {
+        collectionView.reloadData()
     }
 
-    func animationController(forDismissed _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        animator.presenting = false
-        return animator
+    func refresh() {
+        resetSeletedPhotos()
+        deleteBarButtonItem.isEnabled = false
+        shareBarButtonItem.isEnabled = false
+        selectBarButtonItem.title = "Select"
     }
 }

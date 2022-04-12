@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import SDWebImage
 
-class PhotoCollectionViewCell: UICollectionViewCell {
+class PhotoSearchCollectionViewCell: UICollectionViewCell {
      let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill

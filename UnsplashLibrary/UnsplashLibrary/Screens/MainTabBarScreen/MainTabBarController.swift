@@ -11,7 +11,7 @@ class MainTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewControllers = [createNavController(viewController: PhotosViewController(), title: "Photos", imageName: "photo.on.rectangle"),
+        viewControllers = [createNavController(viewController: PhotosSearchViewController(), title: "Photos", imageName: "photo.on.rectangle"),
                            createNavController(viewController: FavouritePhotoViewController(), title: "Favourite", imageName: "heart")
         ]
     }

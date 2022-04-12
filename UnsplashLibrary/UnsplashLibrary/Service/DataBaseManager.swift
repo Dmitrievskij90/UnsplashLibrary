@@ -46,7 +46,6 @@ class DataBaseManager {
     }
 
     func delete(photos: [FavouritePhoto]) {
-//        let user = fetchResultController.object(at: index)
         for photo in photos {
             persistentContainer.viewContext.delete(photo)
             saveContext()
