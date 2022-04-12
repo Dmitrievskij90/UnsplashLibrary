@@ -15,13 +15,14 @@ protocol FavouritePhotoPresenterProtocol: NSFetchedResultsControllerDelegate {
 
 class FavouritePhotoPresenter {
     weak var view: FavouritePhotoPresenterProtocol?
-    var fetchResultController: NSFetchedResultsController<FavouritePhoto>!
     private let dataManager = DataBaseManager()
-
+    var fetchResultController: NSFetchedResultsController<FavouritePhoto>!
+    var selectedPhotos = [FavouritePhoto]()
+    
     init(view: FavouritePhotoPresenterProtocol) {
         self.view = view
     }
-
+    
     // MARK: - CoreData methods
     // MARK: -
     func setupFetchResultController() {
@@ -32,7 +33,7 @@ class FavouritePhotoPresenter {
         fetchResultController.delegate = view
         fetchPhotos()
     }
-
+    
     private func fetchPhotos() {
         do {
             try fetchResultController.performFetch()
@@ -41,20 +42,16 @@ class FavouritePhotoPresenter {
         }
         view?.reloadData()
     }
-
-    func deletePhotos(_ photos: [FavouritePhoto]) {
-        dataManager.delete(photos: photos)
+    
+    func deletePhotos() {
+        dataManager.delete(photos: selectedPhotos)
         view?.refresh()
     }
-
-
-    ////////MARK: - Section Heading
-//    private var selectedPhotos = [FavouritePhoto]()
-//
-//     func resetSeletedPhotos() {
-//        selectedPhotos.removeAll()
-//        view?.reloadData()
-//
-//        fetchResultController.fetchedObjects?.indices.forEach { fetchResultController.fetchedObjects?[$0].isSelected = false }
-//    }
+    
+    func resetSeletedPhotos() {
+        selectedPhotos.removeAll()
+        view?.reloadData()
+        
+        fetchResultController.fetchedObjects?.indices.forEach { fetchResultController.fetchedObjects?[$0].isSelected = false }
+    }
 }

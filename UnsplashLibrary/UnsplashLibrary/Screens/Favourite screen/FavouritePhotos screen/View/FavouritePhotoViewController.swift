@@ -10,7 +10,6 @@ import CoreData
 
 class FavouritePhotoViewController: UIViewController {
     var selectedImage: UIImageView!
-    private var selectedPhotos = [FavouritePhoto]()
     private lazy var presenter = FavouritePhotoPresenter(view: self)
 
     private lazy var collectionView: UICollectionView = {
@@ -85,19 +84,16 @@ class FavouritePhotoViewController: UIViewController {
     // MARK: - Data manipulation methods
     // MARK: -
     private func delete() {
-        presenter.deletePhotos(selectedPhotos)
+        presenter.deletePhotos()
     }
 
     private func resetSeletedPhotos() {
-        selectedPhotos.removeAll()
-        collectionView.reloadData()
-
-        presenter.fetchResultController.fetchedObjects?.indices.forEach { presenter.fetchResultController.fetchedObjects?[$0].isSelected = false }
+        presenter.resetSeletedPhotos()
     }
 
     private func getSelectedImages() -> [UIImage] {
         var images = [UIImage]()
-        for image in selectedPhotos {
+        for image in presenter.selectedPhotos {
             if let data = image.photo as Data?, let image = UIImage(data: data) {
                 images.append(image)
             }
@@ -108,8 +104,8 @@ class FavouritePhotoViewController: UIViewController {
     // MARK: - Actions
     // MARK: -
     @objc private func deleteBarButtonTapped() {
-        if !selectedPhotos.isEmpty {
-            let alertController = createAlertController(type: .delete, array: selectedPhotos)
+        if !presenter.selectedPhotos.isEmpty {
+            let alertController = createAlertController(type: .delete, array: presenter.selectedPhotos)
             let addAction = UIAlertAction(title: "Delete", style: .default) { _ in
                 self.delete()
             }
@@ -185,7 +181,7 @@ extension FavouritePhotoViewController: UICollectionViewDelegate, UICollectionVi
         HapticsManager.shared.selection()
         let photo = presenter.fetchResultController.object(at: indexPath)
         if deleteBarButtonItem.isEnabled {
-            selectedPhotos.update(photo)
+            presenter.selectedPhotos.update(photo)
             photo.isSelected.toggle()
             collectionView.reloadItems(at: [indexPath])
         } else {
