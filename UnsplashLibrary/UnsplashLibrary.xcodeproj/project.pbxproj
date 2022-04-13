@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5C00F48C27FB4B1800E01697 /* ImageZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C00F48B27FB4B1800E01697 /* ImageZoomView.swift */; };
 		5C1135E027F9909C00B0621F /* ActivityControllerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1135DF27F9909C00B0621F /* ActivityControllerButton.swift */; };
+		5C6859B128072483009F9534 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6859B028072483009F9534 /* LaunchScreenViewController.swift */; };
 		5C804D972805CBB1001FA017 /* FavouritePhotoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C804D962805CBB1001FA017 /* FavouritePhotoPresenter.swift */; };
 		5C8688B527EF234E00324751 /* FavouritePhoto+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8688B427EF234E00324751 /* FavouritePhoto+CoreDataProperties.swift */; };
 		5C8688BA27EF249500324751 /* FavouritePhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8688B927EF249500324751 /* FavouritePhotoCell.swift */; };
@@ -50,6 +51,7 @@
 		44AE869483973A0D47BBD15C /* Pods-UnsplashLibrary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnsplashLibrary.debug.xcconfig"; path = "Target Support Files/Pods-UnsplashLibrary/Pods-UnsplashLibrary.debug.xcconfig"; sourceTree = "<group>"; };
 		5C00F48B27FB4B1800E01697 /* ImageZoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageZoomView.swift; sourceTree = "<group>"; };
 		5C1135DF27F9909C00B0621F /* ActivityControllerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityControllerButton.swift; sourceTree = "<group>"; };
+		5C6859B028072483009F9534 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		5C804D962805CBB1001FA017 /* FavouritePhotoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritePhotoPresenter.swift; sourceTree = "<group>"; };
 		5C8688B427EF234E00324751 /* FavouritePhoto+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FavouritePhoto+CoreDataProperties.swift"; path = "/Users/DmitrievskiyK/Desktop/Dev/Repositories/UnsplashLibrary/UnsplashLibrary/UnsplashLibrary/UnsplashLibrary/DataBaseManager/FavouritePhoto+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		5C8688B927EF249500324751 /* FavouritePhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritePhotoCell.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 		5C926BC428047E7000D807DC /* Supporting files */ = {
 			isa = PBXGroup;
 			children = (
+				5C6859B028072483009F9534 /* LaunchScreenViewController.swift */,
 				5CA07B3627E5CBBD002DA6C2 /* LaunchScreen.storyboard */,
 				5CA07B2B27E5CBBA002DA6C2 /* AppDelegate.swift */,
 				5CA07B2D27E5CBBA002DA6C2 /* SceneDelegate.swift */,
@@ -456,6 +459,7 @@
 				5CAF86A028008CCD0023F782 /* PhotoSearchPresenter.swift in Sources */,
 				5CC6F8DF27F209C200BB5290 /* Animator.swift in Sources */,
 				5C926BCC280487A000D807DC /* ImagePreviewPresenter.swift in Sources */,
+				5C6859B128072483009F9534 /* LaunchScreenViewController.swift in Sources */,
 				5CC6F8DD27F2061400BB5290 /* ImageDetailsViewController.swift in Sources */,
 				5C804D972805CBB1001FA017 /* FavouritePhotoPresenter.swift in Sources */,
 				5CDE9BBC27FF3C320091533B /* HapticsManager.swift in Sources */,
@@ -629,6 +633,7 @@
 				DEVELOPMENT_TEAM = 6UV36R5ZZ7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UnsplashLibrary/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -657,6 +662,7 @@
 				DEVELOPMENT_TEAM = 6UV36R5ZZ7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = UnsplashLibrary/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
