@@ -45,13 +45,13 @@ class LaunchScreenViewController: UIViewController {
             make.height.equalTo(80)
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
             self.animate()
         }
     }
 
    private func animate() {
-        UIView.animate(withDuration: 1.5) {
+        UIView.animate(withDuration: 1.0) {
             self.imageView.alpha = 0
             self.label.alpha = 0
         } completion: { done in
