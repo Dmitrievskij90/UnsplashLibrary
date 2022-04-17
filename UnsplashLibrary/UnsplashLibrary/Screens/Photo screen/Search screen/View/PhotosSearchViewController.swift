@@ -185,6 +185,10 @@ extension PhotosSearchViewController: UISearchBarDelegate {
         acrivityIndicator.startAnimating()
         presenter.searchPhotos(with: searchText)
         collectionView.reloadData()
+
+        if searchText.isEmpty {
+            presenter.cancelButtonPressed()
+        }
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -209,17 +213,17 @@ extension PhotosSearchViewController: PhotoSearchPresenterProtocol {
         collectionView.reloadData()
     }
 
+    func setPhotos(photos: [PhotoModel]) {
+        self.photos = photos
+        collectionView.reloadData()
+        acrivityIndicator.stopAnimating()
+    }
+
     func refresh() {
         selectedPhotos.removeAll()
         photos.indices.forEach { photos[$0].isSelected = false }
         collectionView.selectItem(at: nil, animated: true, scrollPosition: [])
         collectionView.reloadData()
         undatesaveBarButton()
-    }
-    
-    func setPhotos(photos: [PhotoModel]) {
-        self.photos = photos
-        collectionView.reloadData()
-        acrivityIndicator.stopAnimating()
     }
 }
