@@ -8,8 +8,10 @@
 import Foundation
 
 class NetworkService {
-    func searchPhoto(searchTerm: String, completion: @escaping (PhotoData?, Error?) -> Void) {
-        let parameters = createParameters(searchTerm: searchTerm)
+    var page = 0
+    var searchTerm = ""
+    func searchPhoto(completion: @escaping (PhotoData?, Error?) -> Void) {
+        let parameters = createParameters(page: 1, searchTerm: searchTerm)
         let url = url(params: parameters)
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -18,16 +20,36 @@ class NetworkService {
         fetchData(with: request, completion: completion)
     }
 
+    func searchNextPhoto(completion: @escaping (PhotoData?, Error?) -> Void) {
+        page += 1
+        print(page)
+        let parameters = createParameters(page: page, searchTerm: searchTerm)
+        let url = url(params: parameters)
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.allHTTPHeaderFields = crerateHeader()
+
+        fetchData(with: request, completion: completion)
+    }
+
+    private func createRequest(with parameters: [String: String]) -> URLRequest {
+        let url = url(params: parameters)
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.allHTTPHeaderFields = crerateHeader()
+        return request
+    }
+
     private func crerateHeader() -> [String: String]? {
         var headers = [String: String]()
         headers["Authorization"] = "Client-ID xlK9mrm01y7wZLOmCjHD3t0NheLK2Vd6sOCiAMVigBM"
         return headers
     }
 
-    private func createParameters(searchTerm: String?) -> [String: String] {
+    private func createParameters(page: Int,searchTerm: String?) -> [String: String] {
         var parameters = [String: String]()
         parameters["query"] = searchTerm
-        parameters["page"] = String(1)
+        parameters["page"] = String(page)
         parameters["per_page"] = String(30)
         return parameters
     }
@@ -42,10 +64,6 @@ class NetworkService {
     }
 
     private func fetchData<T: Codable>(with request: URLRequest, completion: @escaping (T?, Error?) -> Void) {
-//        guard let url = URL(string: urlString) else {
-//            print("Can't load url")
-//            return
-//        }
 
         URLSession.shared.dataTask(with: request) { data, _, error in
             if let err = error {

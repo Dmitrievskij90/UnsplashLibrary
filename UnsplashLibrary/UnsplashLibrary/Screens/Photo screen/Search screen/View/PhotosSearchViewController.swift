@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class PhotosSearchViewController: UIViewController {
+class PhotosSearchViewController: UIViewController, UIScrollViewDelegate {
     var selectedImage: UIImageView!
     private var photos = [PhotoModel]()
     private var selectedPhotos = [UIImage]()
@@ -184,12 +184,31 @@ extension PhotosSearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         acrivityIndicator.startAnimating()
         presenter.searchPhotos(with: searchText)
+        collectionView.reloadData()
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.photos.removeAll()
+        collectionView.reloadData()
+        presenter.cancelButtonPressed()
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let position = scrollView.contentOffset.y
+        if position > (collectionView.contentSize.height - 100 - scrollView.frame.size.height) {
+            presenter.searchNextPhotos()
+        }
     }
 }
 
 // MARK: - PhotoSearchPresenterProtocol methods
 // MARK: -
 extension PhotosSearchViewController: PhotoSearchPresenterProtocol {
+    func addPhotos(photos: [PhotoModel]) {
+        self.photos.append(contentsOf: photos)
+        collectionView.reloadData()
+    }
+
     func refresh() {
         selectedPhotos.removeAll()
         photos.indices.forEach { photos[$0].isSelected = false }
