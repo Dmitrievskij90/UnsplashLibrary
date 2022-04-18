@@ -25,6 +25,8 @@ class ImageDetailsViewController: UIViewController {
 
     private let image: UIImage
 
+    // MARK: - Lificycle methods
+    // MARK: -
     init(image: UIImage) {
         self.image = image
         super.init(nibName: nil, bundle: nil)
@@ -58,6 +60,8 @@ class ImageDetailsViewController: UIViewController {
         setupSubviews()
     }
 
+    // MARK: - Setup UI methods
+    // MARK: -
     private func setupSubviews() {
         imageZoomView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -71,6 +75,8 @@ class ImageDetailsViewController: UIViewController {
         }
     }
 
+    // MARK: - Action methods
+    // MARK: -
     @objc private func handleDismiss() {
         dismiss(animated: true, completion: nil)
     }

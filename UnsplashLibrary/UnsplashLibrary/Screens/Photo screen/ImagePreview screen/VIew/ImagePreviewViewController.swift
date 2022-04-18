@@ -52,6 +52,8 @@ class ImagePreviewViewController: UIViewController {
 
     let imageURL: ImagePreviewModel
 
+    // MARK: - Lificycle methods
+    // MARK: -
     init(imageURL: ImagePreviewModel) {
         self.imageURL = imageURL
         super.init(nibName: nil, bundle: nil)
@@ -96,6 +98,8 @@ class ImagePreviewViewController: UIViewController {
         }
     }
 
+    // MARK: - Actions
+    // MARK: -
     @objc private func imageTapped() {
         dismiss(animated: true, completion: nil)
     }
@@ -120,6 +124,8 @@ class ImagePreviewViewController: UIViewController {
     }
 }
 
+// MARK: - ImagePreviewPresenterProtocol methods
+// MARK: -
 extension ImagePreviewViewController: ImagePreviewPresenterProtocol {
     func dismiss() {
         self.dismiss(animated: true, completion: nil)

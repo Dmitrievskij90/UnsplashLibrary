@@ -11,7 +11,7 @@ import UIKit
 
 class DataBaseManager: DataBaseManagerProtocol {
     // MARK: - Core Data stack
-
+    // MARK: -
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Model")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
@@ -22,8 +22,8 @@ class DataBaseManager: DataBaseManagerProtocol {
         return container
     }()
 
-    // MARK: - Core Data Saving support
-
+    // MARK: - CoreData data manipulation
+    // MARK: -
     private func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {

@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class PhotosSearchViewController: UIViewController, UIScrollViewDelegate {
+class PhotosSearchViewController: UIViewController {
     var selectedImage: UIImageView!
     private var photos = [PhotoModel]()
     private var selectedPhotos = [UIImage]()
@@ -196,7 +196,11 @@ extension PhotosSearchViewController: UISearchBarDelegate {
         collectionView.reloadData()
         presenter.cancelButtonPressed()
     }
+}
 
+// MARK: - UIScrollViewDelegate methods
+// MARK: -
+extension PhotosSearchViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let position = scrollView.contentOffset.y
         if position > (collectionView.contentSize.height - 100 - scrollView.frame.size.height) {

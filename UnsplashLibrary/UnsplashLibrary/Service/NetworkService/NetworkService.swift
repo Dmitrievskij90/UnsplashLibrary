@@ -20,7 +20,6 @@ class NetworkService: NetworkServiceProtocol {
 
     func fetchNextPage(completion: @escaping (PhotoData?, Error?) -> Void) {
         page += 1
-        print(page)
         let parameters = createParameters(page: page, searchTerm: searchTerm)
         let request = createRequest(with: parameters)
         fetchData(with: request, completion: completion)

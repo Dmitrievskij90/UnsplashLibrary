@@ -19,13 +19,15 @@ class PhotoSearchPresenter {
         self.networkService = networkService
     }
 
+    // MARK: - networkService methods
+    // MARK: -
     func searchPhotos(with searchText: String) {
         networkService.searchTerm = searchText
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
             self.networkService.searchPhotos { [weak self] result, error in
                 if let err = error {
-                    print("we hawe probler", err)
+                    fatalError("Error: \(err)")
                 }
                 if let saveData = result?.results {
                     let photos = saveData.compactMap { PhotoModel(imageURL: $0.urls.regular)}
@@ -43,7 +45,7 @@ class PhotoSearchPresenter {
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
             self.networkService.fetchNextPage { [weak self] result, error in
                 if let err = error {
-                    print("we hawe probler", err)
+                    fatalError("Error: \(err)")
                 }
 
                 if let saveData = result?.results {
@@ -56,13 +58,15 @@ class PhotoSearchPresenter {
         })
     }
 
-    func savePhotos(images: [UIImage]) {
-        dataManager.save(images: images)
-        view?.refresh()
-    }
-
     func cancelButtonPressed() {
         networkService.page = 0
         networkService.searchTerm = ""
+    }
+
+    // MARK: - dataManager methods
+    // MARK: -
+    func savePhotos(images: [UIImage]) {
+        dataManager.save(images: images)
+        view?.refresh()
     }
 }

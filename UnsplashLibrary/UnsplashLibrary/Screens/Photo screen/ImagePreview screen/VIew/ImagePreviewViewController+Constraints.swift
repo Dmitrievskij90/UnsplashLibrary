@@ -77,6 +77,7 @@ extension ImagePreviewViewController {
 }
 
 // MARK: - Orientation Transition Handling
+// MARK: - Section Heading
 extension ImagePreviewViewController {
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransition(to: newCollection, with: coordinator)
