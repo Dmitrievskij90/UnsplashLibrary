@@ -7,17 +7,13 @@
 
 import UIKit
 
-protocol ImagePreviewPresenterProtocol: AnyObject {
-    func dismiss()
-}
-
 class ImagePreviewPresenter {
-    private let dataManager = DataBaseManager()
-
+    private let dataManager: DataBaseManagerProtocol
     weak var view: ImagePreviewPresenterProtocol?
 
-    init(view: ImagePreviewPresenterProtocol) {
+    init(view: ImagePreviewPresenterProtocol, dataManager: DataBaseManagerProtocol ) {
         self.view = view
+        self.dataManager = dataManager
     }
 
     func saveImage(with imageView: UIImageView) {
@@ -27,5 +23,4 @@ class ImagePreviewPresenter {
         dataManager.save(images: imageArray)
         view?.dismiss()
     }
-
 }

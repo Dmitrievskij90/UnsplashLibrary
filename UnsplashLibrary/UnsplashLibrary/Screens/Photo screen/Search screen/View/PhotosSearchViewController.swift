@@ -12,7 +12,7 @@ class PhotosSearchViewController: UIViewController, UIScrollViewDelegate {
     var selectedImage: UIImageView!
     private var photos = [PhotoModel]()
     private var selectedPhotos = [UIImage]()
-    private lazy var presenter = PhotoSearchPresenter(view: self)
+    private lazy var presenter = PhotoSearchPresenter(view: self, dataManager: DataBaseManager(), networkService: NetworkService())
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()

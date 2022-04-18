@@ -7,33 +7,26 @@
 
 import UIKit
 
-protocol PhotoSearchPresenterProtocol: AnyObject {
-    func setPhotos(photos: [PhotoModel])
-    func addPhotos(photos: [PhotoModel])
-    func refresh()
-}
-
 class PhotoSearchPresenter {
-    var selectedPhotos = [UIImage]()
-    let dataManager = DataBaseManager()
-    let networkService = NetworkService()
     private var timer: Timer?
-
+    private var networkService: NetworkServiceProtocol
+    private let dataManager: DataBaseManagerProtocol
     weak var view: PhotoSearchPresenterProtocol?
 
-    init(view: PhotoSearchPresenterProtocol) {
+    init(view: PhotoSearchPresenterProtocol, dataManager: DataBaseManagerProtocol, networkService: NetworkServiceProtocol) {
         self.view = view
+        self.dataManager = dataManager
+        self.networkService = networkService
     }
 
     func searchPhotos(with searchText: String) {
         networkService.searchTerm = searchText
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
-            self.networkService.searchPhoto { [weak self] result, error in
+            self.networkService.searchPhotos { [weak self] result, error in
                 if let err = error {
                     print("we hawe probler", err)
                 }
-                
                 if let saveData = result?.results {
                     let photos = saveData.compactMap { PhotoModel(imageURL: $0.urls.regular)}
                     DispatchQueue.main.async {
@@ -41,7 +34,6 @@ class PhotoSearchPresenter {
                         self?.view?.refresh()
                     }
                 }
-
             }
         })
     }
@@ -49,7 +41,7 @@ class PhotoSearchPresenter {
     func searchNextPhotos() {
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
-            self.networkService.searchNextPhoto { [weak self] result, error in
+            self.networkService.fetchNextPage { [weak self] result, error in
                 if let err = error {
                     print("we hawe probler", err)
                 }
@@ -58,7 +50,6 @@ class PhotoSearchPresenter {
                     let photos = saveData.compactMap { PhotoModel(imageURL: $0.urls.regular)}
                     DispatchQueue.main.async {
                         self?.view?.addPhotos(photos: photos)
-//                        self?.view?.refresh()
                     }
                 }
             }

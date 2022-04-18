@@ -8,11 +8,6 @@
 import Foundation
 import CoreData
 
-protocol FavouritePhotoPresenterProtocol: NSFetchedResultsControllerDelegate {
-    func reloadData()
-    func refresh()
-}
-
 class FavouritePhotoPresenter {
     weak var view: FavouritePhotoPresenterProtocol?
     var fetchResultController: NSFetchedResultsController<FavouritePhoto>!

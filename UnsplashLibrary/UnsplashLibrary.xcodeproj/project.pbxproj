@@ -36,6 +36,11 @@
 		5CA07B4827E61B0A002DA6C2 /* PhotoSearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA07B4727E61B0A002DA6C2 /* PhotoSearchCollectionViewCell.swift */; };
 		5CA07B4C27E627F3002DA6C2 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA07B4B27E627F3002DA6C2 /* NetworkService.swift */; };
 		5CA07B4F27E62D6E002DA6C2 /* PhotoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA07B4E27E62D6E002DA6C2 /* PhotoData.swift */; };
+		5CA90B88280DB23D00676790 /* NetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA90B87280DB23D00676790 /* NetworkServiceProtocol.swift */; };
+		5CA90B8A280DB32700676790 /* PhotoSearchPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA90B89280DB32700676790 /* PhotoSearchPresenterProtocol.swift */; };
+		5CA90B8C280DB37A00676790 /* DataBaseManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA90B8B280DB37A00676790 /* DataBaseManagerProtocol.swift */; };
+		5CA90B8E280DB62C00676790 /* ImagePreviewPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA90B8D280DB62C00676790 /* ImagePreviewPresenterProtocol.swift */; };
+		5CA90B91280DB77800676790 /* FavouritePhotoPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA90B90280DB77800676790 /* FavouritePhotoPresenterProtocol.swift */; };
 		5CAE98CB27E76BE800A41770 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAE98CA27E76BE800A41770 /* PhotoModel.swift */; };
 		5CAF86A028008CCD0023F782 /* PhotoSearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAF869F28008CCD0023F782 /* PhotoSearchPresenter.swift */; };
 		5CC6F8DD27F2061400BB5290 /* ImageDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC6F8DC27F2061400BB5290 /* ImageDetailsViewController.swift */; };
@@ -80,6 +85,11 @@
 		5CA07B4727E61B0A002DA6C2 /* PhotoSearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSearchCollectionViewCell.swift; sourceTree = "<group>"; };
 		5CA07B4B27E627F3002DA6C2 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		5CA07B4E27E62D6E002DA6C2 /* PhotoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoData.swift; sourceTree = "<group>"; };
+		5CA90B87280DB23D00676790 /* NetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceProtocol.swift; sourceTree = "<group>"; };
+		5CA90B89280DB32700676790 /* PhotoSearchPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSearchPresenterProtocol.swift; sourceTree = "<group>"; };
+		5CA90B8B280DB37A00676790 /* DataBaseManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseManagerProtocol.swift; sourceTree = "<group>"; };
+		5CA90B8D280DB62C00676790 /* ImagePreviewPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewPresenterProtocol.swift; sourceTree = "<group>"; };
+		5CA90B90280DB77800676790 /* FavouritePhotoPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritePhotoPresenterProtocol.swift; sourceTree = "<group>"; };
 		5CAE98CA27E76BE800A41770 /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
 		5CAF869F28008CCD0023F782 /* PhotoSearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSearchPresenter.swift; sourceTree = "<group>"; };
 		5CC6F8DC27F2061400BB5290 /* ImageDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailsViewController.swift; sourceTree = "<group>"; };
@@ -135,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				5C804D962805CBB1001FA017 /* FavouritePhotoPresenter.swift */,
+				5CA90B90280DB77800676790 /* FavouritePhotoPresenterProtocol.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -171,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				5C926BCB280487A000D807DC /* ImagePreviewPresenter.swift */,
+				5CA90B8D280DB62C00676790 /* ImagePreviewPresenterProtocol.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -179,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				5CA07B4B27E627F3002DA6C2 /* NetworkService.swift */,
+				5CA90B87280DB23D00676790 /* NetworkServiceProtocol.swift */,
 				5CA07B4E27E62D6E002DA6C2 /* PhotoData.swift */,
 			);
 			path = NetworkService;
@@ -237,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				5CAF869F28008CCD0023F782 /* PhotoSearchPresenter.swift */,
+				5CA90B89280DB32700676790 /* PhotoSearchPresenterProtocol.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -325,11 +339,20 @@
 			isa = PBXGroup;
 			children = (
 				5C926BC228047D7300D807DC /* NetworkService */,
+				5CA90B8F280DB67100676790 /* DataBaseManager */,
 				5C926BC62804839E00D807DC /* UIViewController custom transition */,
-				5C8B867E27EA204A00FD7333 /* DataBaseManager.swift */,
 				5CDE9BBB27FF3C320091533B /* HapticsManager.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		5CA90B8F280DB67100676790 /* DataBaseManager */ = {
+			isa = PBXGroup;
+			children = (
+				5C8B867E27EA204A00FD7333 /* DataBaseManager.swift */,
+				5CA90B8B280DB37A00676790 /* DataBaseManagerProtocol.swift */,
+			);
+			path = DataBaseManager;
 			sourceTree = "<group>";
 		};
 		DEB9F2AC1F8BE0CCE38F00AA /* Pods */ = {
@@ -462,6 +485,7 @@
 				5C6859B128072483009F9534 /* LaunchScreenViewController.swift in Sources */,
 				5CC6F8DD27F2061400BB5290 /* ImageDetailsViewController.swift in Sources */,
 				5C804D972805CBB1001FA017 /* FavouritePhotoPresenter.swift in Sources */,
+				5CA90B8A280DB32700676790 /* PhotoSearchPresenterProtocol.swift in Sources */,
 				5CDE9BBC27FF3C320091533B /* HapticsManager.swift in Sources */,
 				5CA07B4527E61AA7002DA6C2 /* UIView+Extension.swift in Sources */,
 				5C8B868327EA2F3700FD7333 /* FavouritePhoto+CoreDataClass.swift in Sources */,
@@ -469,16 +493,20 @@
 				5C8688BA27EF249500324751 /* FavouritePhotoCell.swift in Sources */,
 				5C926BBE28047B7B00D807DC /* UICollectionView+Extension.swift in Sources */,
 				5CA07B3027E5CBBA002DA6C2 /* PhotosSearchViewController.swift in Sources */,
+				5CA90B8E280DB62C00676790 /* ImagePreviewPresenterProtocol.swift in Sources */,
 				5C8688BC27EF6F8900324751 /* UIColor+Extension.swift in Sources */,
 				5CA07B4F27E62D6E002DA6C2 /* PhotoData.swift in Sources */,
 				5C8B867F27EA204A00FD7333 /* DataBaseManager.swift in Sources */,
 				5CE36FD32801829700B9FDFE /* UIViewController+UIAlertController.swift in Sources */,
 				5C8688BE27EF795300324751 /* Array+Extension.swift in Sources */,
 				5C00F48C27FB4B1800E01697 /* ImageZoomView.swift in Sources */,
+				5CA90B91280DB77800676790 /* FavouritePhotoPresenterProtocol.swift in Sources */,
+				5CA90B8C280DB37A00676790 /* DataBaseManagerProtocol.swift in Sources */,
 				5CA07B4C27E627F3002DA6C2 /* NetworkService.swift in Sources */,
 				5CA07B2C27E5CBBA002DA6C2 /* AppDelegate.swift in Sources */,
 				5C926BC82804840A00D807DC /* PhotosSearchViewController+Animator.swift in Sources */,
 				5CA07B4227E615DF002DA6C2 /* FavouritePhotoViewController.swift in Sources */,
+				5CA90B88280DB23D00676790 /* NetworkServiceProtocol.swift in Sources */,
 				5CA07B4827E61B0A002DA6C2 /* PhotoSearchCollectionViewCell.swift in Sources */,
 				5CA07B4027E6144C002DA6C2 /* MainTabBarController.swift in Sources */,
 				5C8688B527EF234E00324751 /* FavouritePhoto+CoreDataProperties.swift in Sources */,

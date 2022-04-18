@@ -10,7 +10,7 @@ import SDWebImage
 
 class ImagePreviewViewController: UIViewController {
     private let blurVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
-    private lazy var presenter = ImagePreviewPresenter(view: self)
+    private lazy var presenter = ImagePreviewPresenter(view: self, dataManager: DataBaseManager())
 
      var imageView: UIImageView = {
         let imageView = UIImageView()

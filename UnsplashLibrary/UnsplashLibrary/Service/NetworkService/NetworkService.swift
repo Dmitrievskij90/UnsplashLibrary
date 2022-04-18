@@ -7,28 +7,22 @@
 
 import Foundation
 
-class NetworkService {
+
+class NetworkService: NetworkServiceProtocol {
     var page = 0
     var searchTerm = ""
-    func searchPhoto(completion: @escaping (PhotoData?, Error?) -> Void) {
-        let parameters = createParameters(page: 1, searchTerm: searchTerm)
-        let url = url(params: parameters)
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.allHTTPHeaderFields = crerateHeader()
 
+    func searchPhotos(completion: @escaping (PhotoData?, Error?) -> Void) {
+        let parameters = createParameters(page: 1, searchTerm: searchTerm)
+        let request = createRequest(with: parameters)
         fetchData(with: request, completion: completion)
     }
 
-    func searchNextPhoto(completion: @escaping (PhotoData?, Error?) -> Void) {
+    func fetchNextPage(completion: @escaping (PhotoData?, Error?) -> Void) {
         page += 1
         print(page)
         let parameters = createParameters(page: page, searchTerm: searchTerm)
-        let url = url(params: parameters)
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.allHTTPHeaderFields = crerateHeader()
-
+        let request = createRequest(with: parameters)
         fetchData(with: request, completion: completion)
     }
 
