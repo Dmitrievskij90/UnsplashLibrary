@@ -133,7 +133,7 @@ class FavouritePhotoViewController: UIViewController {
 
     @objc func shareButtonTapped(sender: UIBarButtonItem) {
         let shareController = UIActivityViewController(activityItems: getSelectedImages(), applicationActivities: nil)
-        shareController.completionWithItemsHandler = { activity, success, items, error in
+        shareController.completionWithItemsHandler = { _, success, _, _ in
             if success {
                 self.refresh()
             }
@@ -152,14 +152,13 @@ class FavouritePhotoViewController: UIViewController {
     }
 }
 
-//MARK: - UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
-//MARK: -
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
+// MARK: -
 extension FavouritePhotoViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let sectionInfo = presenter.fetchResultController.sections?[section]
         return sectionInfo?.numberOfObjects ?? 0
     }
-
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withClass: FavouritePhotoCell.self, for: indexPath)
@@ -193,7 +192,7 @@ extension FavouritePhotoViewController: UICollectionViewDelegate, UICollectionVi
             photo.isSelected.toggle()
             collectionView.reloadItems(at: [indexPath])
         } else {
-            let selectedCell = collectionView.cellForItem(at: indexPath) as! FavouritePhotoCell
+            guard let selectedCell = collectionView.cellForItem(at: indexPath) as? FavouritePhotoCell else { return }
             self.selectedImage = selectedCell.imageView
 
             presentImageDetailsViewController(with: photo)
@@ -201,8 +200,8 @@ extension FavouritePhotoViewController: UICollectionViewDelegate, UICollectionVi
     }
 }
 
-//MARK: - NSFetchedResultsControllerDelegate
-//MARK: -
+// MARK: - NSFetchedResultsControllerDelegate
+// MARK: -
 extension FavouritePhotoViewController: NSFetchedResultsControllerDelegate {
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch type {

@@ -50,7 +50,6 @@ class PhotosSearchViewController: UIViewController {
         let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
         longPressGestureRecognizer.minimumPressDuration = 0.3
         collectionView.addGestureRecognizer(longPressGestureRecognizer)
-        
     }
     
     override func loadView() {
@@ -68,7 +67,6 @@ class PhotosSearchViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         collectionView.frame =  view.frame
-        
         acrivityIndicator.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
@@ -106,13 +104,12 @@ class PhotosSearchViewController: UIViewController {
         let cancelAction = UIAlertAction(title: "Undo", style: .destructive) { _ in
             self.refresh()
         }
-        
         alertController.addAction(addAction)
         alertController.addAction(cancelAction)
         present(alertController, animated: true)
     }
     
-    @objc func handleLongPress(gesture : UILongPressGestureRecognizer!) {
+    @objc func handleLongPress(gesture: UILongPressGestureRecognizer!) {
         if gesture.state != .ended {
             return
         }
@@ -141,8 +138,7 @@ extension PhotosSearchViewController: UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photos.count
     }
-    
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withClass: PhotoSearchCollectionViewCell.self, for: indexPath)
         cell.data = photos[indexPath.item]

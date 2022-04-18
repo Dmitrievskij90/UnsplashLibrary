@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 class NetworkService: NetworkServiceProtocol {
     var page = 0
     var searchTerm = ""
@@ -39,7 +38,7 @@ class NetworkService: NetworkServiceProtocol {
         return headers
     }
 
-    private func createParameters(page: Int,searchTerm: String?) -> [String: String] {
+    private func createParameters(page: Int, searchTerm: String?) -> [String: String] {
         var parameters = [String: String]()
         parameters["query"] = searchTerm
         parameters["page"] = String(page)

@@ -12,8 +12,8 @@ class ActivityControllerButton: UIButton {
         didSet {
             if isHighlighted {
                 UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut) {
-                    self.accessoryImageView.tintColor = .init(hex:0xF900BF)
-                    self.label.textColor = .init(hex:0xF900BF)
+                    self.accessoryImageView.tintColor = .init(hex: 0xF900BF)
+                    self.label.textColor = .init(hex: 0xF900BF)
                 }
             } else {
                 UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut) {

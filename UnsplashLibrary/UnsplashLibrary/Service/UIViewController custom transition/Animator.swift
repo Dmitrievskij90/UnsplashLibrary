@@ -20,7 +20,7 @@ extension Animator: UIViewControllerAnimatedTransitioning {
     }
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        //1) Set up transition
+        // 1) Set up transition
         let containerView = transitionContext.containerView
 
         guard let imageDetailView = transitionContext.view(forKey: presenting ? .to : .from)
@@ -58,7 +58,7 @@ extension Animator: UIViewControllerAnimatedTransitioning {
 
         guard let imageContainer = transitionContext.viewController(forKey: presenting ? .to : .from) else {return}
 
-        //2) Animate
+        // 2) Animate
         UIView.animate(
             withDuration: duration,
             delay: 0,

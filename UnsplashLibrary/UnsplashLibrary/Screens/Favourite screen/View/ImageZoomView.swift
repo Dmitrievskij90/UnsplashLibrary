@@ -109,7 +109,7 @@ class ImageZoomView: UIScrollView, UIScrollViewDelegate {
         let minScale = self.minimumZoomScale
         let maxScale = self.maximumZoomScale
 
-        if (minScale == maxScale && minScale > 1) {
+        if minScale == maxScale && minScale > 1 {
             return
         }
 

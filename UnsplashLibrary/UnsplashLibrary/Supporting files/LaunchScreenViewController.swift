@@ -54,8 +54,8 @@ class LaunchScreenViewController: UIViewController {
         UIView.animate(withDuration: 1.0) {
             self.imageView.alpha = 0
             self.label.alpha = 0
-        } completion: { done in
-            DispatchQueue.main.asyncAfter(deadline:.now() + 0.5) {
+        } completion: { _ in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 let destinationVC = MainTabBarController()
                 destinationVC.modalTransitionStyle = .crossDissolve
                 destinationVC.modalPresentationStyle = .fullScreen
