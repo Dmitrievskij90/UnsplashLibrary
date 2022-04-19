@@ -11,20 +11,19 @@ class MainTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewControllers = [createNavController(viewController: PhotosViewController(), title: "Photos", imageName: "photo.on.rectangle"),
+        viewControllers = [createNavController(viewController: PhotosSearchViewController(), title: "Search", imageName: "photo.on.rectangle"),
                            createNavController(viewController: FavouritePhotoViewController(), title: "Favourite", imageName: "heart")
         ]
     }
 
     private func createNavController(viewController: UIViewController, title: String, imageName: String) -> UIViewController {
-        viewController.view.backgroundColor = .white
+        viewController.view.backgroundColor = .black
         viewController.navigationItem.title = title
         let navController = UINavigationController(rootViewController: viewController)
         navController.tabBarItem.title = title
         navController.navigationBar.prefersLargeTitles = true
+        navController.navigationBar.tintColor = .white
         navController.tabBarItem.image = UIImage(systemName: imageName)
-        UITabBar.appearance().tintColor = .black
-
         return navController
     }
 }
