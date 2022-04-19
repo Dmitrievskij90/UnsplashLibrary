@@ -12,6 +12,7 @@ class PhotosSearchViewController: UIViewController {
     var selectedImage: UIImageView!
     private var photos = [PhotoModel]()
     private var selectedPhotos = [UIImage]()
+    private var isPaginating = false
     private lazy var presenter = PhotoSearchPresenter(view: self, dataManager: DataBaseManager(), networkService: NetworkService())
     
     private lazy var collectionView: UICollectionView = {
@@ -140,7 +141,7 @@ extension PhotosSearchViewController: UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photos.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withClass: PhotoSearchCollectionViewCell.self, for: indexPath)
         cell.data = photos[indexPath.item]
@@ -174,6 +175,17 @@ extension PhotosSearchViewController: UICollectionViewDelegate, UICollectionView
         photos[indexPath.item].isSelected.toggle()
         collectionView.reloadItems(at: [indexPath])
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.row == photos.count - 1 {
+            isPaginating = true
+            presenter.searchNextPhotos()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                self.isPaginating = false
+            }
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CollectionViewFooter.identifier, for: indexPath) as? CollectionViewFooter else {
             return UICollectionReusableView()
@@ -194,27 +206,16 @@ extension PhotosSearchViewController: UISearchBarDelegate {
         acrivityIndicator.startAnimating()
         presenter.searchPhotos(with: searchText)
         collectionView.reloadData()
-
+        
         if searchText.isEmpty {
             presenter.cancelButtonPressed()
         }
     }
-
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.photos.removeAll()
         collectionView.reloadData()
         presenter.cancelButtonPressed()
-    }
-}
-
-// MARK: - UIScrollViewDelegate methods
-// MARK: -
-extension PhotosSearchViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let position = scrollView.contentOffset.y
-        if position > (collectionView.contentSize.height - 100 - scrollView.frame.size.height) {
-            presenter.searchNextPhotos()
-        }
     }
 }
 
@@ -225,13 +226,13 @@ extension PhotosSearchViewController: PhotoSearchPresenterProtocol {
         self.photos.append(contentsOf: photos)
         collectionView.reloadData()
     }
-
+    
     func setPhotos(photos: [PhotoModel]) {
         self.photos = photos
         collectionView.reloadData()
         acrivityIndicator.stopAnimating()
     }
-
+    
     func refresh() {
         selectedPhotos.removeAll()
         photos.indices.forEach { photos[$0].isSelected = false }

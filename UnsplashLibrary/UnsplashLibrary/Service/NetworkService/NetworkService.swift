@@ -8,7 +8,7 @@
 import Foundation
 
 class NetworkService: NetworkServiceProtocol {
-    var page = 0
+    var page = 1
     var searchTerm = ""
 
     func searchPhotos(completion: @escaping (PhotoData?, Error?) -> Void) {

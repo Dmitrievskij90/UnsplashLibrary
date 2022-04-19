@@ -59,7 +59,7 @@ class PhotoSearchPresenter {
     }
 
     func cancelButtonPressed() {
-        networkService.page = 0
+        networkService.page = 1
         networkService.searchTerm = ""
     }
 
