@@ -19,9 +19,11 @@ class PhotosSearchViewController: UIViewController {
         layout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         collectionView.register(PhotoSearchCollectionViewCell.self, forCellWithReuseIdentifier: PhotoSearchCollectionViewCell.identifier)
+        collectionView.register(CollectionViewFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CollectionViewFooter.identifier)
         collectionView.backgroundColor = UIColor.black
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.showsVerticalScrollIndicator = false
         return collectionView
     }()
     
@@ -171,6 +173,17 @@ extension PhotosSearchViewController: UICollectionViewDelegate, UICollectionView
         
         photos[indexPath.item].isSelected.toggle()
         collectionView.reloadItems(at: [indexPath])
+    }
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CollectionViewFooter.identifier, for: indexPath) as? CollectionViewFooter else {
+            return UICollectionReusableView()
+        }
+        isPaginating ? footer.activityIndicator.startAnimating() : footer.activityIndicator.stopAnimating()
+        return footer
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return .init(width: view.frame.width, height: 50)
     }
 }
 
