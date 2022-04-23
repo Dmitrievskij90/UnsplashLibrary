@@ -21,3 +21,5 @@ An app for search free photos.
 + Support portrait and landscape device orientation.
 + UIViewController custom transitions.
 + Haptic feedback.
+
+<img src="https://github.com/Dmitrievskij90/UnsplashLibrary/blob/main/Gifs/gif-1.gif" height='500'> <img src="https://github.com/Dmitrievskij90/UnsplashLibrary/blob/main/Gifs/gif-2.gif" height='500'> <img src="https://github.com/Dmitrievskij90/UnsplashLibrary/blob/main/Gifs/gif-3.gif" height='500'> <img src="https://github.com/Dmitrievskij90/UnsplashLibrary/blob/main/Gifs/gif-4.gif" height='500'> <img src="https://github.com/Dmitrievskij90/UnsplashLibrary/blob/main/Gifs/gif-5.gif" height='500'>
