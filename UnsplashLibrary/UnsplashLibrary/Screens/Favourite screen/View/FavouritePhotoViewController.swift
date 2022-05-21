@@ -10,7 +10,7 @@ import CoreData
 
 class FavouritePhotoViewController: UIViewController {
     var selectedImage: UIImageView!
-    private lazy var presenter = FavouritePhotoPresenter(view: self)
+    private lazy var presenter = FavouritePhotoPresenter(view: self, dataManager: DataBaseManager())
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -68,7 +68,7 @@ class FavouritePhotoViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        presenter.setupFetchResultController()
+        presenter.viewWillApperar()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -83,13 +83,6 @@ class FavouritePhotoViewController: UIViewController {
 
     // MARK: - Data manipulation methods
     // MARK: -
-    private func delete() {
-        presenter.deletePhotos()
-    }
-
-    private func resetSeletedPhotos() {
-        presenter.resetSeletedPhotos()
-    }
 
     private func getSelectedImages() -> [UIImage] {
         var images = [UIImage]()
@@ -107,7 +100,7 @@ class FavouritePhotoViewController: UIViewController {
         if !presenter.selectedPhotos.isEmpty {
             let alertController = createAlertController(type: .delete, array: presenter.selectedPhotos)
             let addAction = UIAlertAction(title: "Delete", style: .default) { _ in
-                self.delete()
+                self.presenter.deleteBarButtonTapped()
             }
             let cancelAction = UIAlertAction(title: "Undo", style: .destructive) { _ in
                 self.refresh()
@@ -123,7 +116,7 @@ class FavouritePhotoViewController: UIViewController {
             selectBarButtonItem.title = "Cancel"
         } else {
             selectBarButtonItem.title = "Select"
-            resetSeletedPhotos()
+            self.presenter.selectBarButtonTapped()
         }
         deleteBarButtonItem.isEnabled.toggle()
         deleteBarButtonItem.tintColor = .init(hex: 0xF900BF)
@@ -215,13 +208,13 @@ extension FavouritePhotoViewController: NSFetchedResultsControllerDelegate {
     }
 }
 
-extension FavouritePhotoViewController: FavouritePhotoPresenterProtocol {
+extension FavouritePhotoViewController: FavouritePhotoViewProtocol {
     func reloadData() {
         collectionView.reloadData()
     }
 
     func refresh() {
-        resetSeletedPhotos()
+        presenter.selectBarButtonTapped()
         deleteBarButtonItem.isEnabled = false
         shareBarButtonItem.isEnabled = false
         selectBarButtonItem.title = "Select"
