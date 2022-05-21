@@ -8,22 +8,36 @@
 import Foundation
 import CoreData
 
-class FavouritePhotoPresenter {
-    weak var view: FavouritePhotoPresenterProtocol?
+
+class FavouritePhotoPresenter: FavouritePhotoPresenterProtocol {
+    weak var view: FavouritePhotoViewProtocol?
     var fetchResultController: NSFetchedResultsController<FavouritePhoto>!
     var selectedPhotos = [FavouritePhoto]()
-    private let dataManager = DataBaseManager()
+    var dataManager: DataBaseManagerProtocol
     
-    init(view: FavouritePhotoPresenterProtocol) {
+    init(view: FavouritePhotoViewProtocol, dataManager: DataBaseManagerProtocol) {
         self.view = view
+        self.dataManager = dataManager
     }
 
-    func setupFetchResultController() {
+    func viewWillApperar() {
+        setupFetchResultController()
+    }
+
+    func deleteBarButtonTapped() {
+        deletePhotos()
+    }
+
+    func selectBarButtonTapped() {
+        resetSeletedPhotos()
+    }
+
+    private func setupFetchResultController() {
         let fetchRequest: NSFetchRequest<FavouritePhoto> = FavouritePhoto.fetchRequest()
         let sotdDescriptor = NSSortDescriptor(key: #keyPath(FavouritePhoto.dateCreated), ascending: true)
         fetchRequest.sortDescriptors = [sotdDescriptor]
         fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataManager.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-        fetchResultController.delegate = view
+        fetchResultController?.delegate = view
         fetchPhotos()
     }
     
@@ -36,12 +50,12 @@ class FavouritePhotoPresenter {
         view?.reloadData()
     }
     
-    func deletePhotos() {
+    private func deletePhotos() {
         dataManager.delete(photos: selectedPhotos)
         view?.refresh()
     }
     
-    func resetSeletedPhotos() {
+    private func resetSeletedPhotos() {
         selectedPhotos.removeAll()
         view?.reloadData()
         
