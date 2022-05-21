@@ -6,8 +6,10 @@
 //
 
 import UIKit
+import CoreData
 
 protocol DataBaseManagerProtocol {
+    var persistentContainer: NSPersistentContainer {get set}
     func save(images: [UIImage])
     func delete(photos: [FavouritePhoto])
 }
