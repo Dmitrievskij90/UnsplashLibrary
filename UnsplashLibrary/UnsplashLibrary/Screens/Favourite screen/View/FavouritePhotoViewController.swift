@@ -10,7 +10,7 @@ import CoreData
 
 class FavouritePhotoViewController: UIViewController {
     var selectedImage: UIImageView!
-    private lazy var presenter = FavouritePhotoPresenter(view: self, dataManager: DataBaseManager())
+    var presenter: FavouritePhotoPresenterProtocol!
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -48,6 +48,7 @@ class FavouritePhotoViewController: UIViewController {
     // MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()
+        FavouriteScreenWireframe.createFavouriteScreenModule(with: self)
     }
 
     override func loadView() {

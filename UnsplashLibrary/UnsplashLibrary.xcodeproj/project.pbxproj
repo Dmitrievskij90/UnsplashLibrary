@@ -10,6 +10,7 @@
 		5C00F48C27FB4B1800E01697 /* ImageZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C00F48B27FB4B1800E01697 /* ImageZoomView.swift */; };
 		5C1135E027F9909C00B0621F /* ActivityControllerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1135DF27F9909C00B0621F /* ActivityControllerButton.swift */; };
 		5C2D70032839019E006EADE0 /* FavouriteScreenProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2D70022839019E006EADE0 /* FavouriteScreenProtocols.swift */; };
+		5C2D700528390B36006EADE0 /* FavouriteScreenWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2D700428390B36006EADE0 /* FavouriteScreenWireframe.swift */; };
 		5C6859B128072483009F9534 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6859B028072483009F9534 /* LaunchScreenViewController.swift */; };
 		5C804D972805CBB1001FA017 /* FavouritePhotoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C804D962805CBB1001FA017 /* FavouritePhotoPresenter.swift */; };
 		5C8688B527EF234E00324751 /* FavouritePhoto+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8688B427EF234E00324751 /* FavouritePhoto+CoreDataProperties.swift */; };
@@ -58,6 +59,7 @@
 		5C00F48B27FB4B1800E01697 /* ImageZoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageZoomView.swift; sourceTree = "<group>"; };
 		5C1135DF27F9909C00B0621F /* ActivityControllerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityControllerButton.swift; sourceTree = "<group>"; };
 		5C2D70022839019E006EADE0 /* FavouriteScreenProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteScreenProtocols.swift; sourceTree = "<group>"; };
+		5C2D700428390B36006EADE0 /* FavouriteScreenWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteScreenWireframe.swift; sourceTree = "<group>"; };
 		5C6859B028072483009F9534 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		5C804D962805CBB1001FA017 /* FavouritePhotoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritePhotoPresenter.swift; sourceTree = "<group>"; };
 		5C8688B427EF234E00324751 /* FavouritePhoto+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FavouritePhoto+CoreDataProperties.swift"; path = "/Users/DmitrievskiyK/Desktop/Dev/Repositories/UnsplashLibrary/UnsplashLibrary/UnsplashLibrary/UnsplashLibrary/DataBaseManager/FavouritePhoto+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
@@ -166,6 +168,7 @@
 				5C804D8F2805CAF7001FA017 /* View */,
 				5C804D912805CB16001FA017 /* Presenter */,
 				5C2D70012839013D006EADE0 /* Protocols */,
+				5C2D700428390B36006EADE0 /* FavouriteScreenWireframe.swift */,
 			);
 			path = "Favourite screen";
 			sourceTree = "<group>";
@@ -522,6 +525,7 @@
 				5CA07B4827E61B0A002DA6C2 /* PhotoSearchCollectionViewCell.swift in Sources */,
 				5CA07B4027E6144C002DA6C2 /* MainTabBarController.swift in Sources */,
 				5C8688B527EF234E00324751 /* FavouritePhoto+CoreDataProperties.swift in Sources */,
+				5C2D700528390B36006EADE0 /* FavouriteScreenWireframe.swift in Sources */,
 				5C8DE1EE27F375BC001119CD /* ImagePreviewViewController.swift in Sources */,
 				5C926BCA2804847700D807DC /* FavouritePhotoViewController+Animator.swift in Sources */,
 				5C8B868527EA321B00FD7333 /* Helpers.swift in Sources */,
