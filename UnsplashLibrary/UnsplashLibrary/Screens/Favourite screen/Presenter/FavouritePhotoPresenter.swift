@@ -11,14 +11,10 @@ import CoreData
 
 class FavouritePhotoPresenter: FavouritePhotoPresenterProtocol {
     weak var view: FavouritePhotoViewProtocol?
+    var dataManager: DataBaseManagerProtocol?
+    var wireframe: FavouriteScreenWireframeProtocol?
     var fetchResultController: NSFetchedResultsController<FavouritePhoto>!
     var selectedPhotos = [FavouritePhoto]()
-    var dataManager: DataBaseManagerProtocol
-    
-    init(view: FavouritePhotoViewProtocol, dataManager: DataBaseManagerProtocol) {
-        self.view = view
-        self.dataManager = dataManager
-    }
 
     func viewWillApperar() {
         setupFetchResultController()
@@ -33,6 +29,8 @@ class FavouritePhotoPresenter: FavouritePhotoPresenterProtocol {
     }
 
     private func setupFetchResultController() {
+        guard let dataManager = dataManager else { return }
+
         let fetchRequest: NSFetchRequest<FavouritePhoto> = FavouritePhoto.fetchRequest()
         let sotdDescriptor = NSSortDescriptor(key: #keyPath(FavouritePhoto.dateCreated), ascending: true)
         fetchRequest.sortDescriptors = [sotdDescriptor]
@@ -51,7 +49,7 @@ class FavouritePhotoPresenter: FavouritePhotoPresenterProtocol {
     }
     
     private func deletePhotos() {
-        dataManager.delete(photos: selectedPhotos)
+        dataManager?.delete(photos: selectedPhotos)
         view?.refresh()
     }
     
