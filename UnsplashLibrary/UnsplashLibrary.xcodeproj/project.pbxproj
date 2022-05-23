@@ -358,7 +358,7 @@
 				5C926BC228047D7300D807DC /* NetworkService */,
 				5CA90B8F280DB67100676790 /* DataBaseManager */,
 				5C926BC62804839E00D807DC /* UIViewController custom transition */,
-				5CDE9BBB27FF3C320091533B /* HapticsManager.swift */,
+				5CBEB937283BF3F10071A370 /* HapticsManager */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -394,6 +394,14 @@
 				5CBEB935283BEC710071A370 /* SearchScreenWireframe.swift */,
 			);
 			path = Wireframe;
+			sourceTree = "<group>";
+		};
+		5CBEB937283BF3F10071A370 /* HapticsManager */ = {
+			isa = PBXGroup;
+			children = (
+				5CDE9BBB27FF3C320091533B /* HapticsManager.swift */,
+			);
+			path = HapticsManager;
 			sourceTree = "<group>";
 		};
 		DEB9F2AC1F8BE0CCE38F00AA /* Pods */ = {
