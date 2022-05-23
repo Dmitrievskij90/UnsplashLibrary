@@ -8,7 +8,6 @@
 import UIKit
 import CoreData
 
-
 class FavouritePhotoPresenter: FavouritePhotoPresenterProtocol {
     weak var view: FavouritePhotoViewProtocol?
     var dataManager: DataBaseManagerProtocol?

@@ -168,7 +168,7 @@
 				5C804D8F2805CAF7001FA017 /* View */,
 				5C804D912805CB16001FA017 /* Presenter */,
 				5C2D70012839013D006EADE0 /* Protocols */,
-				5C2D700428390B36006EADE0 /* FavouriteScreenWireframe.swift */,
+				5CBEB930283BE57E0071A370 /* Wireframe */,
 			);
 			path = "Favourite screen";
 			sourceTree = "<group>";
@@ -367,6 +367,14 @@
 				5CA90B8B280DB37A00676790 /* DataBaseManagerProtocol.swift */,
 			);
 			path = DataBaseManager;
+			sourceTree = "<group>";
+		};
+		5CBEB930283BE57E0071A370 /* Wireframe */ = {
+			isa = PBXGroup;
+			children = (
+				5C2D700428390B36006EADE0 /* FavouriteScreenWireframe.swift */,
+			);
+			path = Wireframe;
 			sourceTree = "<group>";
 		};
 		DEB9F2AC1F8BE0CCE38F00AA /* Pods */ = {
