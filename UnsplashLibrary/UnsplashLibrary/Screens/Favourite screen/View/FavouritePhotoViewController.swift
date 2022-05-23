@@ -136,14 +136,6 @@ class FavouritePhotoViewController: UIViewController {
         shareController.popoverPresentationController?.permittedArrowDirections = .any
         present(shareController, animated: true, completion: nil)
     }
-
-    func presentImageDetailsViewController(with photo: FavouritePhoto) {
-        if let data = photo.photo as Data?, let image = UIImage(data: data) {
-            let destinationVC = ImageDetailsViewController(image: image)
-            destinationVC.transitioningDelegate = self
-            present(destinationVC, animated: true, completion: nil)
-        }
-    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
@@ -188,8 +180,7 @@ extension FavouritePhotoViewController: UICollectionViewDelegate, UICollectionVi
         } else {
             guard let selectedCell = collectionView.cellForItem(at: indexPath) as? FavouritePhotoCell else { return }
             self.selectedImage = selectedCell.imageView
-
-            presentImageDetailsViewController(with: photo)
+            presenter.showFullPhoto(with: photo, from: self)
         }
     }
 }

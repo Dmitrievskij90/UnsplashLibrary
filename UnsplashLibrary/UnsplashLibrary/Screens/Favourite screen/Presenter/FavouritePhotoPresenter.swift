@@ -5,7 +5,7 @@
 //  Created by Konstantin Dmitrievskiy on 12.04.2022.
 //
 
-import Foundation
+import UIKit
 import CoreData
 
 
@@ -26,6 +26,10 @@ class FavouritePhotoPresenter: FavouritePhotoPresenterProtocol {
 
     func selectBarButtonTapped() {
         resetSeletedPhotos()
+    }
+
+    func showFullPhoto(with photo: FavouritePhoto, from view: UIViewController) {
+        wireframe?.presentImageDetailsViewController(with: photo, from: view)
     }
 
     private func setupFetchResultController() {
