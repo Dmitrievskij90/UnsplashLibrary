@@ -23,9 +23,10 @@ protocol PhotoSearchPresenterProtocol {
     func searchNextPhotos()
     func cancelButtonPressed()
     func saveBarButtonTapped(images: [UIImage])
+    func presentImagePreviewController(with image: String, from view: UIViewController) 
 }
 
 protocol SearchScreenWireframeProtocol: AnyObject {
-//    func presentImageDetailsViewController(with photo: FavouritePhoto, from view: UIViewController)
+    func presentImagePreviewController(with image: String, from view: UIViewController)
     static func createSearchScreenModule(with view: PhotosSearchViewController)
 }

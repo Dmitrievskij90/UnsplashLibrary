@@ -64,4 +64,8 @@ class PhotoSearchPresenter: PhotoSearchPresenterProtocol {
         dataManager?.save(images: images)
         view?.refresh()
     }
+
+    func presentImagePreviewController(with image: String, from view: UIViewController) {
+        wireframe?.presentImagePreviewController(with: image, from: view)
+    }
 }

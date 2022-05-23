@@ -122,16 +122,8 @@ class PhotosSearchViewController: UIViewController {
               let cell = self.collectionView.cellForItem(at: indexPath) as?  PhotoSearchCollectionViewCell else { return }
         self.selectedImage = cell.imageView
         let photo = photos[indexPath.item].imageURL
-        
-        presentImagePreviewController(with: photo)
-    }
-    
-    private func presentImagePreviewController(with image: String) {
-        HapticsManager.shared.vibrate(for: .success)
-        let imageName = ImagePreviewModel(name: image)
-        let destinationVC = ImagePreviewViewController(imageURL: imageName)
-        destinationVC.transitioningDelegate = self
-        present(destinationVC, animated: true, completion: nil)
+
+        presenter?.presentImagePreviewController(with: photo, from: self)
     }
 }
 

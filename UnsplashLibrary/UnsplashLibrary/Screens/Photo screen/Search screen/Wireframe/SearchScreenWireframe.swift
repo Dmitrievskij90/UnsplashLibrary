@@ -5,9 +5,17 @@
 //  Created by Konstantin Dmitrievskiy on 23.05.2022.
 //
 
-import Foundation
+import UIKit
 
 class SearchScreenWireframe: SearchScreenWireframeProtocol {
+    func presentImagePreviewController(with image: String, from view: UIViewController) {
+        HapticsManager.shared.vibrate(for: .success)
+        let imageName = ImagePreviewModel(name: image)
+        let destinationVC = ImagePreviewViewController(imageURL: imageName)
+        destinationVC.transitioningDelegate = view as? UIViewControllerTransitioningDelegate
+        view.present(destinationVC, animated: true, completion: nil)
+    }
+
     class func createSearchScreenModule(with view: PhotosSearchViewController) {
         let presenter = PhotoSearchPresenter()
 
