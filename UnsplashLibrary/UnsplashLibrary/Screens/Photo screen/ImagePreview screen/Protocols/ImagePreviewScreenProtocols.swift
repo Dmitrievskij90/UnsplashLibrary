@@ -23,5 +23,5 @@ protocol ImagePreviewPresenterProtocol {
 }
 
 protocol ImagePreviewScreenWireframeProtocol {
-    static func createFruitDetailModule(with view: ImagePreviewViewController, and photo: ImagePreviewModel)
+    static func createImagePreviewScreenModule(with view: ImagePreviewViewController, and photo: ImagePreviewModel)
 }
