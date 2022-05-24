@@ -12,11 +12,8 @@ protocol ImagePreviewViewProtocol: AnyObject {
     func setPhoto(photo: ImagePreviewModel)
 }
 
-protocol ImagePreviewPresenterProtocol {
-    var dataManager: DataBaseManagerProtocol? {get set}
-    var view: ImagePreviewViewProtocol? {get set}
-    var imageURL: ImagePreviewModel? {get set}
-    var wireframe: ImagePreviewScreenWireframeProtocol? {get set}
+protocol ImagePreviewPresenterProtocol: AnyObject {
+    init(view: ImagePreviewViewProtocol, dataManager: DataBaseManagerProtocol, imageURL: ImagePreviewModel)
 
     func favouriteButtonTapped(with imageView: UIImageView)
     func viewWillApperar()

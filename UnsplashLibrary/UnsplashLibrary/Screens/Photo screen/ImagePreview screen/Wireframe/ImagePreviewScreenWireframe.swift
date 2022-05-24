@@ -9,11 +9,7 @@ import UIKit
 
 class ImagePreviewScreenWireframe: ImagePreviewScreenWireframeProtocol {
     class func createImagePreviewScreenModule(with view: ImagePreviewViewController, and photo: ImagePreviewModel) {
-        let presenter = ImagePreviewPresenter()
-        presenter.imageURL = photo
+        let presenter = ImagePreviewPresenter(view: view, dataManager: DataBaseManager(), imageURL: photo)
         view.presenter = presenter
-        view.presenter?.view = view
-        view.presenter?.dataManager = DataBaseManager()
-        view.presenter?.wireframe = ImagePreviewScreenWireframe()
      }
 }

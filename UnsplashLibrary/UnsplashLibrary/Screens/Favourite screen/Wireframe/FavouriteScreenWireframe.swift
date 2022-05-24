@@ -17,11 +17,7 @@ class FavouriteScreenWireframe: FavouriteScreenWireframeProtocol {
     }
 
     class func createFavouriteScreenModule(with view: FavouritePhotoViewController) {
-        let presenter = FavouritePhotoPresenter()
-
+        let presenter = FavouritePhotoPresenter(view: view, dataManager: DataBaseManager(), wireframe: FavouriteScreenWireframe())
         view.presenter = presenter
-        view.presenter.dataManager = DataBaseManager()
-        view.presenter.wireframe = FavouriteScreenWireframe()
-        view.presenter.view = view
     }
 }

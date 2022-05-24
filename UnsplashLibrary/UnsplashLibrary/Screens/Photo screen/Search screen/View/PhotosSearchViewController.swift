@@ -54,7 +54,7 @@ class PhotosSearchViewController: UIViewController {
         longPressGestureRecognizer.minimumPressDuration = 0.3
         collectionView.addGestureRecognizer(longPressGestureRecognizer)
     }
-    
+
     override func loadView() {
         let view = UIView(frame: UIScreen.main.bounds)
         view.backgroundColor = .black

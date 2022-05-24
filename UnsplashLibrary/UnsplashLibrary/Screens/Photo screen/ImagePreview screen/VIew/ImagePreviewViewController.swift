@@ -52,7 +52,6 @@ class ImagePreviewViewController: UIViewController {
 
     // MARK: - Lificycle methods
     // MARK: -
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstraints()

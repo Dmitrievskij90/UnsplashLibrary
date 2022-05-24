@@ -10,17 +10,24 @@ import UIKit
 class PhotoSearchPresenter: PhotoSearchPresenterProtocol {
     private var timer: Timer?
     weak var view: PhotoSearchViewProtocol?
-    var networkService: NetworkServiceProtocol?
-    var dataManager: DataBaseManagerProtocol?
-    var wireframe: SearchScreenWireframe?
+    var networkService: NetworkServiceProtocol
+    var dataManager: DataBaseManagerProtocol
+    var wireframe: SearchScreenWireframe
+
+    required init(view: PhotoSearchViewProtocol, networkService: NetworkServiceProtocol, dataManager: DataBaseManagerProtocol, wireframe: SearchScreenWireframe) {
+        self.view = view
+        self.networkService = networkService
+        self.dataManager = dataManager
+        self.wireframe = wireframe
+    }
 
     // MARK: - networkService methods
     // MARK: -
     func searchPhotos(with searchText: String) {
-        networkService?.searchTerm = searchText
+        networkService.searchTerm = searchText
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
-            self.networkService?.searchPhotos { [weak self] result, error in
+            self.networkService.searchPhotos { [weak self] result, error in
                 if let err = error {
                     fatalError("Error: \(err)")
                 }
@@ -38,7 +45,7 @@ class PhotoSearchPresenter: PhotoSearchPresenterProtocol {
     func searchNextPhotos() {
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
-            self.networkService?.fetchNextPage { [weak self] result, error in
+            self.networkService.fetchNextPage { [weak self] result, error in
                 if let err = error {
                     fatalError("Error: \(err)")
                 }
@@ -54,18 +61,18 @@ class PhotoSearchPresenter: PhotoSearchPresenterProtocol {
     }
 
     func cancelButtonPressed() {
-        networkService?.page = 1
-        networkService?.searchTerm = ""
+        networkService.page = 1
+        networkService.searchTerm = ""
     }
 
     // MARK: - dataManager methods
     // MARK: -
     func saveBarButtonTapped(images: [UIImage]) {
-        dataManager?.save(images: images)
+        dataManager.save(images: images)
         view?.refresh()
     }
 
     func presentImagePreviewController(with image: String, from view: UIViewController) {
-        wireframe?.presentImagePreviewController(with: image, from: view)
+        wireframe.presentImagePreviewController(with: image, from: view)
     }
 }

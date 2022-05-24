@@ -19,12 +19,7 @@ class SearchScreenWireframe: SearchScreenWireframeProtocol {
     }
 
     class func createSearchScreenModule(with view: PhotosSearchViewController) {
-        let presenter = PhotoSearchPresenter()
-
+        let presenter = PhotoSearchPresenter(view: view, networkService: NetworkService(), dataManager: DataBaseManager(), wireframe: SearchScreenWireframe())
         view.presenter = presenter
-        view.presenter?.dataManager = DataBaseManager()
-        view.presenter?.wireframe = SearchScreenWireframe()
-        view.presenter?.networkService = NetworkService()
-        view.presenter?.view = view
     }
 }
