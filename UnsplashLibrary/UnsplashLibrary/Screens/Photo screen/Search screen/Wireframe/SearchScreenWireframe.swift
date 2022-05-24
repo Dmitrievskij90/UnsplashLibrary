@@ -10,8 +10,10 @@ import UIKit
 class SearchScreenWireframe: SearchScreenWireframeProtocol {
     func presentImagePreviewController(with image: String, from view: UIViewController) {
         HapticsManager.shared.vibrate(for: .success)
-        let imageName = ImagePreviewModel(name: image)
-        let destinationVC = ImagePreviewViewController(imageURL: imageName)
+        let imageModel = ImagePreviewModel(name: image)
+        let destinationVC = ImagePreviewViewController()
+        destinationVC.modalPresentationStyle = .overFullScreen
+        ImagePreviewScreenWireframe.createImagePreviewScreenModule(with: destinationVC, and: imageModel)
         destinationVC.transitioningDelegate = view as? UIViewControllerTransitioningDelegate
         view.present(destinationVC, animated: true, completion: nil)
     }

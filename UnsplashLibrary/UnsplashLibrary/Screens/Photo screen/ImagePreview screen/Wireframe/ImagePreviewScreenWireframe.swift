@@ -8,7 +8,7 @@
 import UIKit
 
 class ImagePreviewScreenWireframe: ImagePreviewScreenWireframeProtocol {
-    class func createFruitDetailModule(with view: ImagePreviewViewController, and photo: ImagePreviewModel) {
+    class func createImagePreviewScreenModule(with view: ImagePreviewViewController, and photo: ImagePreviewModel) {
         let presenter = ImagePreviewPresenter()
         presenter.imageURL = photo
         view.presenter = presenter
