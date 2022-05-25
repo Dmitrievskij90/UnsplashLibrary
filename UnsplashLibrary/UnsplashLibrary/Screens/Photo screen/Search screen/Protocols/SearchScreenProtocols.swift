@@ -14,11 +14,10 @@ protocol PhotoSearchViewProtocol: AnyObject {
 }
 
 protocol PhotoSearchPresenterProtocol {
-//    var networkService: NetworkServiceProtocol? {get set}
-//    var dataManager: DataBaseManagerProtocol? {get set}
-//    var view: PhotoSearchViewProtocol? {get set}
-//    var wireframe: SearchScreenWireframe? {get set}
-    init(view: PhotoSearchViewProtocol, networkService: NetworkServiceProtocol, dataManager: DataBaseManagerProtocol, wireframe: SearchScreenWireframe)
+    var view: PhotoSearchViewProtocol? {get set}
+    var networkService: NetworkServiceProtocol {get set}
+    var dataManager: DataBaseManagerProtocol {get set}
+    var wireframe: SearchScreenWireframe {get set}
 
     func searchPhotos(with searchText: String)
     func searchNextPhotos()

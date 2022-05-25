@@ -14,10 +14,11 @@ protocol FavouritePhotoViewProtocol: NSFetchedResultsControllerDelegate {
 }
 
 protocol FavouritePhotoPresenterProtocol {
+    var view: FavouritePhotoViewProtocol? {get set}
+    var dataManager: DataBaseManagerProtocol {get set}
+    var wireframe: FavouriteScreenWireframeProtocol {get set}
     var fetchResultController: NSFetchedResultsController<FavouritePhoto>! {get set}
     var selectedPhotos: [FavouritePhoto] {get set}
-
-    init(view: FavouritePhotoViewProtocol, dataManager: DataBaseManagerProtocol, wireframe: FavouriteScreenWireframeProtocol)
 
     func viewWillApperar()
     func deleteBarButtonTapped()

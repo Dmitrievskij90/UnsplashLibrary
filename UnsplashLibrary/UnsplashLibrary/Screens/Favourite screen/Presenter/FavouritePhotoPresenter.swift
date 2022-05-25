@@ -15,7 +15,7 @@ class FavouritePhotoPresenter: FavouritePhotoPresenterProtocol {
     var fetchResultController: NSFetchedResultsController<FavouritePhoto>!
     var selectedPhotos = [FavouritePhoto]()
 
-    required init(view: FavouritePhotoViewProtocol, dataManager: DataBaseManagerProtocol, wireframe: FavouriteScreenWireframeProtocol) {
+    init(view: FavouritePhotoViewProtocol, dataManager: DataBaseManagerProtocol, wireframe: FavouriteScreenWireframeProtocol) {
         self.view = view
         self.dataManager = dataManager
         self.wireframe = wireframe

@@ -14,7 +14,7 @@ class PhotoSearchPresenter: PhotoSearchPresenterProtocol {
     var dataManager: DataBaseManagerProtocol
     var wireframe: SearchScreenWireframe
 
-    required init(view: PhotoSearchViewProtocol, networkService: NetworkServiceProtocol, dataManager: DataBaseManagerProtocol, wireframe: SearchScreenWireframe) {
+    init(view: PhotoSearchViewProtocol, networkService: NetworkServiceProtocol, dataManager: DataBaseManagerProtocol, wireframe: SearchScreenWireframe) {
         self.view = view
         self.networkService = networkService
         self.dataManager = dataManager

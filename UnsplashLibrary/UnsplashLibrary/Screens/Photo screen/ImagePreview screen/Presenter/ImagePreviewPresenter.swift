@@ -12,14 +12,14 @@ class ImagePreviewPresenter: ImagePreviewPresenterProtocol {
     var imageURL: ImagePreviewModel
     var dataManager: DataBaseManagerProtocol
 
-    required init(view: ImagePreviewViewProtocol, dataManager: DataBaseManagerProtocol, imageURL: ImagePreviewModel) {
+    init(view: ImagePreviewViewProtocol, dataManager: DataBaseManagerProtocol, imageURL: ImagePreviewModel) {
         self.view = view
         self.dataManager = dataManager
         self.imageURL = imageURL
     }
-
+    
     func viewWillApperar() {
-            view?.setPhoto(photo: imageURL)
+        view?.setPhoto(photo: imageURL)
     }
 
     func favouriteButtonTapped(with imageView: UIImageView) {
