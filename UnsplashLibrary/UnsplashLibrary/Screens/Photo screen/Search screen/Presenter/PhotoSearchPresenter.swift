@@ -60,16 +60,16 @@ class PhotoSearchPresenter: PhotoSearchPresenterProtocol {
         })
     }
 
-    func cancelButtonPressed() {
-        networkService.page = 1
-        networkService.searchTerm = ""
-    }
-
-    // MARK: - dataManager methods
+    // MARK: - Actions
     // MARK: -
     func saveBarButtonTapped(images: [UIImage]) {
         dataManager.save(images: images)
         view?.refresh()
+    }
+
+    func cancelButtonPressed() {
+        networkService.page = 1
+        networkService.searchTerm = ""
     }
 
     func presentImagePreviewController(with image: String, from view: UIViewController) {

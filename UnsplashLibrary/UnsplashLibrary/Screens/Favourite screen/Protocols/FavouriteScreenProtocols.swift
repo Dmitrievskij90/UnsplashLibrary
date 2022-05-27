@@ -8,11 +8,15 @@
 import UIKit
 import CoreData
 
+// MARK: - View protocol
+// MARK: -
 protocol FavouritePhotoViewProtocol: NSFetchedResultsControllerDelegate {
     func reloadData()
     func refresh()
 }
 
+// MARK: - Presenter protocol
+// MARK: -
 protocol FavouritePhotoPresenterProtocol {
     var view: FavouritePhotoViewProtocol? {get set}
     var dataManager: DataBaseManagerProtocol {get set}
@@ -26,6 +30,8 @@ protocol FavouritePhotoPresenterProtocol {
     func showFullPhoto(with photo: FavouritePhoto, from view: UIViewController)
 }
 
+// MARK: - Wireframe protocol
+// MARK: -
 protocol FavouriteScreenWireframeProtocol: AnyObject {
     func presentImageDetailsViewController(with photo: FavouritePhoto, from view: UIViewController)
     static func createFavouriteScreenModule(with: FavouritePhotoViewController)

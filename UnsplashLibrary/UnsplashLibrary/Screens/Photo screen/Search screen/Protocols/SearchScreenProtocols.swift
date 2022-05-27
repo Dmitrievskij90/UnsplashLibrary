@@ -7,12 +7,16 @@
 
 import UIKit
 
+// MARK: - View protocol
+//MARK: -
 protocol PhotoSearchViewProtocol: AnyObject {
     func setPhotos(photos: [PhotoModel])
     func addPhotos(photos: [PhotoModel])
     func refresh()
 }
 
+// MARK: - Presenter protocol
+// MARK: -
 protocol PhotoSearchPresenterProtocol {
     var view: PhotoSearchViewProtocol? {get set}
     var networkService: NetworkServiceProtocol {get set}
@@ -26,6 +30,8 @@ protocol PhotoSearchPresenterProtocol {
     func presentImagePreviewController(with image: String, from view: UIViewController) 
 }
 
+// MARK: - Wireframe protocol
+// MARK: -
 protocol SearchScreenWireframeProtocol: AnyObject {
     func presentImagePreviewController(with image: String, from view: UIViewController)
     static func createSearchScreenModule(with view: PhotosSearchViewController)

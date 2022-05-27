@@ -7,11 +7,15 @@
 
 import UIKit
 
+// MARK: - View protocol
+// MARK: -
 protocol ImagePreviewViewProtocol: AnyObject {
     func dismiss()
     func setPhoto(photo: ImagePreviewModel)
 }
 
+// MARK: - Presenter protocol
+// MARK: -
 protocol ImagePreviewPresenterProtocol: AnyObject {
     var view: ImagePreviewViewProtocol? {get set}
     var dataManager: DataBaseManagerProtocol {get set}
@@ -21,6 +25,8 @@ protocol ImagePreviewPresenterProtocol: AnyObject {
     func viewWillApperar()
 }
 
+// MARK: - Wireframe protocol
+// MARK: -
 protocol ImagePreviewScreenWireframeProtocol {
     static func createImagePreviewScreenModule(with view: ImagePreviewViewController, and photo: ImagePreviewModel)
 }
