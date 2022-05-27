@@ -9,7 +9,7 @@ import UIKit
 import SDWebImage
 
 class PhotoSearchCollectionViewCell: UICollectionViewCell {
-     let imageView: UIImageView = {
+    let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.alpha = 1

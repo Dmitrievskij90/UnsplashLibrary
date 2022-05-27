@@ -10,7 +10,7 @@ import CoreData
 
 class FavouritePhotoViewController: UIViewController {
     var selectedImage: UIImageView!
-    private lazy var presenter = FavouritePhotoPresenter(view: self)
+    var presenter: FavouritePhotoPresenterProtocol!
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -48,6 +48,7 @@ class FavouritePhotoViewController: UIViewController {
     // MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()
+        FavouriteScreenWireframe.createFavouriteScreenModule(with: self)
     }
 
     override func loadView() {
@@ -68,7 +69,7 @@ class FavouritePhotoViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        presenter.setupFetchResultController()
+        presenter.viewWillApperar()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -83,13 +84,6 @@ class FavouritePhotoViewController: UIViewController {
 
     // MARK: - Data manipulation methods
     // MARK: -
-    private func delete() {
-        presenter.deletePhotos()
-    }
-
-    private func resetSeletedPhotos() {
-        presenter.resetSeletedPhotos()
-    }
 
     private func getSelectedImages() -> [UIImage] {
         var images = [UIImage]()
@@ -107,7 +101,7 @@ class FavouritePhotoViewController: UIViewController {
         if !presenter.selectedPhotos.isEmpty {
             let alertController = createAlertController(type: .delete, array: presenter.selectedPhotos)
             let addAction = UIAlertAction(title: "Delete", style: .default) { _ in
-                self.delete()
+                self.presenter.deleteBarButtonTapped()
             }
             let cancelAction = UIAlertAction(title: "Undo", style: .destructive) { _ in
                 self.refresh()
@@ -123,7 +117,7 @@ class FavouritePhotoViewController: UIViewController {
             selectBarButtonItem.title = "Cancel"
         } else {
             selectBarButtonItem.title = "Select"
-            resetSeletedPhotos()
+            self.presenter.selectBarButtonTapped()
         }
         deleteBarButtonItem.isEnabled.toggle()
         deleteBarButtonItem.tintColor = .init(hex: 0xF900BF)
@@ -141,14 +135,6 @@ class FavouritePhotoViewController: UIViewController {
         shareController.popoverPresentationController?.barButtonItem = sender
         shareController.popoverPresentationController?.permittedArrowDirections = .any
         present(shareController, animated: true, completion: nil)
-    }
-
-    func presentImageDetailsViewController(with photo: FavouritePhoto) {
-        if let data = photo.photo as Data?, let image = UIImage(data: data) {
-            let destinationVC = ImageDetailsViewController(image: image)
-            destinationVC.transitioningDelegate = self
-            present(destinationVC, animated: true, completion: nil)
-        }
     }
 }
 
@@ -194,8 +180,7 @@ extension FavouritePhotoViewController: UICollectionViewDelegate, UICollectionVi
         } else {
             guard let selectedCell = collectionView.cellForItem(at: indexPath) as? FavouritePhotoCell else { return }
             self.selectedImage = selectedCell.imageView
-
-            presentImageDetailsViewController(with: photo)
+            presenter.showFullPhoto(with: photo, from: self)
         }
     }
 }
@@ -215,13 +200,13 @@ extension FavouritePhotoViewController: NSFetchedResultsControllerDelegate {
     }
 }
 
-extension FavouritePhotoViewController: FavouritePhotoPresenterProtocol {
+extension FavouritePhotoViewController: FavouritePhotoViewProtocol {
     func reloadData() {
         collectionView.reloadData()
     }
 
     func refresh() {
-        resetSeletedPhotos()
+        presenter.selectBarButtonTapped()
         deleteBarButtonItem.isEnabled = false
         shareBarButtonItem.isEnabled = false
         selectBarButtonItem.title = "Select"

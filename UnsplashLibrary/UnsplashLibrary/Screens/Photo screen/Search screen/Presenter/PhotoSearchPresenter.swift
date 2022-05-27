@@ -7,16 +7,18 @@
 
 import UIKit
 
-class PhotoSearchPresenter {
+class PhotoSearchPresenter: PhotoSearchPresenterProtocol {
     private var timer: Timer?
-    private var networkService: NetworkServiceProtocol
-    private let dataManager: DataBaseManagerProtocol
-    weak var view: PhotoSearchPresenterProtocol?
+    weak var view: PhotoSearchViewProtocol?
+    var networkService: NetworkServiceProtocol
+    var dataManager: DataBaseManagerProtocol
+    var wireframe: SearchScreenWireframe
 
-    init(view: PhotoSearchPresenterProtocol, dataManager: DataBaseManagerProtocol, networkService: NetworkServiceProtocol) {
+    init(view: PhotoSearchViewProtocol, networkService: NetworkServiceProtocol, dataManager: DataBaseManagerProtocol, wireframe: SearchScreenWireframe) {
         self.view = view
-        self.dataManager = dataManager
         self.networkService = networkService
+        self.dataManager = dataManager
+        self.wireframe = wireframe
     }
 
     // MARK: - networkService methods
@@ -58,15 +60,19 @@ class PhotoSearchPresenter {
         })
     }
 
+    // MARK: - Actions
+    // MARK: -
+    func saveBarButtonTapped(images: [UIImage]) {
+        dataManager.save(images: images)
+        view?.refresh()
+    }
+
     func cancelButtonPressed() {
         networkService.page = 1
         networkService.searchTerm = ""
     }
 
-    // MARK: - dataManager methods
-    // MARK: -
-    func savePhotos(images: [UIImage]) {
-        dataManager.save(images: images)
-        view?.refresh()
+    func presentImagePreviewController(with image: String, from view: UIViewController) {
+        wireframe.presentImagePreviewController(with: image, from: view)
     }
 }

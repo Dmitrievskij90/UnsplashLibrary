@@ -7,16 +7,22 @@
 
 import UIKit
 
-class ImagePreviewPresenter {
-    private let dataManager: DataBaseManagerProtocol
-    weak var view: ImagePreviewPresenterProtocol?
+class ImagePreviewPresenter: ImagePreviewPresenterProtocol {
+    weak var view: ImagePreviewViewProtocol?
+    var imageURL: ImagePreviewModel
+    var dataManager: DataBaseManagerProtocol
 
-    init(view: ImagePreviewPresenterProtocol, dataManager: DataBaseManagerProtocol ) {
+    init(view: ImagePreviewViewProtocol, dataManager: DataBaseManagerProtocol, imageURL: ImagePreviewModel) {
         self.view = view
         self.dataManager = dataManager
+        self.imageURL = imageURL
+    }
+    
+    func viewWillApperar() {
+        view?.setPhoto(photo: imageURL)
     }
 
-    func saveImage(with imageView: UIImageView) {
+    func favouriteButtonTapped(with imageView: UIImageView) {
         var imageArray = [UIImage]()
         guard let image = imageView.image else { return }
         imageArray.append(image)

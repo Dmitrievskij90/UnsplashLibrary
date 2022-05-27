@@ -10,7 +10,7 @@ import SDWebImage
 
 class ImagePreviewViewController: UIViewController {
     private let blurVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
-    private lazy var presenter = ImagePreviewPresenter(view: self, dataManager: DataBaseManager())
+    var presenter: ImagePreviewPresenterProtocol?
 
      var imageView: UIImageView = {
         let imageView = UIImageView()
@@ -50,21 +50,8 @@ class ImagePreviewViewController: UIViewController {
         return stackView
     }()
 
-    let imageURL: ImagePreviewModel
-
     // MARK: - Lificycle methods
     // MARK: -
-    init(imageURL: ImagePreviewModel) {
-        self.imageURL = imageURL
-        super.init(nibName: nil, bundle: nil)
-        modalPresentationStyle = .overFullScreen
-    }
-
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstraints()
@@ -72,7 +59,7 @@ class ImagePreviewViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        imageView.sd_setImage(with: URL(string: imageURL.name))
+        presenter?.viewWillApperar()
         remakeConstraints()
     }
 
@@ -120,13 +107,17 @@ class ImagePreviewViewController: UIViewController {
     }
 
     @objc private func favouriteButtonTapped() {
-        presenter.saveImage(with: imageView)
+        presenter?.favouriteButtonTapped(with: imageView)
     }
 }
 
 // MARK: - ImagePreviewPresenterProtocol methods
 // MARK: -
-extension ImagePreviewViewController: ImagePreviewPresenterProtocol {
+extension ImagePreviewViewController: ImagePreviewViewProtocol {
+    func setPhoto(photo: ImagePreviewModel) {
+        imageView.sd_setImage(with: URL(string: photo.name))
+    }
+
     func dismiss() {
         self.dismiss(animated: true, completion: nil)
     }
