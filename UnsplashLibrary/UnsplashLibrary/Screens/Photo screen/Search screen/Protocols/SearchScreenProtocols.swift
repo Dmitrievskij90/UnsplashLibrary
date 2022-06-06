@@ -21,7 +21,7 @@ protocol PhotoSearchPresenterProtocol {
     var view: PhotoSearchViewProtocol? {get set}
     var networkService: NetworkServiceProtocol {get set}
     var dataManager: DataBaseManagerProtocol {get set}
-    var wireframe: SearchScreenWireframe {get set}
+    var wireframe: SearchScreenWireframeProtocol {get set}
 
     func searchPhotos(with searchText: String)
     func searchNextPhotos()

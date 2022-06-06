@@ -12,9 +12,9 @@ class PhotoSearchPresenter: PhotoSearchPresenterProtocol {
     weak var view: PhotoSearchViewProtocol?
     var networkService: NetworkServiceProtocol
     var dataManager: DataBaseManagerProtocol
-    var wireframe: SearchScreenWireframe
+    var wireframe: SearchScreenWireframeProtocol
 
-    init(view: PhotoSearchViewProtocol, networkService: NetworkServiceProtocol, dataManager: DataBaseManagerProtocol, wireframe: SearchScreenWireframe) {
+    init(view: PhotoSearchViewProtocol, networkService: NetworkServiceProtocol, dataManager: DataBaseManagerProtocol, wireframe: SearchScreenWireframeProtocol) {
         self.view = view
         self.networkService = networkService
         self.dataManager = dataManager
